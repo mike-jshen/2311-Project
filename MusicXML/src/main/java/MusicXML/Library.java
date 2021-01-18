@@ -5,8 +5,6 @@ package MusicXML;
 
 public class Library {
     public boolean someLibraryMethod() {
-    	int a = 0;
-    	a = 100;
         return true;
     }
 }
