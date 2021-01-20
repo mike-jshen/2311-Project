@@ -5,10 +5,6 @@ package MusicXML;
 
 public class Library {
     public boolean someLibraryMethod() {
-    	int var = 0;
-    	var = 1;
-    	int ms = 1;
-    	System.out.println("Hello");
         return true;
     }
 }
