@@ -5,6 +5,7 @@ package MusicXML;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 import java.io.*;
@@ -18,6 +19,8 @@ public class Library {
 		
 		// This is the file you want to read
 		File file = new File("bruh");
+		ArrayList <String> lines = new ArrayList<String>();
+		
 		
 		try {
 			// This is the scanner that actually reads the file
@@ -28,6 +31,7 @@ public class Library {
 				
 				String data = reader.nextLine();
 				System.out.println(data);
+				lines.add(data);
 			}
 			//closes reader
 			reader.close();
