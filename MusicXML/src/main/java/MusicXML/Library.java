@@ -30,7 +30,6 @@ public class Library {
 				System.out.println(data);
 				
 			}
-			
 			//closes reader
 			reader.close();
 		}
