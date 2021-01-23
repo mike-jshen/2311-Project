@@ -17,7 +17,7 @@ public class Library {
 	public static void main (String[] args) throws Exception{
 		
 		// This is the file you want to read
-		File file = new File("ENTER FILE NAME");
+		File file = new File("bruh");
 		
 		try {
 			// This is the scanner that actually reads the file
@@ -28,7 +28,6 @@ public class Library {
 				
 				String data = reader.nextLine();
 				System.out.println(data);
-				
 			}
 			//closes reader
 			reader.close();
