@@ -20,7 +20,6 @@ public class Library {
 		// This is the file you want to read
 		File file = new File("tab1.txt");
 		ArrayList <String> lines = new ArrayList<String>();
-		char[] array;
 		
 		
 		try {
@@ -38,7 +37,8 @@ public class Library {
 			reader.close();
 			
 			// ------------------------------------------------------------------------------------------------------------
-			//testing finding spaces between bars (possibly to identify rhythm)
+			//testing finding spaces between bars
+			char[] array;
 			array = lines.get(0).toCharArray();
 			System.out.println("Length of one line: " + array.length);
 			
