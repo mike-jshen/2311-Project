@@ -60,6 +60,14 @@ public class Library {
 			
 			// one problem that might arise, user might have different spacing for the bars (e.g. first bar has 26 spaces, second has 25)
 			// ------------------------------------------------------------------------------------------------------------
+			// parse string
+			
+			String firstLine = lines.get(0);
+			String lineWithoutKey = firstLine.substring(1);
+			
+			String bars[] = lineWithoutKey.split("|");
+			
+			// ------------------------------------------------------------------------------------------------------------
 			
 			
 		}
