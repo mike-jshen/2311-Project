@@ -18,8 +18,9 @@ public class Library {
 	public static void main (String[] args) throws Exception{
 		
 		// This is the file you want to read
-		File file = new File("bruh");
+		File file = new File("tab1.txt");
 		ArrayList <String> lines = new ArrayList<String>();
+		char[] array;
 		
 		
 		try {
@@ -35,6 +36,30 @@ public class Library {
 			}
 			//closes reader
 			reader.close();
+			
+			// ----------------------------------------- testing finding spaces between bars (possibly to identify rhythm)
+			array = lines.get(0).toCharArray();
+			System.out.println(array.length);
+			
+			int barCounter = 0;
+			int spacesBetweenBar = 0;
+			
+			for(int i = 1; i < array.length; i++) { 			// int i starts at 1 because we want to skip first character, the key of the string
+				if(barCounter < 2) {
+					if(array[i] == '|') {
+						barCounter++;
+					}
+					else {
+						spacesBetweenBar++;
+					}
+				}
+			}
+			
+			System.out.println(spacesBetweenBar);
+			
+			// ------------------------------------------------------------------------------------------------------------
+			
+			
 		}
 		// catches any exceptions
 		catch (IOException e) {
