@@ -44,7 +44,7 @@ public class Library {
 			int barCounter = 0;
 			int spacesBetweenBar = 0;
 			
-			for(int i = 1; i < array.length; i++) { 			// int i starts at 1 because we want to skip first character, the key of the string
+			for(int i = 1; i < array.length; i++) { 			// int i starts at 1 to skip first character, the key of the string
 				if(barCounter < 2) {
 					if(array[i] == '|') {
 						barCounter++;
