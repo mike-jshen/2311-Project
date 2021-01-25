@@ -37,7 +37,7 @@ public class Library {
 			reader.close();
 			
 			// ------------------------------------------------------------------------------------------------------------
-			//testing finding spaces between bars
+			// find spaces between bars
 			char[] array;
 			array = lines.get(0).toCharArray();
 			System.out.println("Length of one line: " + array.length);
@@ -60,15 +60,28 @@ public class Library {
 			
 			// one problem that might arise, user might have different spacing for the bars (e.g. first bar has 26 spaces, second has 25)
 			// ------------------------------------------------------------------------------------------------------------
-			// parse string
+			// parse bars into string arrays
 			
-			String firstLine = lines.get(0);
-			String lineWithoutKey = firstLine.substring(1);
+			String firstLine = lines.get(1); 			// change this to move between guitar strings (e.g. index 0 is thinnest string)
+			String lineWithoutKey = firstLine.substring(2);
 			
-			String bars[] = lineWithoutKey.split("|");
+			String[] bars = lineWithoutKey.split("\\|");
+			
+			for (String bar : bars)
+				System.out.println(bar);
 			
 			// ------------------------------------------------------------------------------------------------------------
+			// identify numbers at certain index
 			
+			char[] firstBar = bars[0].toCharArray();
+			
+			for(int i = 0; i < firstBar.length; i++) {
+				if(Character.isDigit(firstBar[i])) {
+					System.out.println("At index " + i + ", note " + firstBar[i]);
+				}
+			}
+			
+			// -------------------------------------------------------------------------------------------------------------
 			
 		}
 		// catches any exceptions
