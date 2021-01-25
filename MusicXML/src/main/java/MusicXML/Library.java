@@ -37,9 +37,10 @@ public class Library {
 			//closes reader
 			reader.close();
 			
-			// ----------------------------------------- testing finding spaces between bars (possibly to identify rhythm)
+			// ------------------------------------------------------------------------------------------------------------
+			//testing finding spaces between bars (possibly to identify rhythm)
 			array = lines.get(0).toCharArray();
-			System.out.println(array.length);
+			System.out.println("Length of one line: " + array.length);
 			
 			int barCounter = 0;
 			int spacesBetweenBar = 0;
@@ -55,8 +56,9 @@ public class Library {
 				}
 			}
 			
-			System.out.println(spacesBetweenBar);
+			System.out.println("Number of spaces in the first bar: " + spacesBetweenBar);		
 			
+			// one problem that might arise, user might have different spacing for the bars (e.g. first bar has 26 spaces, second has 25)
 			// ------------------------------------------------------------------------------------------------------------
 			
 			
