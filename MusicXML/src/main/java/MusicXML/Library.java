@@ -94,6 +94,7 @@ public class Library {
 	
     public boolean someLibraryMethod(){
     	int zero = 3;
-        return false;
+        return true;
+
     }
 }
