@@ -18,7 +18,7 @@ public class Library {
 	public static void main (String[] args) throws Exception{
 		
 		// This is the file you want to read
-		File file = new File("bruh");
+		File file = new File("Two");
 		ArrayList <String> lines = new ArrayList<String>();
 		
 		
