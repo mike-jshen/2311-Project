@@ -45,7 +45,7 @@ public class Library {
 	}
 	
     public boolean someLibraryMethod(){
-    	int zero = 0;
+    	int zero = 3;
         return true;
     }
 }
