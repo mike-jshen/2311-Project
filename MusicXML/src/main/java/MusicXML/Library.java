@@ -93,8 +93,10 @@ public class Library {
 	}
 	
     public boolean someLibraryMethod(){
+
     	int zero = 7;
         return true;
+
 
     }
 }
