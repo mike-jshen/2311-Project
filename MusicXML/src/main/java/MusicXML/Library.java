@@ -38,7 +38,7 @@ public class Library {
 		}
 		// catches any exceptions
 		catch (IOException e) {
-			System.out.println("There was an error");
+			System.out.println("There was an ERROR");
 			e.printStackTrace();
 		}
 		
