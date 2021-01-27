@@ -68,7 +68,9 @@ public class Library {
 			String[] bars = lineWithoutKey.split("\\|");
 			
 			for (String bar : bars)
-				System.out.println(bar);
+				System.out.print(bar + "    ");
+			
+			System.out.println();
 			
 			// ------------------------------------------------------------------------------------------------------------
 			// identify numbers at certain index
@@ -93,7 +95,7 @@ public class Library {
 	}
 	
     public boolean someLibraryMethod(){
-    	int zero = 0;
+    	int zero = 1;
         return true;
     }
 }
