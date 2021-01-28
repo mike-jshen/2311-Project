@@ -38,11 +38,18 @@ public class Library {
 			String[] bars = lineWithoutKey.split("\\|");
 			
 			for (String bar : bars)
+				System.out.print(bar + "    ");
+			
+			System.out.println();
+			
+			// ------------------------------------------------------------------------------------------------------------
+			// identify numbers at certain index
+			
 				System.out.println(bar);
-//			
-//			// ------------------------------------------------------------------------------------------------------------
-//			// identify numbers at certain index
-//			
+    
+  		// ------------------------------------------------------------------------------------------------------------
+      // identify numbers at certain index		
+    
 			char[] firstBar = bars[0].toCharArray();
 			
 			for(int i = 0; i < firstBar.length; i++) {
