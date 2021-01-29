@@ -23,7 +23,7 @@ public class Library {
 		FileScanner read = new FileScanner(file);
 			// ------------------------------------------------------------------------------------------------------------
 			// find spaces between bars (Consult FileScanner Class)
-			System.out.println("Length of one line: " + read.FirstLine());
+			System.out.println("Length of one line: " + read.LineLength(5));
 						
 			read.SpaceCounter(); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
 			
@@ -36,21 +36,25 @@ public class Library {
 			String firstLine = read.lines.get(1); 			// change this to move between guitar strings (e.g. index 0 is thinnest string)
 			String lineWithoutKey = firstLine.substring(2);
 			
+			
+			
 			String[] bars = lineWithoutKey.split("\\|");
 			
 			for (String bar : bars)
 				System.out.println(bar);
-//			
+			
 //			// ------------------------------------------------------------------------------------------------------------
 //			// identify numbers at certain index
 //			
-			char[] firstBar = bars[0].toCharArray();
 			
-			for(int i = 0; i < firstBar.length; i++) {
-				if(Character.isDigit(firstBar[i])) {
-					System.out.println("At index " + i + ", note " + firstBar[i]);
-				}
-			}
+			
+//			char[] firstBar = bars[0].toCharArray();
+//			
+//			for(int i = 0; i < firstBar.length; i++) {
+//				if(Character.isDigit(firstBar[i])) {
+//					System.out.println("At index " + i + ", note " + firstBar[i]);
+//				}
+//			}
 			
 			// -------------------------------------------------------------------------------------------------------------
 			

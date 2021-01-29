@@ -32,10 +32,15 @@ public class FileScanner {
 		}
 	}
 	
-	int FirstLine() { // Gets & returns the amount of characters for the first line
+	int LineLength(int string) { // Gets & returns the amount of characters for a given line
 		// This is assume that every lengths of the text files remain the same for each line
-		array = lines.get(0).toCharArray();
+		array = lines.get(string).toCharArray();
 		return array.length;
+	}
+	
+	int StringFinder(int position) {
+		
+		return 0;
 	}
 	
 	void SpaceCounter() {
@@ -49,6 +54,14 @@ public class FileScanner {
 			}
 		}
 		
+	}
+	
+	void IndexAndNote() {
+		for(int i = 0; i < array.length; i++) {
+			if(Character.isDigit(array[i])) {
+				System.out.println("At index " + i + ", note " + array[i]);
+			}
+		}
 	}
 	
 }
