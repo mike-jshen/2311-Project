@@ -32,6 +32,7 @@ public class FileScanner {
 		}
 	}
 	
+<<<<<<< HEAD
 	int LineLength(int string) { // Gets & returns the amount of characters for a given line
 		// This is assume that every lengths of the text files remain the same for each line
 		array = lines.get(string).toCharArray();
@@ -62,6 +63,25 @@ public class FileScanner {
 				System.out.println("At index " + i + ", note " + array[i]);
 			}
 		}
+=======
+	int FirstLine() { // Gets & returns the amount of characters for the first line
+		// This is assume that every lengths of the text files remain the same for each line
+		array = lines.get(0).toCharArray();
+		return array.length;
+	}
+	
+	void SpaceCounter() {
+		for (int i = 1; i < array.length; i++) { // int i starts at 1 to skip first character, the key of the string
+			if (barCounter < 2) {
+				if (array[i] == '|') {
+					barCounter++;
+				} else {
+					spacesBetweenBar++;
+				}
+			}
+		}
+		
+>>>>>>> refs/heads/main
 	}
 	
 }
