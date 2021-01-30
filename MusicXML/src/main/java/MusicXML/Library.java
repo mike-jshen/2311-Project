@@ -26,26 +26,30 @@ public class Library {
 		FileScanner read = new FileScanner(file);
 			// ------------------------------------------------------------------------------------------------------------
 			// find spaces between bars (Consult FileScanner Class)
-			System.out.println("Length of one line: " + read.LineLength(5));
+			System.out.println("Length of one line: " + read.LineLength(0));
 
 						
 			read.SpaceCounter(); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
 			
 			System.out.println("Number of spaces in the first bar: " + read.spacesBetweenBar);		
 			
+			System.out.println("The key of the third string is: " + read.KeyFinder(2));
+			
 			// one problem that might arise, user might have different spacing for the bars (e.g. first bar has 26 spaces, second has 25)
 			// ------------------------------------------------------------------------------------------------------------
 			// parse bars into string arrays
 			
-			String firstLine = read.lines.get(1); 			// change this to move between guitar strings (e.g. index 0 is thinnest string)
-			String lineWithoutKey = firstLine.substring(2);
-			
-			
-			String[] bars = lineWithoutKey.split("\\|");
-			
-			for (String bar : bars)
-				System.out.println(bar);
-			
+			for(int i = 0; i <= 5; i++) {
+				String firstLine = read.lines.get(i); 			// change this to move between guitar strings (e.g. index 0 is thinnest string)
+				String lineWithoutKey = firstLine.substring(2);
+				
+				
+				String[] bars = lineWithoutKey.split("\\|");
+				
+				for (String bar : bars)
+					System.out.print(bar + "   ");
+				System.out.println();
+			}
 //			// ------------------------------------------------------------------------------------------------------------
 //			// identify numbers at certain index
 //			

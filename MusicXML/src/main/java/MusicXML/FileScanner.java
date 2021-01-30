@@ -38,9 +38,9 @@ public class FileScanner {
 		return array.length;
 	}
 	
-	int StringFinder(int position) {
-		
-		return 0;
+	char KeyFinder(int string) {
+		array = lines.get(string).toCharArray();
+		return array[0];
 	}
 	
 	void SpaceCounter() {
