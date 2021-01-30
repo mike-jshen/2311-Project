@@ -40,8 +40,6 @@ public class Library {
 			String firstLine = read.lines.get(1); 			// change this to move between guitar strings (e.g. index 0 is thinnest string)
 			String lineWithoutKey = firstLine.substring(2);
 			
-<<<<<<< HEAD
-			
 			
 			String[] bars = lineWithoutKey.split("\\|");
 			
@@ -60,13 +58,6 @@ public class Library {
 //					System.out.println("At index " + i + ", note " + firstBar[i]);
 //				}
 //			}
-=======
-			String[] bars = lineWithoutKey.split("\\|");
-			
-			for (String bar : bars)
-				System.out.print(bar + "    ");
-			
-			System.out.println();
 			
 			// ------------------------------------------------------------------------------------------------------------
 			// identify numbers at certain index
@@ -76,14 +67,6 @@ public class Library {
   		// ------------------------------------------------------------------------------------------------------------
       // identify numbers at certain index		
     
-			char[] firstBar = bars[0].toCharArray();
-			
-			for(int i = 0; i < firstBar.length; i++) {
-				if(Character.isDigit(firstBar[i])) {
-					System.out.println("At index " + i + ", note " + firstBar[i]);
-				}
-			}
->>>>>>> refs/heads/main
 			
 			// -------------------------------------------------------------------------------------------------------------
 			
