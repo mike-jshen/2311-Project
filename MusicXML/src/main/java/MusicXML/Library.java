@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.*;
 import java.io.File;
+import java.awt.*;
+import javax.swing.*;
 
 //Not all of the above are needed, they are there just in case.
 
@@ -45,7 +47,7 @@ public class Library {
 			// ------------------------------------------------------------------------------------------------------------
 			// identify numbers at certain index
 			
-				System.out.println(bar);
+//				System.out.println(bar);
     
   		// ------------------------------------------------------------------------------------------------------------
       // identify numbers at certain index		
