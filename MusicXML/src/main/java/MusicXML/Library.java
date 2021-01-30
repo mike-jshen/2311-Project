@@ -45,7 +45,7 @@ public class Library {
 			// ------------------------------------------------------------------------------------------------------------
 			// identify numbers at certain index
 			
-				System.out.println(bar);
+				System.out.println(bars);
     
   		// ------------------------------------------------------------------------------------------------------------
       // identify numbers at certain index		
