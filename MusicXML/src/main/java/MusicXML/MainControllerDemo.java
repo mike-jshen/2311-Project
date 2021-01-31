@@ -39,8 +39,6 @@ public class MainControllerDemo {
 			
 			// --------------------------------- runs after file is input from JavaFX upload button
 			FileScanner read = new FileScanner(selectedFile.getAbsoluteFile());
-				// ------------------------------------------------------------------------------------------------------------
-				// find spaces between bars (Consult FileScanner Class)
 				System.out.println("Length of one line: " + read.LineLength(0));
 
 							
