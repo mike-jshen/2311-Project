@@ -54,6 +54,7 @@ public class MainControllerDemo {
 					for(int j = 0; j < myMeasures.get(i).length; j++) {
 						System.out.println(myMeasures.get(i)[j]);
 					}
+					System.out.println();
 				}
 			//------------------------------------ end 	
 		}
