@@ -1,6 +1,9 @@
 package MusicXML;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,12 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 public class MainControllerDemo {
 
 	
 	// declare variables
 	@FXML
 	private Button uploadbtn;
+	
+	@FXML
+	private Button downloadbtn;
 	
 	@FXML
 	private ListView<File> listview;
@@ -37,28 +44,38 @@ public class MainControllerDemo {
 				System.out.println("Length of one line: " + read.LineLength(0));
 
 							
-				read.SpaceCounter(); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
+				read.SpaceCounter(0); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
 				System.out.println("Number of spaces in the first bar: " + read.spacesBetweenBar);		
 				
 				System.out.println("The key of string 3 is: " + read.KeyFinder(2));		// 
 				
-				read.getLines();
-				int measureNum = 3; // change this to see the measure output
-				System.out.println("Measure " + measureNum);
-				for(int i = measureNum; i < read.measures.size();  i = i + read.measures.size()/6) {
-					System.out.println(read.measures.get(i));
+				ArrayList<String[]> myMeasures = read.getMeasures();
+				for(int i = 0; i < myMeasures.size(); i++) {
+					for(int j = 0; j < myMeasures.get(i).length; j++) {
+						System.out.println(myMeasures.get(i)[j]);
+					}
 				}
-						
 			//------------------------------------ end 	
-
-			
 		}
 		else {
 			System.out.println("no file selected");
 		}
-		
-		
-		
 
 	}
+	
+	
+	public void downloadFileAction(ActionEvent event) {
+		File file = new File("test.xml");
+		FileChooser fc = new FileChooser();
+		fc.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
+		File dest = fc .showSaveDialog(null);
+		if (dest != null) {
+		    try {
+		        Files.copy(file.toPath(), dest.toPath());
+		    } catch (IOException ex) {
+		        System.out.println("no destination selected");
+		    }
+		}
+	}
+	
 }

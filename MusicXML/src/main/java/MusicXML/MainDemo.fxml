@@ -8,5 +8,6 @@
    <children>
       <Button fx:id="uploadbtn" layoutX="353.0" layoutY="504.0" mnemonicParsing="false" onAction="#uploadFileAction" text="Upload File" />
       <ListView fx:id="listview" layoutX="201.0" layoutY="96.0" prefHeight="358.0" prefWidth="350.0" />
+      <Button fx:id="downloadbtn" layoutX="345.0" layoutY="544.0" mnemonicParsing="false" onAction="#downloadFileAction" text="Download File" />
    </children>
 </AnchorPane>

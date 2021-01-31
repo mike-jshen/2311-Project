@@ -22,14 +22,15 @@ public class Library {
 		
 
 
-		File file = new File("test.txt");
+		File file = new File("tab2.txt");
 		FileScanner read = new FileScanner(file);
 			// ------------------------------------------------------------------------------------------------------------
 			// find spaces between bars (Consult FileScanner Class)
 			System.out.println("Length of one line: " + read.LineLength(0));
+			ArrayList<String[]> myMeasures = read.getMeasures();
 
 						
-			read.SpaceCounter(); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
+			read.SpaceCounter(0); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
 			
 			System.out.println("Number of spaces in the first bar: " + read.spacesBetweenBar);		
 			
@@ -39,18 +40,11 @@ public class Library {
 			// ------------------------------------------------------------------------------------------------------------
 			// parse bars into string arrays
 			
-			read.getLines();
-			
-			// for testing purposes ONLY, the following line is only applicable for files with 4 measures 
-			int counter = 0;
-			for(int i = 2; i < read.measures.size(); i = i + read.measures.size()/6) {		// take every 4th entry of the linkedlist because each line in the file has 4 measures (will need to make into a method that is more general)
-		 		char[] measureToChar = read.measures.get(i).toCharArray();
-		 		for(int j = 0; j < measureToChar.length; j++) {
-					if(Character.isDigit(measureToChar[j])) {
-						System.out.println("String " + read.KeyFinder(counter) + ", Index " + j + ", Note " + measureToChar[j]);
-					}
-		 		}
-		 		counter++;
+			for(int i = 0; i < myMeasures.size(); i++) {
+				for(int j = 0; j < myMeasures.get(i).length; j++) {
+					System.out.println(myMeasures.get(i)[j]);
+				}
+				System.out.println();
 			}
 
 	}
