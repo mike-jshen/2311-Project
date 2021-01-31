@@ -46,6 +46,22 @@ public class Library {
 				}
 				System.out.println();
 			}
+			
+			char[] toCharArray;
+			for(int i = 0; i < myMeasures.size(); i++) {
+				System.out.println("Measure: " + (i + 1));
+				
+				for(int j = 0; j < myMeasures.get(i).length; j++) {
+					toCharArray = myMeasures.get(i)[j].toCharArray();
+					for(int k = 0; k < toCharArray.length; k++) {
+						if(Character.isDigit(toCharArray[k])) {
+							System.out.println("String: " + read.KeyFinder(j) + ", Index: " + k + ", Note: " + toCharArray[k]);
+						}
+					}
+				}
+				
+				System.out.println();
+			}
 
 	}
 	
