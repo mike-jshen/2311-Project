@@ -45,7 +45,7 @@ public class XMLWriter {
 
             //write to console or file
             StreamResult console = new StreamResult(System.out);
-            StreamResult file = new StreamResult(new File("/Users/Matt/export.xml"));
+            StreamResult file = new StreamResult(new File("enter directory here"));
 
             //write data
             transformer.transform(source, console);
