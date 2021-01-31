@@ -39,45 +39,21 @@ public class Library {
 			// ------------------------------------------------------------------------------------------------------------
 			// parse bars into string arrays
 			
-			for(int i = 0; i <= 5; i++) {
-				String firstLine = read.lines.get(i); 			// change this to move between guitar strings (e.g. index 0 is thinnest string)
-				String lineWithoutKey = firstLine.substring(2);
-				
-				
-				String[] bars = lineWithoutKey.split("\\|");
-				
-				for (String bar : bars)
-					System.out.print(bar + "   ");
-				System.out.println();
+			read.getLines();
+			
+			// for testing purposes ONLY, the following line is only applicable for files with 4 measures 
+			int counter = 0;
+			for(int i = 2; i < read.measures.size(); i = i + read.measures.size()/6) {		// take every 4th entry of the linkedlist because each line in the file has 4 measures (will need to make into a method that is more general)
+		 		char[] measureToChar = read.measures.get(i).toCharArray();
+		 		for(int j = 0; j < measureToChar.length; j++) {
+					if(Character.isDigit(measureToChar[j])) {
+						System.out.println("String " + read.KeyFinder(counter) + ", Index " + j + ", Note " + measureToChar[j]);
+					}
+		 		}
+		 		counter++;
 			}
-//			// ------------------------------------------------------------------------------------------------------------
-//			// identify numbers at certain index
-//			
-			
-			
-//			char[] firstBar = bars[0].toCharArray();
-//			
-//			for(int i = 0; i < firstBar.length; i++) {
-//				if(Character.isDigit(firstBar[i])) {
-//					System.out.println("At index " + i + ", note " + firstBar[i]);
-//				}
-//			}
-			
-			// ------------------------------------------------------------------------------------------------------------
-			// identify numbers at certain index
-			
 
-//				System.out.println(bar);
-    
-  		// ------------------------------------------------------------------------------------------------------------
-      // identify numbers at certain index		
-    
-			
-			// -------------------------------------------------------------------------------------------------------------
-			
-		}
-		// catches any exceptions
-
+	}
 	
     public boolean someLibraryMethod(){
     	int zero = 0; // Used for TA Demo. Dunno what else this is used for (Maybe created by default???)

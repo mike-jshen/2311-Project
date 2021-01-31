@@ -1,11 +1,13 @@
 package MusicXML;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 import java.io.File;
 
 public class FileScanner {
-	ArrayList <String> lines = new ArrayList<String>(); //Arraylist that text file data is stored into
+	ArrayList <String> lines = new ArrayList<String>(); // Stores every line in the txt file (e.g. "E|--0-----------------------|-------------------------|--0-----------------------|-------------------------|-------------------------|")
+	List<String> measures = new ArrayList<String>();	// Stores the separated measures (e.g. "--0-----------------------")
 	char[] array;
 	int barCounter = 0;
 	int spacesBetweenBar = 0;
@@ -56,13 +58,22 @@ public class FileScanner {
 		
 	}
 	
-	void IndexAndNote() {
-		for(int i = 0; i < array.length; i++) {
-			if(Character.isDigit(array[i])) {
-				System.out.println("At index " + i + ", note " + array[i]);
-			}
+	List<String> getLines() {
+		for(int i = 0; i <= 5; i++) {
+			String selectedLine = lines.get(i); 
+			String lineWithoutKey = selectedLine.substring(2);
+			
+			
+			String[] bars = lineWithoutKey.split("\\|");
+			
+			for (String bar : bars)
+				measures.add(bar);
 		}
-	
+		return measures;
 	}
 	
+	String IndexAndNote(int measure){
+		return null;
+	}
+		
 }
