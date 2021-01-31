@@ -26,15 +26,24 @@ public class XMLWriter {
             Document doc = dBuilder.newDocument();
             //add elements to Document
             Element rootElement =
-                doc.createElementNS("https://www.journaldev.com/employee", "Employees");
+                doc.createElementNS("Group 3", "Members");
             //append root element to document
             doc.appendChild(rootElement);
 
             //append first child element to root element
-            rootElement.appendChild(getEmployee(doc, "1", "Pankaj", "29", "Java Developer", "Male"));
+            rootElement.appendChild(getEmployee(doc, "1", "Max", "20", "Member", "Male"));
 
             //append second child
-            rootElement.appendChild(getEmployee(doc, "2", "Lisa", "35", "Manager", "Female"));
+            rootElement.appendChild(getEmployee(doc, "2", "Matt", "21", "Member", "Male"));
+            
+            //append third child
+            rootElement.appendChild(getEmployee(doc, "3", "Mohamed", "20", "Member", "Male"));
+            
+            //append fourth child
+            rootElement.appendChild(getEmployee(doc, "4", "Mike", "20", "Member", "Male"));
+            
+            //append fifth child
+            rootElement.appendChild(getEmployee(doc, "5", "Amen", "21", "Member", "Male"));
 
             //for output to file, console
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -45,7 +54,7 @@ public class XMLWriter {
 
             //write to console or file
             StreamResult console = new StreamResult(System.out);
-            StreamResult file = new StreamResult(new File("/Users/Matt/export.xml"));
+            StreamResult file = new StreamResult(new File("/Users/Personal/export.xml"));
 
             //write data
             transformer.transform(source, console);
@@ -60,7 +69,7 @@ public class XMLWriter {
 
     private static Node getEmployee(Document doc, String id, String name, String age, String role,
             String gender) {
-        Element employee = doc.createElement("Employee");
+        Element employee = doc.createElement("Member");
 
         //set id attribute
         employee.setAttribute("id", id);
