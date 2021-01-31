@@ -30,7 +30,7 @@ public class MainControllerDemo {
 		if(selectedFile != null) {
 			listview.getItems().add(selectedFile.getAbsoluteFile());
 			
-			// ---------------------------------
+			// --------------------------------- runs after file is input from JavaFX upload button
 			FileScanner read = new FileScanner(selectedFile.getAbsoluteFile());
 				// ------------------------------------------------------------------------------------------------------------
 				// find spaces between bars (Consult FileScanner Class)
@@ -49,7 +49,7 @@ public class MainControllerDemo {
 					System.out.println(read.measures.get(i));
 				}
 						
-			//------------------------------------		
+			//------------------------------------ end 	
 
 			
 		}
