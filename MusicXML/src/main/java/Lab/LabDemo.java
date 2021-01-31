@@ -1,6 +1,6 @@
-package LabsDemo;
+package Lab;
 
-public class LabsDemo {
+public class LabDemo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
