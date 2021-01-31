@@ -55,8 +55,4 @@ public class Library {
 
 	}
 	
-    public boolean someLibraryMethod(){
-    	int zero = 0; // Used for TA Demo. Dunno what else this is used for (Maybe created by default???)
-        return true;
-    }
 }
