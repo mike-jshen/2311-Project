@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
  
-public class JFXDemo extends Application {
+public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);									// this starts the application
     }
@@ -23,7 +23,7 @@ public class JFXDemo extends Application {
         
     	Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("MainDemo.fxml"));
+			root = FXMLLoader.load(getClass().getResource("musicXML.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
