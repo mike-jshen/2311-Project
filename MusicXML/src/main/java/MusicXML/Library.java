@@ -26,7 +26,6 @@ public class Library {
 		FileScanner read = new FileScanner(file);
 			// ------------------------------------------------------------------------------------------------------------
 			// find spaces between bars (Consult FileScanner Class)
-			System.out.println("Length of one line: " + read.LineLength(0));
 			ArrayList<String[]> myMeasures = read.getMeasures();
 
 						
@@ -62,6 +61,13 @@ public class Library {
 				
 				System.out.println();
 			}
+			
+			// hard coding for measure 0
+			char[] notes = read.findNotes(0);
+			for(int i = 0; i < notes.length; i++) {
+				System.out.println(notes[i]);
+			}
+			
 
 	}
 

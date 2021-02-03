@@ -51,7 +51,6 @@ public class MainController {
 				
 				// --------------------------------- runs after file is input from JavaFX upload button
 				FileScanner read = new FileScanner(selectedFiles.get(0).getAbsoluteFile());
-					System.out.println("Length of one line: " + read.LineLength(0));
 
 								
 					read.SpaceCounter(0); // Count the number of spaces in each bar & count how many bars there are (Evokes void method)
@@ -66,7 +65,7 @@ public class MainController {
 						}
 						System.out.println();
 					}
-				//------------------------------------ end 	
+				//------------------------------------ end 
 				
 				
 			}

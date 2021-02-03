@@ -9,7 +9,6 @@ import java.io.File;
 public class FileScanner {
 	ArrayList <String> lines = new ArrayList<String>(); // Stores every line in the txt file (e.g. "E|--0-----------------------|-------------------------|--0-----------------------|-------------------------|-------------------------|")
 	ArrayList<String[]> measureList = new ArrayList<String[]>();	// Stores the list of the whole measure
-	char[] array;
 	int numOfMeasures;
 	int barCounter = 0;
 	int spacesBetweenBar = 0;
@@ -36,18 +35,15 @@ public class FileScanner {
 		}
 	}
 	
-	int LineLength(int string) { // Gets & returns the amount of characters for a given line
-		// This is assume that every lengths of the text files remain the same for each line
-		array = lines.get(string).toCharArray();
-		return array.length;
-	}
 	
 	char KeyFinder(int string) {
+		char[] array;
 		array = lines.get(string).toCharArray();
 		return array[0];
 	}
 	
 	void SpaceCounter(int line) {
+		char[] array;
 		array = lines.get(line).toCharArray();
 		for (int i = 1; i < array.length; i++) { // int i starts at 1 to skip first character, the key of the string
 			if (barCounter < 2) {
@@ -62,6 +58,7 @@ public class FileScanner {
 	}
 	
 	int numOfMeasures(int measure) {
+		char[] array;
 		array = lines.get(measure).toCharArray();
 		for (int i = 1; i < array.length; i++) { // int i starts at 1 to skip first character, the key of the string
 			if (array[i] == '|') {
@@ -97,8 +94,36 @@ public class FileScanner {
 		return measureList;
 	}
 	
-	String IndexAndNote(int measure){
-		return null;
+	
+	ArrayList<char[]> toCharArray(String[] stringArr){
+		ArrayList<char[]> arrList = new ArrayList<char[]>();
+		for(int i = 0; i < stringArr.length; i++) {
+			arrList.add(stringArr[i].toCharArray());
+		}
+		return arrList;
+	}
+	
+	
+	char[] findNotes(int measure){
+		ArrayList<char[]> array = new ArrayList<char[]>();
+		char[] myNotes = new char[6];
+		getMeasures();
+
+		array = toCharArray(measureList.get(measure));
+		
+		
+		for(int i = 0; i < array.get(0).length; i++) {
+			if(Character.isDigit(array.get(0)[i])) {
+				myNotes[0] = array.get(0)[i];
+				myNotes[1] = array.get(1)[i];
+				myNotes[2] = array.get(2)[i];
+				myNotes[3] = array.get(3)[i];
+				myNotes[4] = array.get(4)[i];
+				myNotes[5] = array.get(5)[i];
+			}
+		}
+		return myNotes;
+		
 	}
 		
 }
