@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Members xmlns="Group 3">
+    <Member id="1">
+        <name>Max</name>
+        <age>20</age>
+        <role>Member</role>
+        <gender>Male</gender>
+    </Member>
+    <Member id="2">
+        <name>Matt</name>
+        <age>21</age>
+        <role>Member</role>
+        <gender>Male</gender>
+    </Member>
+    <Member id="3">
+        <name>Mohamed</name>
+        <age>20</age>
+        <role>Member</role>
+        <gender>Male</gender>
+    </Member>
+    <Member id="4">
+        <name>Mike</name>
+        <age>20</age>
+        <role>Member</role>
+        <gender>Male</gender>
+    </Member>
+    <Member id="5">
+        <name>Amen</name>
+        <age>21</age>
+        <role>Member</role>
+        <gender>Male</gender>
+    </Member>
+</Members>
