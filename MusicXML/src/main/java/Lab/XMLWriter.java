@@ -129,7 +129,7 @@ public class XMLWriter {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
-        StreamResult result = new StreamResult(new File("C:\\Users\\Personal\\export.xml"));
+        StreamResult result = new StreamResult(new File("C:\\Users\\Matt\\Desktop/export.xml"));
 
         // Output to console for testing
         //StreamResult result = new StreamResult(System.out);
