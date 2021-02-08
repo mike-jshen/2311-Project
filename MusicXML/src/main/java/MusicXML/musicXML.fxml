@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="641.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicXML.MainController">
@@ -16,7 +18,17 @@
       <Label layoutX="14.0" layoutY="14.0" text="Added:" />
       <TabPane layoutX="285.0" layoutY="35.0" prefHeight="557.0" prefWidth="747.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="35.0">
         <tabs>
-          <Tab text="Text" />
+          <Tab text="Text">
+               <content>
+                  <AnchorPane fx:id="details" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="90.0" text="Text File Name:" />
+                        <TextField layoutX="117.0" layoutY="14.0" prefHeight="25.0" prefWidth="421.0" />
+                        <Label layoutX="15.0" layoutY="56.0" prefHeight="17.0" prefWidth="47.0" text="Content:" />
+                        <TextArea layoutX="17.0" layoutY="82.0" prefHeight="423.0" prefWidth="706.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="82.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
           <Tab text="XML" />
         </tabs>
       </TabPane>
