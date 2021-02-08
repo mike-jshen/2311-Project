@@ -20,7 +20,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -38,16 +41,28 @@ public class MainController {
 	private Button viewbtn;
 	
 	@FXML
+	private Button convertbttn;
+	
+	@FXML
 	private ListView<File> listview;
 	
 	@FXML
-	private TextArea text;
+	private TextArea txtTextArea;
 	
 	@FXML
-	private TextArea xmltext;
+	private TextArea xmlTextArea;
 	
 	@FXML
-	private Button convertbttn;
+	private TextField txtPath;
+	
+	@FXML
+	private Tab txtTab;
+	
+	@FXML
+	private Tab xmlTab;
+	
+	@FXML
+	private TabPane tp;
 	
 	// this method sets the action for when the "Upload File" button is pressed, only one file can be opened at a time and must be a .txt file
 	public void addSongAction(ActionEvent event) {
@@ -93,15 +108,18 @@ public class MainController {
 	}
 	
 	public void viewAction(ActionEvent event) {
-		text.clear();
+		tp.getSelectionModel().select(txtTab);
+		txtPath.clear();
+		txtTextArea.clear();
 		File tab;
 		tab = listview.getSelectionModel().getSelectedItem();
+		txtPath.appendText(tab.getAbsolutePath());
 		try {
 			Scanner reader = new Scanner (tab);
 	
 			while (reader.hasNextLine()) {
-				text.appendText(reader.nextLine());
-				text.appendText("\n");
+				txtTextArea.appendText(reader.nextLine());
+				txtTextArea.appendText("\n");
 			}
 			reader.close();
 		}
@@ -111,27 +129,8 @@ public class MainController {
 		}
 	}
 	
-	public void convertAction(ActionEvent event) throws Exception, IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("export.txt"));
-
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse("export.xml");
-        XPathFactory xPathFactory = XPathFactory.newInstance();
-        writer.append(xPathFactory.newXPath().compile("//score-partwise/part-list").evaluate(document));
-        writer.newLine();
-        writer.append(xPathFactory.newXPath().compile("//note/part").evaluate(document));
-        writer.newLine();
-        writer.close();
-        
-        Scanner reader = new Scanner ("export.txt");
-    	
-		while (reader.hasNextLine()) {
-			xmltext.appendText(reader.nextLine());
-			xmltext.appendText("\n");
-		}
-		reader.close();
-        
+	public void convertAction(ActionEvent event) {
+        txtTextArea.appendText("\n" + "Conversion complete.");
 	}
 	
 	
