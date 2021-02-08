@@ -1,10 +1,20 @@
 package MusicXML;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,6 +42,12 @@ public class MainController {
 	
 	@FXML
 	private TextArea text;
+	
+	@FXML
+	private TextArea xmltext;
+	
+	@FXML
+	private Button convertbttn;
 	
 	// this method sets the action for when the "Upload File" button is pressed, only one file can be opened at a time and must be a .txt file
 	public void addSongAction(ActionEvent event) {
@@ -93,6 +109,29 @@ public class MainController {
 			System.out.println("File Scan Error");
 			e.printStackTrace();
 		}
+	}
+	
+	public void convertAction(ActionEvent event) throws Exception, IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("export.txt"));
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse("export.xml");
+        XPathFactory xPathFactory = XPathFactory.newInstance();
+        writer.append(xPathFactory.newXPath().compile("//score-partwise/part-list").evaluate(document));
+        writer.newLine();
+        writer.append(xPathFactory.newXPath().compile("//note/part").evaluate(document));
+        writer.newLine();
+        writer.close();
+        
+        Scanner reader = new Scanner ("export.txt");
+    	
+		while (reader.hasNextLine()) {
+			xmltext.appendText(reader.nextLine());
+			xmltext.appendText("\n");
+		}
+		reader.close();
+        
 	}
 	
 	
