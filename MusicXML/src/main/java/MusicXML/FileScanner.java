@@ -22,7 +22,7 @@ public class FileScanner {
 			while (reader.hasNextLine()) {
 				
 				String data = reader.nextLine();
-				System.out.println(data);
+				// System.out.println(data);
 				this.lines.add(data);
 			}
 			//closes reader
