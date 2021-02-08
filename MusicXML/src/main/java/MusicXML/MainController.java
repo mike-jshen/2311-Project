@@ -17,7 +17,11 @@ import org.xml.sax.SAXException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -63,6 +67,9 @@ public class MainController {
 	
 	@FXML
 	private TabPane tp;
+	
+	@FXML
+	private Alert alert;
 	
 	// this method sets the action for when the "Upload File" button is pressed, only one file can be opened at a time and must be a .txt file
 	public void addSongAction(ActionEvent event) {
@@ -130,7 +137,18 @@ public class MainController {
 	}
 	
 	public void convertAction(ActionEvent event) {
-        txtTextArea.appendText("\n" + "Conversion complete.");
+		alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Instrument Type Selection");
+		alert.setHeaderText("Detected: Guitar Tabs");
+		alert.setContentText("Proceed with conversion as:");
+		
+		ButtonType detectbttn = new ButtonType("Detected", ButtonData.CANCEL_CLOSE);
+		ButtonType guitarbttn = new ButtonType("Guitar");
+		ButtonType drumsbttn = new ButtonType("Drums");
+		alert.getButtonTypes().setAll(detectbttn, guitarbttn, drumsbttn);
+		alert.show();
+		
+        txtTextArea.appendText("\n" + "Conversion complete");
 	}
 	
 	
