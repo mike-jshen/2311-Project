@@ -20,9 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22e6c1a7-e1be-4b15-b1d1-39572b2d7fad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MusicXML/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/MusicXML/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MusicXML/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/MusicXML/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TAB2MXL/src/main/java/TAB2MXL/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +103,7 @@
       <updated>1612199445380</updated>
       <workItem from="1612199447440" duration="401000" />
       <workItem from="1612202134917" duration="305000" />
+      <workItem from="1612897200134" duration="132000" />
     </task>
     <servers />
   </component>
@@ -121,6 +123,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="304" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1612897335594">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="304" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1612897335594" />
     <state x="246" y="144" key="new project wizard" timestamp="1612202673015">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
