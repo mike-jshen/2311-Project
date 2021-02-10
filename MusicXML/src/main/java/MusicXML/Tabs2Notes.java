@@ -33,7 +33,7 @@ public class Tabs2Notes {
 	
 	public String tOrB() {
 		
-		String pogChamp = "";
+		String pogChamp = "pog";
 	
 		
 		return pogChamp;
