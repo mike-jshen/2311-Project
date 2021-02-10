@@ -33,9 +33,9 @@ public class Tabs2Notes {
 	
 	public String tOrB() {
 		
-		String pog = "";
+		String pogChamp = "";
 	
 		
-		return pog;
+		return pogChamp;
 	}
 }
