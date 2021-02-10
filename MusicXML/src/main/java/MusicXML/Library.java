@@ -55,6 +55,28 @@ public class Library {
 					for(int k = 0; k < toCharArray.length; k++) {
 						if(Character.isDigit(toCharArray[k])) {
 							System.out.println("String: " + read.KeyFinder(j) + ", Index: " + k + ", Note: " + toCharArray[k]);
+							
+							if(toCharArray[k] == 1 && read.KeyFinder(j) == 'E' ) {
+								
+								System.out.println("F");
+							}
+							
+							else if(toCharArray[k] == 2 && read.KeyFinder(j) == 'E') {
+								
+								System.out.println("F#");
+							}
+							
+							else if(toCharArray[k] == 3 && read.KeyFinder(j) == 'E') {
+								
+								System.out.println("G");
+							
+							}
+							
+							else if(toCharArray[k] == 0 && read.KeyFinder(j) == 'E') {
+								
+								System.out.println("E");
+							}
+							
 						}
 					}
 				}
@@ -70,6 +92,7 @@ public class Library {
 			
 
 	}
+	
 
     public boolean someLibraryMethod(){
     	int zero = 1;

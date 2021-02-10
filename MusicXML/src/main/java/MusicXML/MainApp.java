@@ -32,3 +32,5 @@ public class MainApp extends Application {
         primaryStage.show();							// show the Stage (a blank window)
     }
 }
+
+//--module-path "C:\Users\Personal\Desktop\New folder\javafx-sdk-15.0.1\lib" --add-modules javafx.controls,javafx.fxml
