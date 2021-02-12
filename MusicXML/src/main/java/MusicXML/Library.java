@@ -26,7 +26,6 @@ public class Library {
 		FileScanner read = new FileScanner(file);
 			// ------------------------------------------------------------------------------------------------------------
 			// find spaces between bars (Consult FileScanner Class)
-			System.out.println("Length of one line: " + read.LineLength(0));
 			ArrayList<String[]> myMeasures = read.getMeasures();
 
 						
@@ -46,7 +45,34 @@ public class Library {
 				}
 				System.out.println();
 			}
+			
+			char[] toCharArray;
+			for(int i = 0; i < myMeasures.size(); i++) {
+				System.out.println("Measure: " + (i + 1));
+				
+				for(int j = 0; j < myMeasures.get(i).length; j++) {
+					toCharArray = myMeasures.get(i)[j].toCharArray();
+					for(int k = 0; k < toCharArray.length; k++) {
+						if(Character.isDigit(toCharArray[k])) {
+							System.out.println("String: " + read.KeyFinder(j) + ", Index: " + k + ", Note: " + toCharArray[k]);
+						}
+					}
+				}
+				
+				System.out.println();
+			}
+			
+			// hard coding for measure 0
+			char[] notes = read.findNotes(0);
+			for(int i = 0; i < notes.length; i++) {
+				System.out.println(notes[i]);
+			}
+			
 
 	}
-	
+
+    public boolean someLibraryMethod(){
+    	int zero = 1;
+        return false;
+    }
 }

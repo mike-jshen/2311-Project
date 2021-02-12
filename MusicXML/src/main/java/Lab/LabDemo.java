@@ -8,7 +8,7 @@ public class LabDemo {
 	}
 
 	public boolean someLibraryMethod(){
-    	int zero = 0; // Used for TA Demo.
+    	int zero = 15; // Used for TA Demo.
         return true;
     }
 }
