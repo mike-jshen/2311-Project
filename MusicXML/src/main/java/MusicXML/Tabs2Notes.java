@@ -14,7 +14,7 @@ public class Tabs2Notes {
 		 */
 		
 		
-			//e STRING
+			//e STRING this is top string
 		if(gString == "e" && i == '0') {
 			
 			newNote = "e";

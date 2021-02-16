@@ -79,7 +79,6 @@ public class XMLWriter {
 
         // time elements
         Element time = doc.createElement("time");
-        //time.appendChild(doc.createTextNode("StreetNigga"));
         att.appendChild(time);
         
         Element beats = doc.createElement("beats");
