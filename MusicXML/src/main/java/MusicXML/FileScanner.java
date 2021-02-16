@@ -36,13 +36,13 @@ public class FileScanner {
 	}
 	
 	
-	char KeyFinder(int string) {
+	public char KeyFinder(int string) {
 		char[] array;
 		array = lines.get(string).toCharArray();
 		return array[0];
 	}
 	
-	void SpaceCounter(int line) {
+	public int SpaceCounter(int line) {
 		char[] array;
 		array = lines.get(line).toCharArray();
 		for (int i = 1; i < array.length; i++) { // int i starts at 1 to skip first character, the key of the string
@@ -54,10 +54,10 @@ public class FileScanner {
 				}
 			}
 		}
-		
+		return spacesBetweenBar;
 	}
 	
-	int numOfMeasures(int measure) {
+	public int numOfMeasures(int measure) {
 		char[] array;
 		array = lines.get(measure).toCharArray();
 		for (int i = 1; i < array.length; i++) { // int i starts at 1 to skip first character, the key of the string
@@ -68,7 +68,7 @@ public class FileScanner {
 		return numOfMeasures;
 	}
 	
-	ArrayList<String[]> getMeasures() {
+	public ArrayList<String[]> getMeasures() {
 		ArrayList <String> tmpBar = new ArrayList <String>();
 		String[] individualMeasure = new String[6];
 		for(int i = 0; i < 6; i++) {
@@ -95,7 +95,7 @@ public class FileScanner {
 	}
 	
 	
-	ArrayList<char[]> toCharArray(String[] stringArr){
+	public ArrayList<char[]> toCharArray(String[] stringArr){
 		ArrayList<char[]> arrList = new ArrayList<char[]>();
 		for(int i = 0; i < stringArr.length; i++) {
 			arrList.add(stringArr[i].toCharArray());
@@ -104,7 +104,7 @@ public class FileScanner {
 	}
 	
 	
-	char[] findNotes(int measure){
+	public char[] findNotes(int measure){
 		ArrayList<char[]> array = new ArrayList<char[]>();
 		char[] myNotes = new char[6];
 		getMeasures();
