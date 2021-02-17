@@ -68,8 +68,8 @@ public class XMLWriter {
         att.appendChild(div);
 
         // key elements
-        Element key = doc.createElement("key");
-        //key.appendChild(doc.createTextNode("kolotev"));
+        Element key = doc.createElement("key"); //For key we should determine if the song has any sharps or flats.. this can be done with the notes
+        										// an example would be.. if the tab had 2 on line e .. it would have 1 sharp... so fifths would be 1
         att.appendChild(key);
         
         
