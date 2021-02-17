@@ -37,6 +37,9 @@ public class MainController {
 	@FXML
 	private Button convertbttn;
 	
+	@FXML 
+	private Button changebttn;
+	
 	@FXML
 	private ListView<File> listview;
 	
@@ -60,6 +63,9 @@ public class MainController {
 	
 	@FXML
 	private Alert alert;
+	
+	@FXML
+	private TextField txtDetected;
 	
 	File outputFile;
 	
@@ -108,6 +114,7 @@ public class MainController {
 	public void viewAction(ActionEvent event) {
 		tp.getSelectionModel().select(txtTab);
 		txtPath.clear();
+		txtDetected.clear();
 		txtTextArea.clear();
 		File tab;
 		tab = listview.getSelectionModel().getSelectedItem();
@@ -125,20 +132,12 @@ public class MainController {
 			System.out.println("File Scan Error");
 			e.printStackTrace();
 		}
+		
+		// change this when program is able to detect instrument type
+		txtDetected.appendText("Guitar");
 	}
 	
 	public void convertAction(ActionEvent event) {
-		/*alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Instrument Type Selection");
-		alert.setHeaderText("Detected: Guitar Tabs");
-		alert.setContentText("Proceed with conversion as:");
-		
-		ButtonType detectbttn = new ButtonType("Detected", ButtonData.CANCEL_CLOSE);
-		ButtonType guitarbttn = new ButtonType("Guitar");
-		ButtonType drumsbttn = new ButtonType("Drums");
-		alert.getButtonTypes().setAll(detectbttn, guitarbttn, drumsbttn);
-		alert.show();
-		*/
 		File tab;
 		tab = listview.getSelectionModel().getSelectedItem();
 		XMLOut convertedFile = new XMLOut();
@@ -147,7 +146,19 @@ public class MainController {
 		
 		txtTextArea.appendText("\n");
 		txtTextArea.appendText("Conversion complete");
+	}
+	
+	public void changeAction(ActionEvent event) {
+		alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Instrument Type");
+		alert.setHeaderText("Are you sure you want to change instrument type?");
+		alert.setContentText("Make a selection to modify:");
 		
+		ButtonType detectbttn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType guitarbttn = new ButtonType("Bass");
+		ButtonType drumsbttn = new ButtonType("Drums");
+		alert.getButtonTypes().setAll(detectbttn, guitarbttn, drumsbttn);
+		alert.show();
 	}
 	
 	

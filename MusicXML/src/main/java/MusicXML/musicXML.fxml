@@ -32,8 +32,8 @@
                               <Font name="Courier New" size="12.0" />
                            </font></TextArea>
                         <Label layoutX="541.0" layoutY="18.0" text="Detected:" AnchorPane.rightAnchor="155.0" />
-                        <TextField layoutX="598.0" layoutY="14.0" prefHeight="25.0" prefWidth="87.0" AnchorPane.rightAnchor="62.0" />
-                        <Button layoutX="690.0" layoutY="14.0" mnemonicParsing="false" text="Change" AnchorPane.rightAnchor="0.0" />
+                        <TextField fx:id="txtDetected" layoutX="598.0" layoutY="14.0" prefHeight="25.0" prefWidth="87.0" AnchorPane.rightAnchor="62.0" />
+                        <Button fx:id="changebttn" layoutX="690.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeAction" text="Change" AnchorPane.rightAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content></Tab>
