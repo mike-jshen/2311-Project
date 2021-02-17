@@ -1,19 +1,10 @@
 package MusicXML;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +21,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 public class MainController {
 
@@ -71,6 +61,8 @@ public class MainController {
 	@FXML
 	private Alert alert;
 	
+	File outputFile;
+	
 	// this method sets the action for when the "Upload File" button is pressed, only one file can be opened at a time and must be a .txt file
 	public void addSongAction(ActionEvent event) {
 		FileChooser fc = new FileChooser();
@@ -96,12 +88,11 @@ public class MainController {
 		else {
 			System.out.println("no file selected");
 		}	
-
 	}
 	
 	
 	public void saveAction(ActionEvent event) {
-		File file = new File("export.xml");
+		File file = outputFile;
 		FileChooser fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
 		File dest = fc .showSaveDialog(null);
@@ -137,7 +128,7 @@ public class MainController {
 	}
 	
 	public void convertAction(ActionEvent event) {
-		alert = new Alert(AlertType.CONFIRMATION);
+		/*alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Instrument Type Selection");
 		alert.setHeaderText("Detected: Guitar Tabs");
 		alert.setContentText("Proceed with conversion as:");
@@ -147,8 +138,16 @@ public class MainController {
 		ButtonType drumsbttn = new ButtonType("Drums");
 		alert.getButtonTypes().setAll(detectbttn, guitarbttn, drumsbttn);
 		alert.show();
+		*/
+		File tab;
+		tab = listview.getSelectionModel().getSelectedItem();
+		XMLOut convertedFile = new XMLOut();
 		
-        txtTextArea.appendText("\n" + "Conversion complete");
+		outputFile = convertedFile.convertToXML(tab);
+		
+		txtTextArea.appendText("\n");
+		txtTextArea.appendText("Conversion complete");
+		
 	}
 	
 	

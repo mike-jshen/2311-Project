@@ -1,4 +1,4 @@
-package MusicXML;
+package Lab;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
@@ -54,9 +54,16 @@ public class XMLWriter {
         part.setAttributeNode(id);
         
         
+        Element mes = doc.createElement("measure");
+        part.appendChild(mes);
+        
+        Attr num = doc.createAttribute("number");
+        num.setValue("0");
+        mes.setAttributeNode(id);
+        
         // att elements
         Element att = doc.createElement("attributes");
-        part.appendChild(att);
+        mes.appendChild(att);
 
  
         // shorten way
@@ -79,7 +86,7 @@ public class XMLWriter {
 
         // time elements
         Element time = doc.createElement("time");
-        //time.appendChild(doc.createTextNode("StreetNigga"));
+        //time.appendChild(doc.createTextNode("StreetN"));
         att.appendChild(time);
         
         Element beats = doc.createElement("beats");

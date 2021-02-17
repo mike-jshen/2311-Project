@@ -3,7 +3,7 @@ package MusicXML;
 import java.util.ArrayList;
 
 public class Measures {
-	ArrayList<String[]> measureList = new ArrayList<String[]>();
+	private ArrayList<String[]> measureList = new ArrayList<String[]>();
 	
 	public Measures(String[] singleStaff) {
 		ArrayList <String> tmpMeasure = new ArrayList <String>();
@@ -34,6 +34,15 @@ public class Measures {
 	
 	public int getNumOfMeasures(String[] singleStaff) {
 		return measureList.size();
+	}
+	
+	public int getMeasureSpaces(String[] singleMeasure) {
+		int measureSpaces = 0;
+		char[] tmp = singleMeasure[0].toCharArray();
+		for(int i = 0; i < tmp.length; i++){
+			measureSpaces++;
+		}
+		return measureSpaces; 
 	}
 
 }

@@ -1,14 +1,12 @@
 package MusicXML;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 import java.io.File;
 
 public class FileScanner {
-	ArrayList <String> lines = new ArrayList<String>(); 
-	ArrayList <String[]> staffs = new ArrayList<String[]>(); 
+	private ArrayList <String> lines = new ArrayList<String>(); 
+	private ArrayList <String[]> staffs = new ArrayList<String[]>(); 
 	
 	public FileScanner(File file){
 		try {

@@ -1,7 +1,7 @@
 package MusicXML;
 
 public class Keys {
-	char[] keyArr = new char[6];
+	private char[] keyArr = new char[6];
 	
 	public Keys(String[] singleStaff) {
 		char[] tmp;
@@ -15,8 +15,8 @@ public class Keys {
 		return keyArr;
 	}
 	
-	public char getKeyInString(int string) {
-		return keyArr[string];
+	public String getKeyInString(int string) {
+		return Character.toString(keyArr[string]);
 	}
 	
 }
