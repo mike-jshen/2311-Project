@@ -77,7 +77,7 @@ public class XMLOut {
 
 	        // divisions elements
 	        Element div = doc.createElement("divisions");
-	        div.appendChild(doc.createTextNode("4")); //Change later for automation
+	        div.appendChild(doc.createTextNode("2")); //Change later for automation
 	        attr.appendChild(div);
 
 	        // key elements
