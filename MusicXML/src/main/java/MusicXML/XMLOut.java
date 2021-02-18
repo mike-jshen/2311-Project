@@ -77,7 +77,7 @@ public class XMLOut {
 
 	        // divisions elements
 	        Element div = doc.createElement("divisions");
-	        div.appendChild(doc.createTextNode("1")); //Change later for automation
+	        div.appendChild(doc.createTextNode("2")); //Change later for automation
 	        attr.appendChild(div);
 
 	        // key elements
@@ -162,11 +162,11 @@ public class XMLOut {
 						        type.appendChild(doc.createTextNode(duration.getType(duration.getNoteDuration(j)))); //Change later for automation
 						        note.appendChild(type);
 						        
-						        if(duration.getNoteDuration(j) == 3) {
+						        duration.getType(duration.getNoteDuration(j));
+						        if(duration.dot == true) {
 						        	Element dot = doc.createElement("dot");
 							        note.appendChild(dot);
 						        }
-						        
 							}
 						}
 					}
