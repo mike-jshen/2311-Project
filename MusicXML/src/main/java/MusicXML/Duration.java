@@ -192,22 +192,30 @@ public class Duration {
 	
 	public String getType(Integer dur) {
 		String type = "";
-		if(dur == 1)
+		if(dur == 1) {
 			type = "eighth";
-		else if(dur == 2)
+			dot = false;
+		}
+		else if(dur == 2) {
 			type = "quarter";
+			dot = false;
+		}
 		else if(dur == 3) {
 			type = "quarter";
 			dot = true;
 		}
-		else if(dur == 4)
+		else if(dur == 4) {
 			type = "half";
+			dot = false;
+		}
 		else if(dur == 6) {
 			type = "half";
 			dot = true;
 		}
-		else if(dur == 8)
+		else if(dur == 8) {
 			type = "whole";
+			dot = false;
+		}
 		return type;
 	}
 	
