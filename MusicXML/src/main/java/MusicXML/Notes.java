@@ -168,6 +168,11 @@ public class Notes {
 		return note;
 	}
 
+	public String getNoteAsNum() {
+		// to be implemented
+		return null;
+	}
+
 	public Map<Integer, List<Character>> notesMapping() {
 
 		for (int i = 0; i < vertical.size(); i++) {
