@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="641.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicXML.MainController">
-   <children>
-      <Button fx:id="addbtn" layoutX="298.0" layoutY="602.0" mnemonicParsing="false" onAction="#addSongAction" text="Add Song" AnchorPane.bottomAnchor="14.0" />
-      <ListView fx:id="listview" layoutX="14.0" layoutY="35.0" prefHeight="557.0" prefWidth="353.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="35.0" />
-      <Button fx:id="savebtn" layoutX="991.0" layoutY="602.0" mnemonicParsing="false" onAction="#saveAction" text="Save" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-      <Button layoutX="234.0" layoutY="602.0" mnemonicParsing="false" text="Convert" AnchorPane.bottomAnchor="14.0" />
-      <Label layoutX="14.0" layoutY="14.0" text="Added:" />
-   </children>
+<AnchorPane prefHeight="733.0" prefWidth="1138.0" style="-fx-background-color: #212832; -fx-background-image: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicXML.MainController">
+	<children>
+		<Button fx:id="addbtn" layoutX="150.0" layoutY="692.0" mnemonicParsing="false" onAction="#addSongAction" text="Add Song" AnchorPane.bottomAnchor="14.0" />
+		<Button fx:id="savebtn" layoutX="1083.0" layoutY="694.0" mnemonicParsing="false" onAction="#saveAction" text="Save" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+		<Button fx:id="convertbttn" layoutX="285.0" layoutY="694.0" mnemonicParsing="false" onAction="#convertAction" text="Convert" AnchorPane.bottomAnchor="14.0" />
+		<Button fx:id="viewbtn" layoutX="230.0" layoutY="692.0" mnemonicParsing="false" onAction="#viewAction" text="View" AnchorPane.bottomAnchor="14.0" />
+		<ListView fx:id="listview" blendMode="ADD" layoutX="14.0" layoutY="135.0" prefHeight="549.0" prefWidth="260.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="135.0" />
+		<Label layoutX="18.0" layoutY="106.0" text="Added:" textFill="WHITE" />
+		<TabPane fx:id="tp" layoutX="285.0" layoutY="35.0" prefHeight="557.0" prefWidth="747.0" style="-fx-background-color: #212832; -fx-region-background: #212832; -fx-border-color: #212832; -fx-skin: #212832;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="35.0">
+			<tabs>
+				<Tab fx:id="txtTab" text="Text">
+					<content>
+						<AnchorPane prefHeight="200.0" prefWidth="200.0">
+							<children>
+								<Label layoutY="14.0" prefHeight="25.0" prefWidth="90.0" text="File Directory:" textFill="WHITE" />
+								<TextField fx:id="txtPath" layoutX="82.0" layoutY="14.0" prefHeight="25.0" prefWidth="363.0" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="302.0" />
+								<Label layoutX="1.0" layoutY="46.0" prefHeight="17.0" prefWidth="47.0" text="Content:" textFill="WHITE" />
+								<TextArea fx:id="txtTextArea" layoutY="69.0" prefHeight="461.0" prefWidth="747.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
+									<font>
+										<Font name="Courier New" size="12.0" />
+									</font>
+								</TextArea>
+								<Label layoutX="541.0" layoutY="18.0" text="Detected:" textFill="WHITE" AnchorPane.rightAnchor="155.0" />
+								<TextField fx:id="txtDetected" layoutX="598.0" layoutY="14.0" prefHeight="25.0" prefWidth="87.0" AnchorPane.rightAnchor="62.0" />
+								<Button fx:id="changebttn" layoutX="782.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeAction" text="Change" AnchorPane.rightAnchor="0.0" />
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+				<Tab text="XML" fx:id="xmlTab">
+					<content>
+						<AnchorPane prefHeight="200.0" prefWidth="200.0">
+							<children>
+								<TextArea prefHeight="529.0" prefWidth="747.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="xmlTextArea" />
+							</children>
+						</AnchorPane>
+					</content>
+				</Tab>
+			</tabs>
+         <effect>
+            <ColorAdjust />
+         </effect>
+         <opaqueInsets>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </opaqueInsets>
+		</TabPane>
+      <ImageView fitHeight="107.0" fitWidth="194.0" layoutX="37.0" layoutY="2.0">
+         <image>
+            <Image url="@../../../../logo.png" />
+         </image>
+      </ImageView>
+	</children>
 </AnchorPane>

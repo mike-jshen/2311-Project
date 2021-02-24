@@ -1,101 +1,150 @@
 package Lab;
 
 import java.io.File;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 
 public class XMLWriter {
 
-    public static void main(String[] args) {
-    	
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        try {
-            dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.newDocument();
-            //add elements to Document
-            Element rootElement =
-                doc.createElementNS("Group 3", "Members");
-            //append root element to document
-            doc.appendChild(rootElement);
+	public static void main(String argv[]) {
 
-            //append first child element to root element
-            rootElement.appendChild(getEmployee(doc, "1", "Max", "20", "Member", "Male"));
+		try {
 
-            //append second child
-            rootElement.appendChild(getEmployee(doc, "2", "Matt", "21", "Member", "Male"));
-            
-            //append third child
-            rootElement.appendChild(getEmployee(doc, "3", "Mohamed", "20", "Member", "Male"));
-            
-            //append fourth child
-            rootElement.appendChild(getEmployee(doc, "4", "Mike", "20", "Member", "Male"));
-            
-            //append fifth child
-            rootElement.appendChild(getEmployee(doc, "5", "Amen", "21", "Member", "Male"));
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-            //for output to file, console
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            //for pretty print
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            DOMSource source = new DOMSource(doc);
+			// root elements
+			Document doc = docBuilder.newDocument();
 
-            //write to console or file
-            StreamResult console = new StreamResult(System.out);
-            StreamResult file = new StreamResult(new File("enter directory here"));
+			Element rootElement = doc.createElement("score-partwise");
+			doc.appendChild(rootElement);
 
+			Element partList = doc.createElement("part-list");
+			rootElement.appendChild(partList);
 
-            //write data
-            transformer.transform(source, console);
-            transformer.transform(source, file);
-            System.out.println("DONE");
+			Element scorePart = doc.createElement("score-part");
+			partList.appendChild(scorePart);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			Attr id2 = doc.createAttribute("id");
+			id2.setValue("P1");
+			scorePart.setAttributeNode(id2);
 
+			Element partName = doc.createElement("part-name");
+			partName.appendChild(doc.createTextNode("Music")); // Music name --- Up for change
+			scorePart.appendChild(partName);
 
-    private static Node getEmployee(Document doc, String id, String name, String age, String role,
-            String gender) {
-        Element employee = doc.createElement("Member");
+			Element part = doc.createElement("part");
+			rootElement.appendChild(part);
 
-        //set id attribute
-        employee.setAttribute("id", id);
+			// set attribute to part element
 
-        //create name element
-        employee.appendChild(getEmployeeElements(doc, employee, "name", name));
+			Attr id = doc.createAttribute("id");
+			id.setValue("P1");
+			part.setAttributeNode(id);
 
-        //create age element
-        employee.appendChild(getEmployeeElements(doc, employee, "age", age));
+			Element mes = doc.createElement("measure");
+			part.appendChild(mes);
 
-        //create role element
-        employee.appendChild(getEmployeeElements(doc, employee, "role", role));
+			Attr num = doc.createAttribute("number");
+			num.setValue("0");
+			mes.setAttributeNode(id);
 
-        //create gender element
-        employee.appendChild(getEmployeeElements(doc, employee, "gender", gender));
+			// att elements
+			Element att = doc.createElement("attributes");
+			mes.appendChild(att);
 
-        return employee;
-    }
+			// shorten way
+			// staff.setAttribute("id", "1");
 
+			// div elements
+			Element div = doc.createElement("divisions");
+			div.appendChild(doc.createTextNode("1")); // Change later for automation
+			att.appendChild(div);
 
-    //utility method to create text node
-    private static Node getEmployeeElements(Document doc, Element element, String name, String value) {
-        Element node = doc.createElement(name);
-        node.appendChild(doc.createTextNode(value));
-        return node;
-    }
+			// key elements
+			Element key = doc.createElement("key");
+			// key.appendChild(doc.createTextNode("kolotev"));
+			att.appendChild(key);
 
+			Element fifth = doc.createElement("fifths");
+			fifth.appendChild(doc.createTextNode("0")); // Change later for automation
+			key.appendChild(fifth);
+
+			// time elements
+			Element time = doc.createElement("time");
+			// time.appendChild(doc.createTextNode("StreetN"));
+			att.appendChild(time);
+
+			Element beats = doc.createElement("beats");
+			beats.appendChild(doc.createTextNode("4")); // Change later for automation
+			time.appendChild(beats);
+
+			Element beatsType = doc.createElement("beat-type");
+			beatsType.appendChild(doc.createTextNode("4")); // Change later for automation
+			time.appendChild(beatsType);
+
+			// salary elements
+			Element clef = doc.createElement("clef");
+			// clef.appendChild(doc.createTextNode("100000"));
+			att.appendChild(clef);
+
+			Element sign = doc.createElement("sign");
+			sign.appendChild(doc.createTextNode("G")); // Change later for automation
+			clef.appendChild(sign);
+
+			Element line = doc.createElement("line");
+			line.appendChild(doc.createTextNode("2")); // Change later for automation
+			clef.appendChild(line);
+
+			Element note = doc.createElement("note");
+			part.appendChild(note);
+
+			Element pitch = doc.createElement("Pitch");
+			note.appendChild(pitch);
+
+			Element step = doc.createElement("step");
+			step.appendChild(doc.createTextNode("C")); // Change later for automation
+			pitch.appendChild(step);
+
+			Element octave = doc.createElement("octave");
+			octave.appendChild(doc.createTextNode("4")); // Change later for automation
+			pitch.appendChild(octave);
+
+			Element dur = doc.createElement("duration");
+			dur.appendChild(doc.createTextNode("4")); // Change later for automation
+			note.appendChild(dur);
+
+			Element type = doc.createElement("type");
+			type.appendChild(doc.createTextNode("whole")); // Change later for automation
+			note.appendChild(type);
+
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("export.xml"));
+
+			// Output to console for testing
+			// StreamResult result = new StreamResult(System.out);
+
+			transformer.transform(source, result);
+
+			System.out.println("File saved!");
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		}
+	}
 }
