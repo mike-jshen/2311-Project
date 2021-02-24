@@ -7,7 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="MusicXML/src/main/java"/>
 	<classpathentry kind="lib" path="MusicXML/gradle/wrapper/gradle-wrapper.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
