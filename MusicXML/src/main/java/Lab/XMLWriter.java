@@ -57,7 +57,7 @@ public class XMLWriter {
 
 			Attr num = doc.createAttribute("number");
 			num.setValue("0");
-			mes.setAttributeNode(id);
+			mes.setAttributeNode(num);
 
 			// att elements
 			Element att = doc.createElement("attributes");
@@ -97,9 +97,34 @@ public class XMLWriter {
 			Element clef = doc.createElement("clef");
 			// clef.appendChild(doc.createTextNode("100000"));
 			att.appendChild(clef);
+			
+			Element stafDet = doc.createElement("staff-details");
+			att.appendChild(stafDet);
+			
+			Element staffLine = doc.createElement("staff-lines");
+			staffLine.appendChild(doc.createTextNode("6")); //Change depending on number of lines in a guitar tab
+			stafDet.appendChild(staffLine);
+			
+			// starts looping here
+			Element staffLineTune = doc.createElement("staff-tuning");
+			stafDet.appendChild(staffLineTune); //FOR THIS PART THIS WILL LOOP, BUT FOR THIS XML IT WILL BE HARDCODED
+			
+			Attr lineAtt = doc.createAttribute("line");
+			lineAtt.setValue("1"); //Loops depending on what line of the tab its on
+			staffLineTune.setAttributeNode(lineAtt);
+			
+			Element tuneStep = doc.createElement("tuning-step");
+			tuneStep.appendChild(doc.createTextNode("E")); //This changes depending on the letter infront of the tab
+			staffLineTune.appendChild(tuneStep);
+			
+			Element tuneOctave = doc.createElement("tuning-octave");
+			tuneOctave.appendChild(doc.createTextNode("2")); //Change for automation... need to create octave methode
+			staffLineTune.appendChild(tuneOctave);
+			
+			//ends looping here
 
 			Element sign = doc.createElement("sign");
-			sign.appendChild(doc.createTextNode("G")); // Change later for automation
+			sign.appendChild(doc.createTextNode("TAB")); // SIGN HAS BEEN CHANGED TO TAB SINCE WE ARE READING TABS
 			clef.appendChild(sign);
 
 			Element line = doc.createElement("line");
@@ -132,7 +157,7 @@ public class XMLWriter {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("export.xml"));
+			StreamResult result = new StreamResult(new File("export2.xml"));
 
 			// Output to console for testing
 			// StreamResult result = new StreamResult(System.out);
