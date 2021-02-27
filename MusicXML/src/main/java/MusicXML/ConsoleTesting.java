@@ -11,7 +11,7 @@ public class ConsoleTesting {
 
 	public static void main(String[] args) throws Exception {
 
-		File file = new File("tab1.txt");
+		File file = new File("testTab.txt");
 		FileScanner readFile = new FileScanner(file);
 
 		ArrayList<String[]> staffs = readFile.getStaffs();

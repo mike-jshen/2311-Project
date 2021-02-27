@@ -11,6 +11,7 @@ public class Notes {
 	private String note = "";
 	private Map<Integer, List<Character>> map = new LinkedHashMap<Integer, List<Character>>();
 	private int alter;
+	private int octave;
 
 	public Notes(String[] singleMeasure) {
 		char[] singleMeasure0 = singleMeasure[0].toCharArray();
@@ -183,6 +184,73 @@ public class Notes {
 			}
 		}
 		return note;
+	}
+	
+	public int getOctave(int gStrIndex, char tab) {
+		if(gStrIndex == 0) {
+			switch(tab) {
+			case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7':
+				octave = 4;
+				break;
+			case '8': case '9':
+				octave = 5;
+				break;
+			default: octave = -1; 	// for debugging
+			}
+		}
+		else if(gStrIndex == 1) {
+			switch(tab) {
+			case '0':
+				octave = 3;
+				break;
+			case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
+				octave = 4;
+				break;
+			default: octave = -1; 	// for debugging
+			}
+		}
+		else if(gStrIndex == 2) {
+			switch(tab) {
+			case '0': case '1': case '2': case '3': case '4':
+				octave = 3;
+				break;
+			 case '5': case '6': case '7': case '8': case '9':
+				octave = 4;
+				break;
+			default: octave = -1; 	// for debugging
+			}
+		}
+		else if(gStrIndex == 3) {
+			switch(tab) {
+			case '0': case '1': case '2': case '3': case '5': case '6': case '7': case '8': case '9':
+				octave = 3;
+				break;
+			default: octave = -1; 	// for debugging
+			}
+		}
+		else if(gStrIndex == 4) {
+			switch(tab) {
+			case '0': case '1': case '2':
+				octave = 2;
+				break;
+			case '3': case '4': case '5': case '6': case '7': case '8': case '9':
+				octave = 3;
+				break;
+			default: octave = -1; 	// for debugging
+			}
+		}
+		else if(gStrIndex == 5) {
+			switch(tab) {
+			case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7':
+				octave = 2;
+				break;
+			case '8': case '9':
+				octave = 3;
+				break;
+			default: octave = -1; 	// for debugging
+			}
+		}
+		return octave;
 	}
 
 	public Map<Integer, List<Character>> getNotesMapping() {

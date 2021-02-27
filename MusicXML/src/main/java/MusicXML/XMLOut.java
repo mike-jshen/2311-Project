@@ -176,7 +176,7 @@ public class XMLOut {
 
 					// look through vertical array list to find notes
 					for (int j = 0; j < notes.vertical.size(); j++) {
-						for (int k = 0; k < 6; k++) {
+						for (int k = 5; k >= 0; k--) {	// build notes from thickest string if in a chord (bottom-up)
 							if (Character.isDigit(notes.vertical.get(j)[k])) {
 
 								/*
@@ -197,8 +197,7 @@ public class XMLOut {
 								note.appendChild(pitch);
 
 								Element step = doc.createElement("step");
-								step.appendChild(doc.createTextNode(
-										notes.getNote(keys.getKeyInString(k), (notes.vertical.get(j)[k]))));
+								step.appendChild(doc.createTextNode(notes.getNote(keys.getKeyInString(k), notes.vertical.get(j)[k])));
 								pitch.appendChild(step);
 
 								// <alter>
@@ -212,7 +211,7 @@ public class XMLOut {
 
 								// <octave>
 								Element octave = doc.createElement("octave");
-								octave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(k))); // automated
+								octave.appendChild(doc.createTextNode(String.valueOf(notes.getOctave(k, notes.vertical.get(j)[k])))); // automated
 								pitch.appendChild(octave);
 
 								// <duration>
