@@ -37,6 +37,7 @@ public class XMLOut {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
+			// root elements
 			Document doc = docBuilder.newDocument();
 
 			Element rootElement = doc.createElement("score-partwise");
@@ -48,41 +49,47 @@ public class XMLOut {
 			Element scorePart = doc.createElement("score-part");
 			partList.appendChild(scorePart);
 
-			Attr scorePart_id = doc.createAttribute("id");
-			scorePart_id.setValue("P1");
-			scorePart.setAttributeNode(scorePart_id);
+			Attr id2 = doc.createAttribute("id");
+			id2.setValue("P1");
+			scorePart.setAttributeNode(id2);
 
 			Element partName = doc.createElement("part-name");
-			partName.appendChild(doc.createTextNode("Music")); // Music name --- Up for change
+			partName.appendChild(doc.createTextNode("Classical Guitar")); // Music name --- Up for change
 			scorePart.appendChild(partName);
+
+			/*
+			 * ============================================================================
+			 * part id begin (measures, attributes, notes)
+			 */
 
 			Element part = doc.createElement("part");
 			rootElement.appendChild(part);
 
-			Attr part_id = doc.createAttribute("id");
-			part_id.setValue("P1");
-			part.setAttributeNode(part_id);
+			// set attribute to part element
 
-			// measure elements
-			Element mesure = doc.createElement("measure");
-			part.appendChild(mesure);
+			Attr id = doc.createAttribute("id");
+			id.setValue("P1");
+			part.setAttributeNode(id);
+
+			Element mes = doc.createElement("measure");
+			part.appendChild(mes);
 
 			Attr num = doc.createAttribute("number");
 			num.setValue("0");
-			mesure.setAttributeNode(num);
+			mes.setAttributeNode(num);
 
-			// attributes elements
-			Element attr = doc.createElement("attributes");
-			mesure.appendChild(attr);
+			// attribute elements
+			Element att = doc.createElement("attributes");
+			mes.appendChild(att);
 
-			// divisions elements
+			// division elements
 			Element div = doc.createElement("divisions");
 			div.appendChild(doc.createTextNode("2")); // Change later for automation
-			attr.appendChild(div);
+			att.appendChild(div);
 
 			// key elements
 			Element key = doc.createElement("key");
-			attr.appendChild(key);
+			att.appendChild(key);
 
 			Element fifth = doc.createElement("fifths");
 			fifth.appendChild(doc.createTextNode("0")); // Change later for automation
@@ -90,7 +97,7 @@ public class XMLOut {
 
 			// time elements
 			Element time = doc.createElement("time");
-			attr.appendChild(time);
+			att.appendChild(time);
 
 			Element beats = doc.createElement("beats");
 			beats.appendChild(doc.createTextNode("4")); // Change later for automation
@@ -100,20 +107,50 @@ public class XMLOut {
 			beatsType.appendChild(doc.createTextNode("4")); // Change later for automation
 			time.appendChild(beatsType);
 
+			// clef elements
 			Element clef = doc.createElement("clef");
-			attr.appendChild(clef);
+			att.appendChild(clef);
 
-			Element sign = doc.createElement("sign");
-			sign.appendChild(doc.createTextNode("G")); // Change later for automation - Currently Treble Clef (aka G
-														// Clef)
-			clef.appendChild(sign);
+			/*
+			 * ============================================================================
+			 * staff details begin (e.g. staff lines, staff tuning)
+			 */
 
-			Element line = doc.createElement("line");
-			line.appendChild(doc.createTextNode("2")); // Change later for automation
-			clef.appendChild(line);
+			GuitarTuning guitarTuning = new GuitarTuning();
 
-			// ========================================================================================
-			// mid-term submission changes occur here
+			Element stafDet = doc.createElement("staff-details");
+			att.appendChild(stafDet);
+
+			Element staffLine = doc.createElement("staff-lines");
+			staffLine.appendChild(doc.createTextNode(guitarTuning.getStaffLines())); // Change depending on number of
+																						// lines in a guitar tab
+			stafDet.appendChild(staffLine);
+
+			for (int i = 0; i < 6; i++) {
+				Element staffLineTune = doc.createElement("staff-tuning");
+				stafDet.appendChild(staffLineTune); // FOR THIS PART THIS WILL LOOP, BUT FOR THIS XML IT WILL BE
+													// HARDCODED
+
+				Attr lineAtt = doc.createAttribute("line");
+				lineAtt.setValue(String.valueOf(i + 1)); // Loops depending on what line of the tab its on
+				staffLineTune.setAttributeNode(lineAtt);
+
+				Element tuneStep = doc.createElement("tuning-step");
+				tuneStep.appendChild(doc.createTextNode(guitarTuning.getTuningStep(i))); // This changes depending on
+																							// the letter infront of the
+																							// tab
+				staffLineTune.appendChild(tuneStep);
+
+				Element tuneOctave = doc.createElement("tuning-octave");
+				tuneOctave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(i))); // Change for automation...
+																								// need to create octave
+																								// methode
+				staffLineTune.appendChild(tuneOctave);
+			}
+
+			/*
+			 * end staff details
+			 */
 
 			for (int s = 0; s < staffs.size(); s++) {
 				Measures measures = new Measures(staffs.get(s));
@@ -136,7 +173,7 @@ public class XMLOut {
 
 								// at the discovery of a note, append the note with pitch, duration, and type
 								Element note = doc.createElement("note");
-								mesure.appendChild(note);
+								mes.appendChild(note);
 
 								// set chord if another note is in the same vertical
 								if (notesMap.get(Integer.valueOf(j)).size() > 1) {
@@ -184,12 +221,12 @@ public class XMLOut {
 					if (measureNum < (staffs.size() * measures.getMeasures().size() - 1)) {
 						// create new measure
 						measureNum++;
-						mesure = doc.createElement("measure");
-						part.appendChild(mesure);
+						mes = doc.createElement("measure");
+						part.appendChild(mes);
 
 						num = doc.createAttribute("number");
 						num.setValue(Integer.toString(measureNum));
-						mesure.setAttributeNode(num);
+						mes.setAttributeNode(num);
 					}
 				}
 			}
