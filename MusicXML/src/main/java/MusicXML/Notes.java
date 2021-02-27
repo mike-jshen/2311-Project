@@ -9,7 +9,8 @@ public class Notes {
 
 	ArrayList<char[]> vertical = new ArrayList<char[]>();
 	private String note = "";
-	Map<Integer, List<Character>> map = new LinkedHashMap<Integer, List<Character>>();
+	private Map<Integer, List<Character>> map = new LinkedHashMap<Integer, List<Character>>();
+	private int alter;
 
 	public Notes(String[] singleMeasure) {
 		char[] singleMeasure0 = singleMeasure[0].toCharArray();
@@ -27,143 +28,159 @@ public class Notes {
 	}
 
 	public String getNote(String gString, char tab) {
-		if (gString.equals("e")) {
+		if (gString.equals("e") || gString.equals("E")) {
 			if (tab == '0')
-				note = "e";
+				note = "E";
 			else if (tab == '1')
 				note = "F";
-			else if (tab == '2')
-				note = "F#";
+			else if (tab == '2') {
+				note = "F"; // sharp
+				alter = 1;
+			}
 			else if (tab == '3')
 				note = "G";
-			else if (tab == '4')
-				note = "G#";
+			else if (tab == '4') {
+				note = "G"; // sharp
+				alter = 1;
+			}
 			else if (tab == '5')
 				note = "A";
-			else if (tab == '6')
-				note = "A#";
+			else if (tab == '6') {
+				note = "A"; // sharp
+				alter = 1;
+			}
 			else if (tab == '7')
 				note = "B";
 			else if (tab == '8')
 				note = "C";
-			else if (tab == '9')
-				note = "C#";
-		}
-
-		else if (gString.equals("B")) {
-			if (tab == '0')
-				note = "B";
-			else if (tab == '1')
-				note = "C";
-			else if (tab == '2')
-				note = "C#";
-			else if (tab == '3')
-				note = "D";
-			else if (tab == '4')
-				note = "D#";
-			else if (tab == '5')
-				note = "E";
-			else if (tab == '6')
-				note = "F";
-			else if (tab == '7')
-				note = "F#";
-			else if (tab == '8')
-				note = "G";
-			else if (tab == '9')
-				note = "G#";
-		}
-
-		else if (gString.equals("G")) {
-			if (tab == '0')
-				note = "G";
-			else if (tab == '1')
-				note = "G#";
-			else if (tab == '2')
-				note = "A";
-			else if (tab == '3')
-				note = "A#";
-			else if (tab == '4')
-				note = "B";
-			else if (tab == '5')
-				note = "C";
-			else if (tab == '6')
-				note = "C#";
-			else if (tab == '7')
-				note = "D";
-			else if (tab == '8')
-				note = "D#";
-			else if (tab == '9')
-				note = "E";
-		}
-
-		else if (gString.equals("D")) {
-			if (tab == '0')
-				note = "D";
-			else if (tab == '1')
-				note = "D#";
-
-			else if (tab == '2')
-				note = "E";
-			else if (tab == '3')
-				note = "F";
-			else if (tab == '4')
-				note = "F#";
-			else if (tab == '5')
-				note = "G";
-			else if (tab == '6')
-				note = "G#";
-			else if (tab == '7')
-				note = "A";
-			else if (tab == '8')
-				note = "A#";
-			else if (tab == '9')
-				note = "B";
+			else if (tab == '9') {
+				note = "C"; // sharp
+				alter = 1;
+			}
 		}
 
 		else if (gString.equals("A")) {
 			if (tab == '0')
-				note = "A";
-			else if (tab == '1')
-				note = "A#";
-			else if (tab == '2')
 				note = "B";
-			else if (tab == '3')
+			else if (tab == '1')
 				note = "C";
-			else if (tab == '4')
-				note = "C#";
-			else if (tab == '5')
+			else if (tab == '2') {
+				note = "C"; // sharp
+				alter = 1;
+			}
+			else if (tab == '3')
 				note = "D";
-			else if (tab == '6')
-				note = "D#";
-			else if (tab == '7')
+			else if (tab == '4') {
+				note = "D"; // sharp
+				alter = 1;
+			}
+			else if (tab == '5')
 				note = "E";
-			else if (tab == '8')
+			else if (tab == '6')
 				note = "F";
-			else if (tab == '9')
-				note = "F#";
+			else if (tab == '7') {
+				note = "F"; // sharp
+				alter = 1;
+			}
+			else if (tab == '8')
+				note = "G";
+			else if (tab == '9') {
+				note = "G"; // sharp
+				alter = 1;
+			}
 		}
 
-		else if (gString.equals("E")) {
+		else if (gString.equals("D")) {
 			if (tab == '0')
-				note = "E";
-			else if (tab == '1')
-				note = "F";
-			else if (tab == '2')
-				note = "F#";
-			else if (tab == '3')
 				note = "G";
-			else if (tab == '4')
-				note = "G#";
-			else if (tab == '5')
+			else if (tab == '1') {
+				note = "G";
+				alter = 1;
+			}
+			else if (tab == '2')
 				note = "A";
-			else if (tab == '6')
-				note = "A#";
-			else if (tab == '7')
+			else if (tab == '3') {
+				note = "A";
+				alter = 1;
+			}
+			else if (tab == '4')
 				note = "B";
-			else if (tab == '8')
+			else if (tab == '5')
 				note = "C";
+			else if (tab == '6') {
+				note = "C";
+				alter = 1;
+			}
+			else if (tab == '7')
+				note = "D";
+			else if (tab == '8') {
+				note = "D";
+				alter = 1;
+			}
 			else if (tab == '9')
-				note = "C#";
+				note = "E";
+		}
+
+		else if (gString.equals("G")) {
+			if (tab == '0')
+				note = "D";
+			else if (tab == '1') {
+				note = "D";
+				alter = 1;
+			}
+			else if (tab == '2')
+				note = "E";
+			else if (tab == '3')
+				note = "F";
+			else if (tab == '4') {
+				note = "F";
+				alter = 1;
+			}
+			else if (tab == '5')
+				note = "G";
+			else if (tab == '6') {
+				note = "G";
+				alter = 1;
+			}
+			else if (tab == '7')
+				note = "A";
+			else if (tab == '8') {
+				note = "A";
+				alter = 1;
+			}
+			else if (tab == '9')
+				note = "B";
+		}
+
+		else if (gString.equals("B")) {
+			if (tab == '0')
+				note = "A";
+			else if (tab == '1') {
+				note = "A";
+				alter = 1;
+			}
+			else if (tab == '2')
+				note = "B";
+			else if (tab == '3')
+				note = "C";
+			else if (tab == '4') {
+				note = "C";
+				alter = 1;
+			}
+			else if (tab == '5')
+				note = "D";
+			else if (tab == '6') {
+				note = "D";
+				alter = 1;
+			}
+			else if (tab == '7')
+				note = "E";
+			else if (tab == '8')
+				note = "F";
+			else if (tab == '9') {
+				note = "F";
+				alter = 1;
+			}
 		}
 		return note;
 	}
@@ -183,5 +200,13 @@ public class Notes {
 			}
 		}
 		return map;
+	}
+	
+	public int getAlter() {
+		return alter;
+	}
+
+	public void resetAlter() {
+		this.alter = 0;
 	}
 }

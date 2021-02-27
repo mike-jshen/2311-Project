@@ -29,7 +29,7 @@ public class XMLOut {
 
 		FileScanner readFile = new FileScanner(inputFile);
 		ArrayList<String[]> staffs = readFile.getStaffs();
-		int measureNum = 0;
+		int measureNum = 1;
 
 		try {
 			// ========================================================================================
@@ -73,7 +73,7 @@ public class XMLOut {
 			part.appendChild(mes);
 
 			Attr num = doc.createAttribute("number");
-			num.setValue("1");
+			num.setValue(String.valueOf(measureNum));
 			mes.setAttributeNode(num);
 
 			// <attribute>
@@ -117,11 +117,11 @@ public class XMLOut {
 			 */
 			Element clef = doc.createElement("clef");
 			att.appendChild(clef);
-			
+
 			Element sign = doc.createElement("sign");
 			sign.appendChild(doc.createTextNode("TAB")); // SIGN HAS BEEN CHANGED TO TAB SINCE WE ARE READING TABS
 			clef.appendChild(sign);
-			
+
 			Element line = doc.createElement("line");
 			line.appendChild(doc.createTextNode("5")); // Change later for automation
 			clef.appendChild(line);
@@ -148,17 +148,17 @@ public class XMLOut {
 				staffLineTune.setAttributeNode(lineAtt);
 
 				Element tuneStep = doc.createElement("tuning-step");
-				tuneStep.appendChild(doc.createTextNode(guitarTuning.getTuningStep(i)));	// automated
+				tuneStep.appendChild(doc.createTextNode(guitarTuning.getTuningStep(i))); // automated
 				staffLineTune.appendChild(tuneStep);
 
 				Element tuneOctave = doc.createElement("tuning-octave");
-				tuneOctave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(i)));	// automated
+				tuneOctave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(i))); // automated
 				staffLineTune.appendChild(tuneOctave);
 			}
 
 			/*
 			 * ============================================================================
-			 * <note> 
+			 * <note>
 			 */
 			for (int s = 0; s < staffs.size(); s++) {
 				Measures measures = new Measures(staffs.get(s));
@@ -185,7 +185,7 @@ public class XMLOut {
 								 */
 								Element note = doc.createElement("note");
 								mes.appendChild(note);
-								
+
 								// <chord>
 								if (notesMap.get(Integer.valueOf(j)).size() > 1) {
 									Element chord = doc.createElement("chord");
@@ -197,30 +197,34 @@ public class XMLOut {
 								note.appendChild(pitch);
 
 								Element step = doc.createElement("step");
-								step.appendChild(doc.createTextNode(keys.getKeyInString(k)));
+								step.appendChild(doc.createTextNode(
+										notes.getNote(keys.getKeyInString(k), (notes.vertical.get(j)[k]))));
 								pitch.appendChild(step);
-								
+
 								// <alter>
-								if(guitarTuning.isAlter(keys.getKeyInString(k))) {
+								if (notes.getAlter() != 0) {
 									Element alter = doc.createElement("alter");
-									step.appendChild(doc.createTextNode("1"));
+									alter.appendChild(doc.createTextNode(String.valueOf(notes.getAlter())));
 									pitch.appendChild(alter);
+
+									notes.resetAlter();
 								}
-								
+
+								// <octave>
 								Element octave = doc.createElement("octave");
 								octave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(k))); // automated
 								pitch.appendChild(octave);
-								
+
 								// <duration>
 								Element dur = doc.createElement("duration");
 								dur.appendChild(doc.createTextNode(duration.getDuration(j).toString())); // automated
 								note.appendChild(dur);
-								
+
 								// <voice>
 								Element voice = doc.createElement("voice");
-								dur.appendChild(doc.createTextNode("1")); // Change for later automation
+								voice.appendChild(doc.createTextNode("1")); // Change for later automation
 								note.appendChild(voice);
-								
+
 								// <type>
 								Element type = doc.createElement("type");
 								type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(j)))); // automated
@@ -231,21 +235,30 @@ public class XMLOut {
 									Element dot = doc.createElement("dot");
 									note.appendChild(dot);
 								}
-								
+
 								// <notations>
 								Element notations = doc.createElement("notations");
 								note.appendChild(notations);
-								
+
 								// <technical>
 								Element technical = doc.createElement("technical");
 								notations.appendChild(technical);
-								
-								
+
+								// <string>
+								Element string = doc.createElement("string");
+								string.appendChild(doc.createTextNode(String.valueOf(k + 1)));
+								technical.appendChild(string);
+
+								// <fret>
+								Element fret = doc.createElement("fret");
+								fret.appendChild(doc.createTextNode(String.valueOf(notes.vertical.get(j)[k])));
+								technical.appendChild(fret);
+
 							}
 						}
 					}
 
-					if (measureNum < (staffs.size() * measures.getMeasures().size() - 1)) {
+					if (measureNum < (staffs.size() * measures.getMeasures().size())) {
 						// create new measure
 						measureNum++;
 						mes = doc.createElement("measure");
@@ -257,6 +270,19 @@ public class XMLOut {
 					}
 				}
 			}
+
+			// <barline location>
+			Element barline = doc.createElement("barline");
+			mes.appendChild(barline);
+
+			Attr loc = doc.createAttribute("location");
+			loc.setValue("right");
+			barline.setAttributeNode(loc);
+
+			// <bar-style>
+			Element style = doc.createElement("bar-style");
+			style.appendChild(doc.createTextNode("light-heavy"));
+			barline.appendChild(style);
 
 			// ========================================================================================
 			// document export code

@@ -18,17 +18,17 @@ public class FileScanner {
 				String data = reader.nextLine();
 
 				// automatically put in standard guitar keys if the file does not have it
-				if (!Character.isLetter(data.toCharArray()[0])) {
+				if (!data.equals("") && !Character.isLetter(data.toCharArray()[0])) {
 					if (counter == 0 || counter % 6 == 0 || counter % 6 == 5)
 						data = new String("E" + data);
 					else if (counter % 6 == 1)
-						data = new String("B" + data);
-					else if (counter % 6 == 2)
-						data = new String("G" + data);
-					else if (counter % 6 == 3)
-						data = new String("D" + data);
-					else if (counter % 6 == 4)
 						data = new String("A" + data);
+					else if (counter % 6 == 2)
+						data = new String("D" + data);
+					else if (counter % 6 == 3)
+						data = new String("G" + data);
+					else if (counter % 6 == 4)
+						data = new String("B" + data);
 				}
 
 				this.lines.add(data);

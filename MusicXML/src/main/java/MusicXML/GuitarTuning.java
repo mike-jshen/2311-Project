@@ -4,7 +4,6 @@ public class GuitarTuning {
 	private char[] tuningStep = new char[6];
 	private int tuningOctave;
 	private int staffLines;
-	private boolean isAlter;
 	
 	public GuitarTuning() {
 		tuningStep[0] = 'E';
@@ -32,12 +31,6 @@ public class GuitarTuning {
 		else tuningOctave = -1;		//for debugging purposes
 		
 		return String.valueOf(tuningOctave);
-	}
-	
-	public boolean isAlter(String gString) {
-		if(gString == "G") isAlter = true;
-		else isAlter = false;
-		return isAlter;
 	}
 	
 }
