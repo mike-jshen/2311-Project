@@ -37,7 +37,7 @@ public class ConsoleTesting {
 
 		Notes notes = new Notes(measures.getMeasures().get(0));
 
-		Map<Integer, List<Character>> notesMap = notes.notesMapping();
+		Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
 
 		for (Map.Entry<Integer, List<Character>> entry : notesMap.entrySet()) {
 			Integer index = entry.getKey();

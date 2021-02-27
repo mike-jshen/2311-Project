@@ -168,7 +168,7 @@ public class Notes {
 		return note;
 	}
 
-	public Map<Integer, List<Character>> notesMapping() {
+	public Map<Integer, List<Character>> getNotesMapping() {
 
 		for (int i = 0; i < vertical.size(); i++) {
 			for (int j = 0; j < 6; j++) {

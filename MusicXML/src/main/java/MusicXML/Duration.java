@@ -9,7 +9,7 @@ public class Duration {
 
 	private Map<Integer, Integer> durationMap = new TreeMap<Integer, Integer>();
 	private int difference;
-	public boolean dot = false;
+	private boolean isDot = false;
 
 	public Duration(Map<Integer, List<Character>> notesMap, int measureSpaces) {
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
@@ -31,9 +31,8 @@ public class Duration {
 	/*
 	 * This part only goes up to eighth notes To modify for sixteenth notes and
 	 * beyond, modify timeDuration() and getType()
-	 * 
 	 */
-	private Integer timeDuration(int diff, int spaces) {
+	private int timeDuration(int diff, int spaces) {
 		int div = spaces / 8;
 		int mod = spaces % 8;
 		int duration = 0;
@@ -175,36 +174,36 @@ public class Duration {
 			else
 				duration = 8;
 		} else {
-			System.out.println("duration error");
+			duration = -1;		//debugging purposes
 		}
 		return duration;
 	}
 
-	public String getType(Integer dur) {
+	public String getType(int dur) {
 		String type = "";
 		if (dur == 1) {
 			type = "eighth";
-			dot = false;
 		} else if (dur == 2) {
 			type = "quarter";
-			dot = false;
 		} else if (dur == 3) {
 			type = "quarter";
-			dot = true;
 		} else if (dur == 4) {
 			type = "half";
-			dot = false;
 		} else if (dur == 6) {
 			type = "half";
-			dot = true;
 		} else if (dur == 8) {
 			type = "whole";
-			dot = false;
 		}
 		return type;
 	}
+	
+	public boolean isDot(int dur) {
+		if( dur == 3 || dur == 6) isDot = true;
+		else isDot =false;
+		return isDot;
+	}
 
-	public Integer getNoteDuration(int index) {
+	public Integer getDuration(int index) {
 		return durationMap.get(index);
 	}
 

@@ -59,99 +59,107 @@ public class XMLOut {
 
 			/*
 			 * ============================================================================
-			 * part id begin (measures, attributes, notes)
+			 * <part id>
 			 */
-
 			Element part = doc.createElement("part");
 			rootElement.appendChild(part);
-
-			// set attribute to part element
 
 			Attr id = doc.createAttribute("id");
 			id.setValue("P1");
 			part.setAttributeNode(id);
 
+			// <measure number>
 			Element mes = doc.createElement("measure");
 			part.appendChild(mes);
 
 			Attr num = doc.createAttribute("number");
-			num.setValue("0");
+			num.setValue("1");
 			mes.setAttributeNode(num);
 
-			// attribute elements
+			// <attribute>
 			Element att = doc.createElement("attributes");
 			mes.appendChild(att);
 
-			// division elements
+			// <divisions>
 			Element div = doc.createElement("divisions");
-			div.appendChild(doc.createTextNode("2")); // Change later for automation
+			div.appendChild(doc.createTextNode("2")); // Change division
 			att.appendChild(div);
 
-			// key elements
+			/*
+			 * ============================================================================
+			 * <key> (fifths)
+			 */
 			Element key = doc.createElement("key");
 			att.appendChild(key);
 
 			Element fifth = doc.createElement("fifths");
-			fifth.appendChild(doc.createTextNode("0")); // Change later for automation
+			fifth.appendChild(doc.createTextNode("0")); // Change fifth
 			key.appendChild(fifth);
 
-			// time elements
+			/*
+			 * ============================================================================
+			 * <time> (beats, beat-type)
+			 */
 			Element time = doc.createElement("time");
 			att.appendChild(time);
 
 			Element beats = doc.createElement("beats");
-			beats.appendChild(doc.createTextNode("4")); // Change later for automation
+			beats.appendChild(doc.createTextNode("4")); // Change beats
 			time.appendChild(beats);
 
 			Element beatsType = doc.createElement("beat-type");
-			beatsType.appendChild(doc.createTextNode("4")); // Change later for automation
+			beatsType.appendChild(doc.createTextNode("4")); // Change beat-type
 			time.appendChild(beatsType);
-
-			// clef elements
-			Element clef = doc.createElement("clef");
-			att.appendChild(clef);
 
 			/*
 			 * ============================================================================
-			 * staff details begin (e.g. staff lines, staff tuning)
+			 * <clef> (sign, line)
 			 */
+			Element clef = doc.createElement("clef");
+			att.appendChild(clef);
+			
+			Element sign = doc.createElement("sign");
+			sign.appendChild(doc.createTextNode("TAB")); // SIGN HAS BEEN CHANGED TO TAB SINCE WE ARE READING TABS
+			clef.appendChild(sign);
+			
+			Element line = doc.createElement("line");
+			line.appendChild(doc.createTextNode("5")); // Change later for automation
+			clef.appendChild(line);
 
+			/*
+			 * ============================================================================
+			 * <staff-details> (staff lines, staff tuning --> tuning-step, tuning-octave)
+			 */
 			GuitarTuning guitarTuning = new GuitarTuning();
 
 			Element stafDet = doc.createElement("staff-details");
 			att.appendChild(stafDet);
 
 			Element staffLine = doc.createElement("staff-lines");
-			staffLine.appendChild(doc.createTextNode(guitarTuning.getStaffLines())); // Change depending on number of
-																						// lines in a guitar tab
+			staffLine.appendChild(doc.createTextNode(guitarTuning.getStaffLines())); // "6" lines in staff of guitar tabs
 			stafDet.appendChild(staffLine);
 
 			for (int i = 0; i < 6; i++) {
 				Element staffLineTune = doc.createElement("staff-tuning");
-				stafDet.appendChild(staffLineTune); // FOR THIS PART THIS WILL LOOP, BUT FOR THIS XML IT WILL BE
-													// HARDCODED
+				stafDet.appendChild(staffLineTune); // FOR THIS PART THIS WILL LOOP, BUT FOR THIS XML IT WILL BE HARDCODED
 
 				Attr lineAtt = doc.createAttribute("line");
 				lineAtt.setValue(String.valueOf(i + 1)); // Loops depending on what line of the tab its on
 				staffLineTune.setAttributeNode(lineAtt);
 
 				Element tuneStep = doc.createElement("tuning-step");
-				tuneStep.appendChild(doc.createTextNode(guitarTuning.getTuningStep(i))); // This changes depending on
-																							// the letter infront of the
-																							// tab
+				tuneStep.appendChild(doc.createTextNode(guitarTuning.getTuningStep(i)));	// automated
 				staffLineTune.appendChild(tuneStep);
 
 				Element tuneOctave = doc.createElement("tuning-octave");
-				tuneOctave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(i))); // Change for automation...
-																								// need to create octave
-																								// methode
+				tuneOctave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(i)));	// automated
 				staffLineTune.appendChild(tuneOctave);
 			}
 
 			/*
-			 * end staff details
+			 * ============================================================================
+			 * <note> 
 			 */
-
 			for (int s = 0; s < staffs.size(); s++) {
 				Measures measures = new Measures(staffs.get(s));
 				Keys keys = new Keys(staffs.get(s));
@@ -160,7 +168,7 @@ public class XMLOut {
 					Notes notes = new Notes(measures.getMeasures().get(i));
 
 					// note mapping
-					Map<Integer, List<Character>> notesMap = notes.notesMapping();
+					Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
 
 					// duration mapping
 					Duration duration = new Duration(notesMap,
@@ -171,49 +179,68 @@ public class XMLOut {
 						for (int k = 0; k < 6; k++) {
 							if (Character.isDigit(notes.vertical.get(j)[k])) {
 
-								// at the discovery of a note, append the note with pitch, duration, and type
+								/*
+								 * ============================================================================
+								 * <note>
+								 */
 								Element note = doc.createElement("note");
 								mes.appendChild(note);
-
-								// set chord if another note is in the same vertical
+								
+								// <chord>
 								if (notesMap.get(Integer.valueOf(j)).size() > 1) {
 									Element chord = doc.createElement("chord");
 									note.appendChild(chord);
 								}
 
+								// <pitch>
 								Element pitch = doc.createElement("pitch");
 								note.appendChild(pitch);
 
 								Element step = doc.createElement("step");
-								step.appendChild(doc.createTextNode(
-										notes.getNote(keys.getKeyInString(k), notes.vertical.get(j)[k])));
+								step.appendChild(doc.createTextNode(keys.getKeyInString(k)));
 								pitch.appendChild(step);
-
+								
+								// <alter>
+								if(guitarTuning.isAlter(keys.getKeyInString(k))) {
+									Element alter = doc.createElement("alter");
+									step.appendChild(doc.createTextNode("1"));
+									pitch.appendChild(alter);
+								}
+								
 								Element octave = doc.createElement("octave");
-								octave.appendChild(doc.createTextNode("4")); // Change later for automation
+								octave.appendChild(doc.createTextNode(guitarTuning.getTuningOctave(k))); // automated
 								pitch.appendChild(octave);
-
+								
+								// <duration>
 								Element dur = doc.createElement("duration");
-								dur.appendChild(doc.createTextNode(duration.getNoteDuration(j).toString())); // Change
-																												// for
-																												// later
-																												// automation
-
+								dur.appendChild(doc.createTextNode(duration.getDuration(j).toString())); // automated
 								note.appendChild(dur);
-
+								
+								// <voice>
+								Element voice = doc.createElement("voice");
+								dur.appendChild(doc.createTextNode("1")); // Change for later automation
+								note.appendChild(voice);
+								
+								// <type>
 								Element type = doc.createElement("type");
-								type.appendChild(doc.createTextNode(duration.getType(duration.getNoteDuration(j)))); // Change
-																														// for
-																														// later
-																														// automation
-
+								type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(j)))); // automated
 								note.appendChild(type);
 
-								duration.getType(duration.getNoteDuration(j));
-								if (duration.dot == true) {
+								// <dot>
+								if (duration.isDot(duration.getDuration(j))) {
 									Element dot = doc.createElement("dot");
 									note.appendChild(dot);
 								}
+								
+								// <notations>
+								Element notations = doc.createElement("notations");
+								note.appendChild(notations);
+								
+								// <technical>
+								Element technical = doc.createElement("technical");
+								notations.appendChild(technical);
+								
+								
 							}
 						}
 					}
@@ -225,7 +252,7 @@ public class XMLOut {
 						part.appendChild(mes);
 
 						num = doc.createAttribute("number");
-						num.setValue(Integer.toString(measureNum));
+						num.setValue(String.valueOf(measureNum));
 						mes.setAttributeNode(num);
 					}
 				}
