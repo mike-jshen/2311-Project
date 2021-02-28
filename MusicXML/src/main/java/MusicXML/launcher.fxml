@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="698.0" prefWidth="814.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MusicXML.LauncherController">
+   <children>
+      <AnchorPane layoutX="20.0" layoutY="46.0" prefHeight="505.0" prefWidth="578.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="47.0">
+         <children>
+            <AnchorPane layoutX="435.0" layoutY="47.0" maxWidth="387.0" prefHeight="510.0" prefWidth="299.0" style="-fx-background-color: white; -fx-background-radius: 1em;" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="47.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="29.0" prefHeight="510.0" prefWidth="270.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXButton fx:id="reqbttn" buttonType="RAISED" onAction="#reqdocAction" prefHeight="47.0" prefWidth="205.0" ripplerFill="WHITE" style="-fx-background-color: orange; -fx-background-radius: 1em;" text="Requirements Document" textFill="#3c3c3c">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="testdocbttn" buttonType="RAISED" onAction="#testdocAction" prefHeight="47.0" prefWidth="205.0" ripplerFill="WHITE" style="-fx-background-color: orange; -fx-background-radius: 1em;" text="Testing Document" textFill="#3c3c3c">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="manualbttn" buttonType="RAISED" onAction="#manualAction" prefHeight="47.0" prefWidth="205.0" ripplerFill="WHITE" style="-fx-background-color: orange; -fx-background-radius: 1em;" text="User Manual" textFill="#3c3c3c">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="launchbttn" buttonType="RAISED" onAction="#launchAction" prefHeight="47.0" prefWidth="205.0" ripplerFill="WHITE" style="-fx-background-color: purple; -fx-background-radius: 1em;" text="Launch Program" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+                  <JFXButton fx:id="closeButton" buttonType="RAISED" onAction="#closeButtonAction" prefHeight="62.0" prefWidth="62.0" text="X" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="14.0" layoutY="47.0" prefHeight="564.0" prefWidth="452.0" style="-fx-background-color: linear-gradient(to right top, #43004f, #91004f, #ca3a3c, #e48019, #dac806); -fx-background-radius: 2em;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" layoutX="62.0" layoutY="197.0" prefHeight="170.0" prefWidth="328.0" AnchorPane.bottomAnchor="197.0" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="197.0">
+                     <children>
+                        <Label text="Group 3" textFill="WHITE">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                        </Label>
+                        <Label text="Tab to MusicXML Converter" textFill="WHITE">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="78.0" prefWidth="192.0" text="Choose a menu to proceed" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

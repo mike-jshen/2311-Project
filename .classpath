@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="MusicXML/gradle/wrapper/gradle-wrapper.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JFoenix"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
