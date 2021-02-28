@@ -116,29 +116,35 @@ public class MainController {
 		txtDetected.clear();
 		txtTextArea.clear();
 		File tab;
-		tab = listview.getSelectionModel().getSelectedItem();
-		txtPath.appendText(tab.getAbsolutePath());
-		try {
-			Scanner reader = new Scanner(tab);
+		
+		if(listview.getSelectionModel().getSelectedItem() != null) {
+			tab = listview.getSelectionModel().getSelectedItem();
+			txtPath.appendText(tab.getAbsolutePath());
+			try {
+				Scanner reader = new Scanner(tab);
 
-			while (reader.hasNextLine()) {
-				txtTextArea.appendText(reader.nextLine());
-				txtTextArea.appendText("\n");
+				while (reader.hasNextLine()) {
+					txtTextArea.appendText(reader.nextLine());
+					txtTextArea.appendText("\n");
+				}
+				reader.close();
+			} catch (IOException e) {
+				System.out.println("File scan error");
+				e.printStackTrace();
 			}
-			reader.close();
-		} catch (IOException e) {
-			System.out.println("File Scan Error");
-			e.printStackTrace();
+			
+			// change this when program is able to detect instrument type
+			txtDetected.appendText("Guitar");
 		}
-
-		// change this when program is able to detect instrument type
-		txtDetected.appendText("Guitar");
+		else {
+			System.out.println("No file selected");
+		}
 	}
 
 	public void convertAction(ActionEvent event) {
 		File tab;
 		tab = listview.getSelectionModel().getSelectedItem();
-		XMLOut convertedFile = new XMLOut();
+		GuitarXMLOut convertedFile = new GuitarXMLOut();
 
 		outputFile = convertedFile.convertToXML(tab);
 

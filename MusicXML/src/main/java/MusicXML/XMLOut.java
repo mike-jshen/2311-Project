@@ -27,7 +27,7 @@ public class XMLOut {
 
 	public File convertToXML(File inputFile) {
 
-		FileScanner readFile = new FileScanner(inputFile);
+		GuitarFileScanner readFile = new GuitarFileScanner(inputFile);
 		ArrayList<String[]> staffs = readFile.getStaffs();
 		int measureNum = 0;
 
@@ -118,7 +118,7 @@ public class XMLOut {
 
 			for (int s = 0; s < staffs.size(); s++) {
 				Measures measures = new Measures(staffs.get(s));
-				Keys keys = new Keys(staffs.get(s));
+				GuitarKeys keys = new GuitarKeys(staffs.get(s));
 
 				for (int i = 0; i < measures.getMeasures().size(); i++) {
 					Notes notes = new Notes(measures.getMeasures().get(i));
@@ -127,7 +127,7 @@ public class XMLOut {
 					Map<Integer, List<Character>> notesMap = notes.notesMapping();
 
 					// duration mapping
-					Duration duration = new Duration(notesMap,
+					GuitarDuration duration = new GuitarDuration(notesMap,
 							measures.getMeasureSpaces(measures.getMeasures().get(i)));
 
 					// look through vertical array list to find notes
@@ -158,7 +158,7 @@ public class XMLOut {
 								pitch.appendChild(octave);
 
 								Element dur = doc.createElement("duration");
-								dur.appendChild(doc.createTextNode(duration.getNoteDuration(j).toString())); // Change
+								dur.appendChild(doc.createTextNode(duration.getDuration(j).toString())); // Change
 																												// for
 																												// later
 																												// automation
@@ -166,15 +166,15 @@ public class XMLOut {
 								note.appendChild(dur);
 
 								Element type = doc.createElement("type");
-								type.appendChild(doc.createTextNode(duration.getType(duration.getNoteDuration(j)))); // Change
+								type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(j)))); // Change
 																														// for
 																														// later
 																														// automation
 
 								note.appendChild(type);
 
-								duration.getType(duration.getNoteDuration(j));
-								if (duration.dot == true) {
+								duration.getType(duration.getDuration(j));
+								if (duration.isDot(duration.getDuration(j))) {
 									Element dot = doc.createElement("dot");
 									note.appendChild(dot);
 								}

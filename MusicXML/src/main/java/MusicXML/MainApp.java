@@ -17,7 +17,6 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("Group3 Tab Converter");
-		
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(getClass().getResource("musicXML.fxml"));
