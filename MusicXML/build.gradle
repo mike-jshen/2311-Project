@@ -15,12 +15,14 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
 	// Use JUnit test framework
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+	implementation group: 'com.jfoenix', name: 'jfoenix', version: '9.0.10'
 }
 
 test {
@@ -50,4 +52,4 @@ sourceSets {
   	}
 }
 
-mainClassName = 'MusicXML.MainApp'
+mainClassName = 'MusicXML.Launcher'
