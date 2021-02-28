@@ -1,9 +1,9 @@
 package MusicXML;
 
-public class Keys {
+public class GuitarKeys {
 	private char[] keyArr = new char[6];
 
-	public Keys(String[] singleStaff) {
+	public GuitarKeys(String[] singleStaff) {
 		char[] tmp;
 		for (int i = 0; i < singleStaff.length; i++) {
 			tmp = singleStaff[i].toCharArray();

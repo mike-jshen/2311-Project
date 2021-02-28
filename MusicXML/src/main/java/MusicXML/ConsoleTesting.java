@@ -12,10 +12,10 @@ public class ConsoleTesting {
 	public static void main(String[] args) throws Exception {
 
 		File file = new File("testTab.txt");
-		FileScanner readFile = new FileScanner(file);
+		GuitarFileScanner readFile = new GuitarFileScanner(file);
 
 		ArrayList<String[]> staffs = readFile.getStaffs();
-		Keys keys = new Keys(staffs.get(0));
+		GuitarKeys keys = new GuitarKeys(staffs.get(0));
 
 		keys.getAllKeys();
 
@@ -35,7 +35,7 @@ public class ConsoleTesting {
 			System.out.println();
 		}
 
-		Notes notes = new Notes(measures.getMeasures().get(0));
+		GuitarNotes notes = new GuitarNotes(measures.getMeasures().get(0));
 
 		Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
 
@@ -51,7 +51,7 @@ public class ConsoleTesting {
 			System.out.println();
 		}
 
-		XMLOut test = new XMLOut();
+		GuitarXMLOut test = new GuitarXMLOut();
 		test.convertToXML(file);
 	}
 }

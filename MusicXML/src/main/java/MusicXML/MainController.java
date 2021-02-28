@@ -144,7 +144,7 @@ public class MainController {
 	public void convertAction(ActionEvent event) {
 		File tab;
 		tab = listview.getSelectionModel().getSelectedItem();
-		XMLOut convertedFile = new XMLOut();
+		GuitarXMLOut convertedFile = new GuitarXMLOut();
 
 		outputFile = convertedFile.convertToXML(tab);
 

@@ -21,7 +21,7 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.DOMImplementation;
 
-public class XMLOut {
+public class GuitarXMLOut {
 
 	private File outputFile;
 	private Document doc;
@@ -30,12 +30,12 @@ public class XMLOut {
 	private Element part;
 	private Attr num;
 
-	public XMLOut() {
+	public GuitarXMLOut() {
 	}
 
 	public File convertToXML(File inputFile) {
 
-		FileScanner readFile = new FileScanner(inputFile);
+		GuitarFileScanner readFile = new GuitarFileScanner(inputFile);
 		ArrayList<String[]> staffs = readFile.getStaffs();
 		measureNum = 1;
 		int noteIndex = 0;
@@ -88,20 +88,20 @@ public class XMLOut {
 			 */
 			for (int s = 0; s < staffs.size(); s++) {
 				Measures measures = new Measures(staffs.get(s));
-				Keys keys = new Keys(staffs.get(s));
+				GuitarKeys keys = new GuitarKeys(staffs.get(s));
 
 				for (int i = 0; i < measures.getMeasures().size(); i++) {
 					/*
 					 * ============================================================================
 					 * calling other classes
 					 */
-					Notes notes = new Notes(measures.getMeasures().get(i));
+					GuitarNotes notes = new GuitarNotes(measures.getMeasures().get(i));
 
 					// note mapping
 					Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
 
 					// duration mapping
-					Duration duration = new Duration(notesMap,
+					GuitarDuration duration = new GuitarDuration(notesMap,
 							measures.getMeasureSpaces(measures.getMeasures().get(i)));
 
 					/*

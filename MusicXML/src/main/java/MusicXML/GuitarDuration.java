@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Duration {
+public class GuitarDuration {
 
 	private Map<Integer, Integer> durationMap = new TreeMap<Integer, Integer>();
 	private int difference;
 	private boolean isDot = false;
 
-	public Duration(Map<Integer, List<Character>> notesMap, int measureSpaces) {
+	public GuitarDuration(Map<Integer, List<Character>> notesMap, int measureSpaces) {
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
 		for (Map.Entry<Integer, List<Character>> entry : notesMap.entrySet()) {
 			Integer index = entry.getKey();

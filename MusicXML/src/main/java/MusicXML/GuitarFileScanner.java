@@ -5,12 +5,12 @@ import java.util.Scanner;
 import java.io.*;
 import java.io.File;
 
-public class FileScanner {
+public class GuitarFileScanner {
 	private ArrayList<String> lines = new ArrayList<String>();
 	private ArrayList<String[]> staffs = new ArrayList<String[]>();
 	private int counter;
 
-	public FileScanner(File file) {
+	public GuitarFileScanner(File file) {
 		try {
 			Scanner reader = new Scanner(file);
 			while (reader.hasNextLine()) {

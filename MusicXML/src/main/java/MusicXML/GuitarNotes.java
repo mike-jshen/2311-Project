@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Notes {
+public class GuitarNotes {
 
 	ArrayList<char[]> vertical = new ArrayList<char[]>();
 	private String note = "";
@@ -13,7 +13,7 @@ public class Notes {
 	private int alter;
 	private int octave;
 
-	public Notes(String[] singleMeasure) {
+	public GuitarNotes(String[] singleMeasure) {
 		char[] singleMeasure0 = singleMeasure[0].toCharArray();
 		char[] singleMeasure1 = singleMeasure[1].toCharArray();
 		char[] singleMeasure2 = singleMeasure[2].toCharArray();
