@@ -28,6 +28,10 @@ public class XMLWriter {
 
 			Element rootElement = doc.createElement("score-partwise");
 			doc.appendChild(rootElement);
+			
+			Attr root = doc.createAttribute("version"); //ADDED ATTRIBUTE TO SCORE PARTWISE
+			root.setValue("3.1");
+			rootElement.setAttributeNode(root);
 
 			Element partList = doc.createElement("part-list");
 			rootElement.appendChild(partList);
