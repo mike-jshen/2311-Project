@@ -11,3 +11,7 @@
 ### Link to Requirements Doc: https://docs.google.com/document/d/1-CHyyfpPjP_YyNbtCE8oy1XSOKWniZdyAE3kotXYel8/edit?usp=sharing
 
 ### Note: Verifiy, file / text pasted doesn't have any extra spaces or symobols.
+
+## Development
+##### MusicXML Convertor development takes place on Github: https://github.com/mike-jshen/2311-Project
+##### Please submit bugs that you encounter to the issue tracker with a reproducible example demonstrating the problem.
