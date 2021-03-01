@@ -1,6 +1,8 @@
 package MusicXML;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
@@ -22,6 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class MainController {
 
@@ -69,6 +73,7 @@ public class MainController {
 	private TextField txtDetected;
 
 	File outputFile;
+	private boolean textChanged = false;
 
 	// this method sets the action for when the "Upload File" button is pressed,
 	// only one file can be opened at a time and must be a .txt file
@@ -116,8 +121,8 @@ public class MainController {
 		txtDetected.clear();
 		txtTextArea.clear();
 		File tab;
-		
-		if(listview.getSelectionModel().getSelectedItem() != null) {
+
+		if (listview.getSelectionModel().getSelectedItem() != null) {
 			tab = listview.getSelectionModel().getSelectedItem();
 			txtPath.appendText(tab.getAbsolutePath());
 			try {
@@ -132,24 +137,53 @@ public class MainController {
 				System.out.println("File scan error");
 				e.printStackTrace();
 			}
-			
+
 			// change this when program is able to detect instrument type
 			txtDetected.appendText("Guitar");
-		}
-		else {
+		} else {
 			System.out.println("No file selected");
 		}
 	}
 
 	public void convertAction(ActionEvent event) {
 		File tab;
-		tab = listview.getSelectionModel().getSelectedItem();
-		GuitarXMLOut convertedFile = new GuitarXMLOut();
+		if (textChanged) {
+			String tmpTab;
+			tmpTab = txtTextArea.getText().replaceAll("\n", System.getProperty("line.separator"));
 
-		outputFile = convertedFile.convertToXML(tab);
+			try {
+				File file = new File("tmpFile.txt");
 
-		txtTextArea.appendText("\n");
-		txtTextArea.appendText("Conversion complete");
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+
+				FileWriter fw = new FileWriter(file.getAbsoluteFile());
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(tmpTab);
+				bw.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			GuitarXMLOut convertedFile = new GuitarXMLOut();
+			outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+
+			txtTextArea.appendText("\n");
+			txtTextArea.appendText(">> Conversion complete");
+			textChanged = false;
+		} else if (listview.getSelectionModel().getSelectedItem() != null) {
+			tab = listview.getSelectionModel().getSelectedItem();
+
+			GuitarXMLOut convertedFile = new GuitarXMLOut();
+			outputFile = convertedFile.convertToXML(tab);
+
+			txtTextArea.appendText("\n");
+			txtTextArea.appendText(">> Conversion complete");
+		} else {
+			System.out.println("No file selected and/or no tab pasted");
+		}
 	}
 
 	public void changeAction(ActionEvent event) {
@@ -178,5 +212,22 @@ public class MainController {
 						};
 					}
 				});
+	}
+
+	public void textAreaChange() {
+		txtTextArea.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> observable, final String oldValue,
+					final String newValue) {
+				if (newValue.equals(""))
+					textChanged = false;
+				else
+					textChanged = true;
+			}
+		});
+	}
+
+	public void clickList() {
+		txtTextArea.clear();
 	}
 }

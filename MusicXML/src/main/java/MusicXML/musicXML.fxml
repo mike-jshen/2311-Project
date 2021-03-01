@@ -20,7 +20,7 @@
 		<Button fx:id="savebtn" layoutX="1083.0" layoutY="694.0" mnemonicParsing="false" onAction="#saveAction" text="Save" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
 		<Button fx:id="convertbttn" layoutX="285.0" layoutY="694.0" mnemonicParsing="false" onAction="#convertAction" text="Convert" AnchorPane.bottomAnchor="14.0" />
 		<Button fx:id="viewbtn" layoutX="232.0" layoutY="694.0" mnemonicParsing="false" onAction="#viewAction" text="View" AnchorPane.bottomAnchor="14.0" />
-		<ListView fx:id="listview" blendMode="ADD" layoutX="14.0" layoutY="135.0" prefHeight="549.0" prefWidth="260.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="135.0" />
+		<ListView fx:id="listview" blendMode="ADD" layoutX="14.0" layoutY="135.0" onMouseClicked="#clickList" prefHeight="549.0" prefWidth="260.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="135.0" />
 		<Label layoutX="18.0" layoutY="106.0" text="Added:" textFill="WHITE" />
 		<TabPane fx:id="tp" layoutX="285.0" layoutY="35.0" prefHeight="557.0" prefWidth="747.0" style="-fx-background-color: #212832;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="35.0">
 			<tabs>
@@ -31,7 +31,7 @@
 								<Label layoutY="14.0" prefHeight="25.0" prefWidth="90.0" text="File Directory:" textFill="WHITE" />
 								<TextField fx:id="txtPath" layoutX="82.0" layoutY="14.0" prefHeight="25.0" prefWidth="363.0" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="302.0" />
 								<Label layoutX="1.0" layoutY="46.0" prefHeight="17.0" prefWidth="47.0" text="Content:" textFill="WHITE" />
-								<TextArea fx:id="txtTextArea" layoutY="69.0" prefHeight="461.0" prefWidth="747.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
+								<TextArea fx:id="txtTextArea" layoutY="69.0" onMouseClicked="#textAreaChange" prefHeight="461.0" prefWidth="747.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
 									<font>
 										<Font name="Courier New" size="12.0" />
 									</font>
