@@ -30,5 +30,6 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);					// add a scene to the Stage
         primaryStage.show();							// show the Stage (a blank window)
+        // this is my random comment
     }
 }
