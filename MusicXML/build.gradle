@@ -10,6 +10,8 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'application'
     id "org.openjfx.javafxplugin" version "0.0.9"
+    id 'java'
+    id 'jacoco'
 }
 
 repositories {
@@ -26,10 +28,20 @@ dependencies {
 }
 
 test {
+	finalizedBy jacocoTestReport
 	useJUnitPlatform()
 	testLogging {
 		events 'passed', 'skipped', 'failed'
 	}
+}
+
+jacoco {
+	toolVersion = "0.8.6"
+	reportsDirectory = file("$buildDir/myJacocoReportDir")
+}
+
+jacocoTestReport{
+	dependsOn test
 }
 
 javafx {
