@@ -228,6 +228,6 @@ public class MainController {
 	}
 
 	public void clickList() {
-		txtTextArea.clear();
+		//txtTextArea.clear();
 	}
 }
