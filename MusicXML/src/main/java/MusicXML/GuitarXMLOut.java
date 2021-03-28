@@ -89,7 +89,7 @@ public class GuitarXMLOut {
 			 * <note>
 			 */
 			for (int s = 0; s < staffs.size(); s++) {
-				Measures measures = new Measures(staffs.get(s));
+				GuitarMeasures measures = new GuitarMeasures(staffs.get(s));
 				GuitarKeys keys = new GuitarKeys(staffs.get(s));
 
 				for (int i = 0; i < measures.getMeasures().size(); i++) {
@@ -129,13 +129,24 @@ public class GuitarXMLOut {
 							 * ============================================================================
 							 * <note>
 							 */
+							int noteNum = value.get(n);
+
 							Element note = doc.createElement("note");
 							mes.appendChild(note);
 
 							// <chord>
-							if (prevIndex >= 0 && index == prevIndex) {
+							if (prevIndex >= 0 && index == prevIndex && n < 1) {
 								Element chord = doc.createElement("chord");
 								note.appendChild(chord);
+							}
+
+							// <grace>
+							int keepmod = noteNum;
+							if (noteNum >= 100) {
+								Element grace = doc.createElement("grace");
+								note.appendChild(grace);
+
+								noteNum = value.get(n) - 100;
 							}
 
 							// <pitch>
@@ -143,39 +154,47 @@ public class GuitarXMLOut {
 							note.appendChild(pitch);
 
 							Element step = doc.createElement("step");
-							step.appendChild(
-									doc.createTextNode(notes.getNote(keys.getKeyInString(gString), value.get(n))));
+							step.appendChild(doc.createTextNode(notes.getNote(keys.getKeyInString(gString), noteNum)));
 							pitch.appendChild(step);
 
 							// <alter>
-
-							if (notes.getAlter(keys.getKeyInString(gString), value.get(n)) != 0) {
+							if (notes.getAlter(keys.getKeyInString(gString), noteNum) != 0) {
 								Element alter = doc.createElement("alter");
 								alter.appendChild(doc.createTextNode(
-										String.valueOf(notes.getAlter(keys.getKeyInString(gString), value.get(n)))));
+										String.valueOf(notes.getAlter(keys.getKeyInString(gString), noteNum))));
 								pitch.appendChild(alter);
 							}
 
 							// <octave>
 							Element octave = doc.createElement("octave");
-							octave.appendChild(
-									doc.createTextNode(String.valueOf(notes.getOctave(gString, value.get(n))))); // automated
+							octave.appendChild(doc.createTextNode(String.valueOf(notes.getOctave(gString, noteNum)))); // automated
 							pitch.appendChild(octave);
 
 							// <duration>
-							Element dur = doc.createElement("duration");
-							dur.appendChild(doc.createTextNode(duration.getDuration(index).toString())); // automated
-							note.appendChild(dur);
+							if (keepmod >= 100) {
+								// do nothing, grace notes have no duration
+							} else {
+								Element dur = doc.createElement("duration");
+								dur.appendChild(doc.createTextNode(duration.getDuration(index).toString())); // automated
+								note.appendChild(dur);
+							}
 
 							// <voice>
 							Element voice = doc.createElement("voice");
 							voice.appendChild(doc.createTextNode("1")); // Change for later automation
 							note.appendChild(voice);
 
-							// <type>
-							Element type = doc.createElement("type");
-							type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(index)))); // automated
-							note.appendChild(type);
+							if (keepmod >= 100) {
+								// <stem>
+								Element stem = doc.createElement("stem");
+								stem.appendChild(doc.createTextNode("none")); // Change for later automation
+								note.appendChild(stem);
+							} else {
+								// <type>
+								Element type = doc.createElement("type");
+								type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(index)))); // automated
+								note.appendChild(type);
+							}
 
 							// <dot>
 							if (duration.isDot(duration.getDuration(index))) {
@@ -198,7 +217,7 @@ public class GuitarXMLOut {
 
 							// <fret>
 							Element fret = doc.createElement("fret");
-							fret.appendChild(doc.createTextNode(String.valueOf(value.get(n))));
+							fret.appendChild(doc.createTextNode(String.valueOf(noteNum)));
 							technical.appendChild(fret);
 
 							prevIndex = entry.getKey().getKey();

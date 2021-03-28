@@ -33,9 +33,9 @@ public class GuitarNotes {
 						singleMeasure4[i], singleMeasure5[i] };
 				vertical.add(tmp);
 			}
-		}
-		else {
-			System.out.println(">> Error: Some line(s) may longer or shorter than others. This should be fixed before converting.");
+		} else {
+			System.out.println(
+					">> Error: Some line(s) may longer or shorter than others. This should be fixed before converting.");
 		}
 	}
 
@@ -324,25 +324,34 @@ public class GuitarNotes {
 	}
 
 	public Map<Pair<Integer, Integer>, List<Integer>> getNotesMapping() {
+		boolean grace = false;
 
 		for (int i = 0; i < vertical.size(); i++) {
 			for (int j = 0; j < 6; j++) {
 				if (Character.isDigit(vertical.get(i)[j])) {
 					if (i < vertical.size() - 1 && Character.isDigit(vertical.get(i + 1)[j])) {
-						Pair<Integer, Integer> pair = new Pair<>(i, j);
-						List<Integer> currentValue = map.get(pair);
-						if (currentValue == null) {
-							currentValue = new ArrayList<Integer>();
-							map.put(pair, currentValue);
-						}
 						String tmp = "";
 						tmp = tmp.concat(Character.toString(vertical.get(i)[j]))
 								+ Character.toString(vertical.get(i + 1)[j]);
 						int charstoInt = Integer.parseInt(tmp);
-						currentValue.add(charstoInt);
-					} else {
-						if (i > 0 && Character.isDigit(vertical.get(i - 1)[j])) {
-							continue;
+						int modInt = charstoInt;
+						int hammerNote = -1;
+						if (grace) {
+							// move pair mapping back by one index (when 'g' occurs)
+							Pair<Integer, Integer> pair = new Pair<>(i - 1, j);
+							List<Integer> currentValue = map.get(pair);
+							if (currentValue == null) {
+								currentValue = new ArrayList<Integer>();
+								map.put(pair, currentValue);
+							}
+							
+							modInt = modInt + 100;
+							currentValue.add(modInt);
+							if(i < vertical.size() - 1) {
+								hammerNote = vertical.get(i + 3)[j] - '0';
+								currentValue.add(hammerNote);
+							}
+							grace = false;
 						} else {
 							Pair<Integer, Integer> pair = new Pair<>(i, j);
 							List<Integer> currentValue = map.get(pair);
@@ -350,9 +359,57 @@ public class GuitarNotes {
 								currentValue = new ArrayList<Integer>();
 								map.put(pair, currentValue);
 							}
-							currentValue.add(vertical.get(i)[j] - '0');
+							currentValue.add(modInt);
+						}
+
+						if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+							Pair<Integer, Integer> pair = new Pair<>(i, j);
+							map.remove(pair);
+						}
+
+					} else {
+						if (i > 0 && Character.isDigit(vertical.get(i - 1)[j])) {
+							continue;
+						} else {
+							int modInt = vertical.get(i)[j] - '0';
+							int hammerNote = -1;
+							if (grace) {
+								// move pair mapping back by one index (when 'g' occurs)
+								Pair<Integer, Integer> pair = new Pair<>(i - 1, j);
+								List<Integer> currentValue = map.get(pair);
+								if (currentValue == null) {
+									currentValue = new ArrayList<Integer>();
+									map.put(pair, currentValue);
+								}
+								// currentValue = map.get(pair);
+								modInt = modInt + 100;
+								currentValue.add(modInt);
+								if(i < vertical.size() - 1) {
+									hammerNote = vertical.get(i + 2)[j] - '0';
+									currentValue.add(hammerNote);
+								}
+								grace = false;
+							} else {
+								Pair<Integer, Integer> pair = new Pair<>(i, j);
+								List<Integer> currentValue = map.get(pair);
+								if (currentValue == null) {
+									currentValue = new ArrayList<Integer>();
+									map.put(pair, currentValue);
+								}
+								currentValue.add(modInt);
+
+							}
+
+							if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+								Pair<Integer, Integer> pair = new Pair<>(i, j);
+								map.remove(pair);
+							}
 						}
 					}
+				}
+
+				if (vertical.get(i)[j] == 'g') {
+					grace = true;
 				}
 			}
 		}

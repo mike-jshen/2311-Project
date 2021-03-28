@@ -10,11 +10,11 @@ import java.io.File;
 
 //Not all of the above are needed, they are there just in case.
 
-public class ConsoleTesting {
+public class ConsoleGuitarTesting {
 
 	public static void main(String[] args) throws Exception {
 
-		File file = new File("testTab.txt");
+		File file = new File("testTab.txt");	
 		GuitarFileScanner readFile = new GuitarFileScanner(file);
 
 		ArrayList<String[]> staffs = readFile.getStaffs();
@@ -29,7 +29,7 @@ public class ConsoleTesting {
 			System.out.println();
 		}
 
-		Measures measures = new Measures(staffs.get(0));
+		GuitarMeasures measures = new GuitarMeasures(staffs.get(0));
 
 		for (int i = 0; i < measures.getMeasures().size(); i++) {
 			for (int j = 0; j < 6; j++) {

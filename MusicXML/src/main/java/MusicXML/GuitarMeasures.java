@@ -2,10 +2,10 @@ package MusicXML;
 
 import java.util.ArrayList;
 
-public class Measures {
+public class GuitarMeasures {
 	private ArrayList<String[]> measureList = new ArrayList<String[]>();
 
-	public Measures(String[] singleStaff) {
+	public GuitarMeasures(String[] singleStaff) {
 		ArrayList<String> tmpMeasure = new ArrayList<String>();
 		String[] singleMeasure = new String[6];
 		for (int i = 0; i < 6; i++) {

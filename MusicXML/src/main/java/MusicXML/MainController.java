@@ -83,7 +83,8 @@ public class MainController {
 	@FXML
 	private TextField txtDetected;
 	
-	@FXML TreeView<String> treeView;
+	@FXML 
+	private TreeView<String> treeView;
 
 	File outputFile;
 	private boolean textChanged = false;
@@ -146,13 +147,16 @@ public class MainController {
 					txtTextArea.appendText("\n");
 				}
 				reader.close();
+				
+				// change this when program is able to detect instrument type
+				InstrumentDetection detect = new InstrumentDetection(tab);
+				txtDetected.appendText(detect.getDetectedInstrument());
+				
 			} catch (IOException e) {
 				System.out.println("File scan error");
 				e.printStackTrace();
 			}
 
-			// change this when program is able to detect instrument type
-			txtDetected.appendText("Guitar");
 		} else {
 			System.out.println("No file selected");
 		}
@@ -180,25 +184,42 @@ public class MainController {
 				e.printStackTrace();
 			}
 
-			GuitarXMLOut convertedFile = new GuitarXMLOut();
-			outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+			String detected = detectIntrument(new File("tmpFile.txt"));
+			if(detected.equals("Drums")) {
+				// convert drums
+			}
+			else if(detected.equals("Bass")) {
+				BassXMLOut convertedFile = new BassXMLOut();
+				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+			}
+			else if(detected.equals("Guitar")) {
+				GuitarXMLOut convertedFile = new GuitarXMLOut();
+				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+			}
 
+			XMLViewAction(outputFile);
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
-			
-			XMLViewAction(outputFile);
-			
 			textChanged = false;
 		} else if (listview.getSelectionModel().getSelectedItem() != null) {
 			tab = listview.getSelectionModel().getSelectedItem();
 
-			GuitarXMLOut convertedFile = new GuitarXMLOut();
-			outputFile = convertedFile.convertToXML(tab);
+			String detected = detectIntrument(tab);
+			if(detected.equals("Drums")) {
+				// convert drums
+			}
+			else if(detected.equals("Bass")) {
+				BassXMLOut convertedFile = new BassXMLOut();
+				outputFile = convertedFile.convertToXML(tab);
+			}
+			else if(detected.equals("Guitar")) {
+				GuitarXMLOut convertedFile = new GuitarXMLOut();
+				outputFile = convertedFile.convertToXML(tab);
+			}
 
+			XMLViewAction(outputFile);
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
-			
-			XMLViewAction(outputFile);
 		} else {
 			System.out.println("No file selected and/or no tab pasted");
 		}
@@ -252,6 +273,12 @@ public class MainController {
 	public void XMLViewAction(File outputFile) throws SAXException, ParserConfigurationException, IOException {
 		TreeItem<String> root = readData(outputFile);
 		treeView.setRoot(root);
+	}
+	
+	public String detectIntrument(File file) {
+		InstrumentDetection detect = new InstrumentDetection(file);
+		txtDetected.appendText(detect.getDetectedInstrument());
+		return detect.getDetectedInstrument();
 	}
 	
 	
