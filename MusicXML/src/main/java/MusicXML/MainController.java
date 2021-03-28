@@ -8,6 +8,15 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,6 +30,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
@@ -71,6 +82,8 @@ public class MainController {
 
 	@FXML
 	private TextField txtDetected;
+	
+	@FXML TreeView<String> treeView;
 
 	File outputFile;
 	private boolean textChanged = false;
@@ -145,7 +158,7 @@ public class MainController {
 		}
 	}
 
-	public void convertAction(ActionEvent event) {
+	public void convertAction(ActionEvent event) throws SAXException, ParserConfigurationException, IOException {
 		File tab;
 		if (textChanged) {
 			String tmpTab;
@@ -172,6 +185,9 @@ public class MainController {
 
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
+			
+			XMLViewAction(outputFile);
+			
 			textChanged = false;
 		} else if (listview.getSelectionModel().getSelectedItem() != null) {
 			tab = listview.getSelectionModel().getSelectedItem();
@@ -181,6 +197,8 @@ public class MainController {
 
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
+			
+			XMLViewAction(outputFile);
 		} else {
 			System.out.println("No file selected and/or no tab pasted");
 		}
@@ -228,6 +246,58 @@ public class MainController {
 	}
 
 	public void clickList() {
-		txtTextArea.clear();
+		//txtTextArea.clear();
+	}
+	
+	public void XMLViewAction(File outputFile) throws SAXException, ParserConfigurationException, IOException {
+		TreeItem<String> root = readData(outputFile);
+		treeView.setRoot(root);
+	}
+	
+	
+	// XML Output TreeView
+	private static class TreeItemCreationContentHandler extends DefaultHandler {
+
+	    private TreeItem<String> item = new TreeItem<>();
+
+	    @Override
+	    public void endElement(String uri, String localName, String qName) throws SAXException {
+	        // finish this node by going back to the parent
+	        this.item = this.item.getParent();
+	    }
+
+	    @Override
+	    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+	        // start a new node and use it as the current item
+	        TreeItem<String> item = new TreeItem<>(qName);
+	        this.item.getChildren().add(item);
+	        this.item = item;
+	    }
+
+	    @Override
+	    public void characters(char[] ch, int start, int length) throws SAXException {
+	        String s = String.valueOf(ch, start, length).trim();
+	        if (!s.isEmpty()) {
+	            // add text content as new child
+	            this.item.getChildren().add(new TreeItem<>(s));
+	        }
+	    }
+
+	}
+
+	public static TreeItem<String> readData(File file) throws SAXException, ParserConfigurationException, IOException {
+	    SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+	    SAXParser parser = parserFactory.newSAXParser();
+	    XMLReader reader = parser.getXMLReader();
+	    TreeItemCreationContentHandler contentHandler = new TreeItemCreationContentHandler();
+
+	    // parse file using the content handler to create a TreeItem representation
+	    reader.setContentHandler(contentHandler);
+	    reader.parse(file.toURI().toString());
+
+	    // use first child as root (the TreeItem initially created does not contain data from the file)
+	    TreeItem<String> item = contentHandler.item.getChildren().get(0);
+	    contentHandler.item.getChildren().clear();
+	    return item;
 	}
 }

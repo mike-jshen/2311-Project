@@ -19,6 +19,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
+
+import javafx.util.Pair;
+
 import org.w3c.dom.DOMImplementation;
 
 public class GuitarXMLOut {
@@ -38,7 +41,6 @@ public class GuitarXMLOut {
 		GuitarFileScanner readFile = new GuitarFileScanner(inputFile);
 		ArrayList<String[]> staffs = readFile.getStaffs();
 		measureNum = 1;
-		int noteIndex = 0;
 
 		try {
 			// ========================================================================================
@@ -98,7 +100,7 @@ public class GuitarXMLOut {
 					GuitarNotes notes = new GuitarNotes(measures.getMeasures().get(i));
 
 					// note mapping
-					Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
+					Map<Pair<Integer, Integer>, List<Integer>> notesMap = notes.getNotesMapping();
 
 					// duration mapping
 					GuitarDuration duration = new GuitarDuration(notesMap,
@@ -115,95 +117,91 @@ public class GuitarXMLOut {
 						createXMLMeasure();
 					}
 
-					// look through vertical array list to find notes
-					for (int j = 0; j < notes.vertical.size(); j++) {
-						for (int k = 5; k >= 0; k--) { // build notes from thickest string if in a chord (bottom-up)
-							if (Character.isDigit(notes.vertical.get(j)[k])) {
+					Integer prevIndex = -1;
+					// get notes and their attributes
+					for (Map.Entry<Pair<Integer, Integer>, List<Integer>> entry : notesMap.entrySet()) {
+						Integer index = entry.getKey().getKey();
+						Integer gString = entry.getKey().getValue();
+						List<Integer> value = entry.getValue();
 
-								/*
-								 * ============================================================================
-								 * <note>
-								 */
-								Element note = doc.createElement("note");
-								mes.appendChild(note);
+						for (int n = 0; n < value.size(); n++) {
+							/*
+							 * ============================================================================
+							 * <note>
+							 */
+							Element note = doc.createElement("note");
+							mes.appendChild(note);
 
-								// <chord>
-								if (notesMap.get(Integer.valueOf(j)).size() > 1) {
-									if (noteIndex == 0)
-										// first note in chord, do not append <chord>
-										noteIndex++;
-									else {
-										Element chord = doc.createElement("chord");
-										note.appendChild(chord);
-										noteIndex++;
-									}
-								}
-								if (noteIndex == notesMap.get(Integer.valueOf(j)).size())
-									noteIndex = 0;
-
-								// <pitch>
-								Element pitch = doc.createElement("pitch");
-								note.appendChild(pitch);
-
-								Element step = doc.createElement("step");
-								step.appendChild(doc.createTextNode(
-										notes.getNote(keys.getKeyInString(k), notes.vertical.get(j)[k])));
-								pitch.appendChild(step);
-
-								// <alter>
-								if (notes.getAlter() != 0) {
-									Element alter = doc.createElement("alter");
-									alter.appendChild(doc.createTextNode(String.valueOf(notes.getAlter())));
-									pitch.appendChild(alter);
-
-									notes.resetAlter();
-								}
-
-								// <octave>
-								Element octave = doc.createElement("octave");
-								octave.appendChild(doc
-										.createTextNode(String.valueOf(notes.getOctave(k, notes.vertical.get(j)[k])))); // automated
-								pitch.appendChild(octave);
-
-								// <duration>
-								Element dur = doc.createElement("duration");
-								dur.appendChild(doc.createTextNode(duration.getDuration(j).toString())); // automated
-								note.appendChild(dur);
-
-								// <voice>
-								Element voice = doc.createElement("voice");
-								voice.appendChild(doc.createTextNode("1")); // Change for later automation
-								note.appendChild(voice);
-
-								// <type>
-								Element type = doc.createElement("type");
-								type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(j)))); // automated
-								note.appendChild(type);
-
-								// <dot>
-								if (duration.isDot(duration.getDuration(j))) {
-									Element dot = doc.createElement("dot");
-									note.appendChild(dot);
-								}
-
-								// <notations>
-								Element notations = doc.createElement("notations");
-								note.appendChild(notations);
-
-								// <technical>
-								Element technical = doc.createElement("technical");
-								notations.appendChild(technical);
-
-								// <string>
-								Element string = doc.createElement("string");
-								string.appendChild(doc.createTextNode(String.valueOf(k + 1)));
-								technical.appendChild(string);
-
-								// <fret>
-								Element fret = doc.createElement("fret");
-								fret.appendChild(doc.createTextNode(String.valueOf(notes.vertical.get(j)[k])));
-								technical.appendChild(fret);
+							// <chord>
+							if (prevIndex >= 0 && index == prevIndex) {
+								Element chord = doc.createElement("chord");
+								note.appendChild(chord);
 							}
+
+							// <pitch>
+							Element pitch = doc.createElement("pitch");
+							note.appendChild(pitch);
+
+							Element step = doc.createElement("step");
+							step.appendChild(
+									doc.createTextNode(notes.getNote(keys.getKeyInString(gString), value.get(n))));
+							pitch.appendChild(step);
+
+							// <alter>
+
+							if (notes.getAlter(keys.getKeyInString(gString), value.get(n)) != 0) {
+								Element alter = doc.createElement("alter");
+								alter.appendChild(doc.createTextNode(
+										String.valueOf(notes.getAlter(keys.getKeyInString(gString), value.get(n)))));
+								pitch.appendChild(alter);
+							}
+
+							// <octave>
+							Element octave = doc.createElement("octave");
+							octave.appendChild(
+									doc.createTextNode(String.valueOf(notes.getOctave(gString, value.get(n))))); // automated
+							pitch.appendChild(octave);
+
+							// <duration>
+							Element dur = doc.createElement("duration");
+							dur.appendChild(doc.createTextNode(duration.getDuration(index).toString())); // automated
+							note.appendChild(dur);
+
+							// <voice>
+							Element voice = doc.createElement("voice");
+							voice.appendChild(doc.createTextNode("1")); // Change for later automation
+							note.appendChild(voice);
+
+							// <type>
+							Element type = doc.createElement("type");
+							type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(index)))); // automated
+							note.appendChild(type);
+
+							// <dot>
+							if (duration.isDot(duration.getDuration(index))) {
+								Element dot = doc.createElement("dot");
+								note.appendChild(dot);
+							}
+
+							// <notations>
+							Element notations = doc.createElement("notations");
+							note.appendChild(notations);
+
+							// <technical>
+							Element technical = doc.createElement("technical");
+							notations.appendChild(technical);
+
+							// <string>
+							Element string = doc.createElement("string");
+							string.appendChild(doc.createTextNode(String.valueOf(gString + 1)));
+							technical.appendChild(string);
+
+							// <fret>
+							Element fret = doc.createElement("fret");
+							fret.appendChild(doc.createTextNode(String.valueOf(value.get(n))));
+							technical.appendChild(fret);
+
+							prevIndex = entry.getKey().getKey();
 						}
 					}
 				}
