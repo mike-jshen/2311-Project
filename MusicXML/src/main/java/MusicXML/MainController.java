@@ -21,6 +21,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
@@ -74,6 +75,9 @@ public class MainController {
 
 	File outputFile;
 	private boolean textChanged = false;
+	
+	 // create a alert
+    Alert a = new Alert(AlertType.NONE);
 
 	// this method sets the action for when the "Upload File" button is pressed,
 	// only one file can be opened at a time and must be a .txt file
@@ -97,22 +101,30 @@ public class MainController {
 				showOnlyFileName();
 			}
 		} else {
-			System.out.println("no file selected");
+			errorHandler(event, "No file is selected");
 		}
 	}
 
 	public void saveAction(ActionEvent event) {
-		File file = outputFile;
-		FileChooser fc = new FileChooser();
-		fc.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
-		File dest = fc.showSaveDialog(null);
-		if (dest != null) {
-			try {
-				Files.copy(file.toPath(), dest.toPath());
-			} catch (IOException ex) {
-				System.out.println("no destination selected");
+		try {
+			if (txtTextArea.getText().trim().length() == 0) {
+				throw new NullPointerException();
 			}
+			File file = outputFile;
+			FileChooser fc = new FileChooser();
+			fc.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
+			File dest = fc.showSaveDialog(null);
+			if (dest != null) {
+				try {
+					Files.copy(file.toPath(), dest.toPath());
+				} catch (IOException ex) {
+					errorHandler(event, "No destination selected");
+				}
+			}
+		} catch (NullPointerException e) {
+			errorHandler(event, "Textarea is Empty");
 		}
+		
 	}
 
 	public void viewAction(ActionEvent event) {
@@ -134,14 +146,14 @@ public class MainController {
 				}
 				reader.close();
 			} catch (IOException e) {
-				System.out.println("File scan error");
+				errorHandler(event, "Given File is not of format .txt");
 				e.printStackTrace();
 			}
 
 			// change this when program is able to detect instrument type
 			txtDetected.appendText("Guitar");
 		} else {
-			System.out.println("No file selected");
+			errorHandler(event, "No file selected");
 		}
 	}
 
@@ -182,7 +194,7 @@ public class MainController {
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
 		} else {
-			System.out.println("No file selected and/or no tab pasted");
+			errorHandler(event, "No file selected or No tab pasted/present");
 		}
 	}
 
@@ -230,4 +242,16 @@ public class MainController {
 	public void clickList() {
 		//txtTextArea.clear();
 	}
+	
+	public void errorHandler(ActionEvent event, String message)
+    {
+        // set alert type
+        a.setAlertType(AlertType.ERROR);
+
+        // set content text
+        a.setContentText(message);
+
+        // show the dialog
+        a.show();
+    }
 }
