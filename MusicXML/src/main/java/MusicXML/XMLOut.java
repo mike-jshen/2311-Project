@@ -18,6 +18,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/*
 public class XMLOut {
 
 	private File outputFile;
@@ -213,3 +214,4 @@ public class XMLOut {
 		return outputFile;
 	}
 }
+*/

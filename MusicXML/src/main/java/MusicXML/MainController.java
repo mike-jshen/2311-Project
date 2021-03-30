@@ -8,6 +8,15 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,7 +30,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
@@ -72,6 +82,9 @@ public class MainController {
 
 	@FXML
 	private TextField txtDetected;
+	
+	@FXML 
+	private TreeView<String> treeView;
 
 	File outputFile;
 	private boolean textChanged = false;
@@ -145,19 +158,22 @@ public class MainController {
 					txtTextArea.appendText("\n");
 				}
 				reader.close();
+				
+				// change this when program is able to detect instrument type
+				InstrumentDetection detect = new InstrumentDetection(tab);
+				txtDetected.appendText(detect.getDetectedInstrument());
+				
 			} catch (IOException e) {
 				errorHandler(event, "Given File is not of format .txt");
 				e.printStackTrace();
 			}
 
-			// change this when program is able to detect instrument type
-			txtDetected.appendText("Guitar");
 		} else {
 			errorHandler(event, "No file selected");
 		}
 	}
 
-	public void convertAction(ActionEvent event) {
+	public void convertAction(ActionEvent event) throws SAXException, ParserConfigurationException, IOException {
 		File tab;
 		if (textChanged) {
 			String tmpTab;
@@ -179,18 +195,40 @@ public class MainController {
 				e.printStackTrace();
 			}
 
-			GuitarXMLOut convertedFile = new GuitarXMLOut();
-			outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+			String detected = detectIntrument(new File("tmpFile.txt"));
+			if(detected.equals("Drums")) {
+				// convert drums
+			}
+			else if(detected.equals("Bass")) {
+				BassXMLOut convertedFile = new BassXMLOut();
+				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+			}
+			else if(detected.equals("Guitar")) {
+				GuitarXMLOut convertedFile = new GuitarXMLOut();
+				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+			}
 
+			XMLViewAction(outputFile);
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
 			textChanged = false;
 		} else if (listview.getSelectionModel().getSelectedItem() != null) {
 			tab = listview.getSelectionModel().getSelectedItem();
 
-			GuitarXMLOut convertedFile = new GuitarXMLOut();
-			outputFile = convertedFile.convertToXML(tab);
+			String detected = detectIntrument(tab);
+			if(detected.equals("Drums")) {
+				// convert drums
+			}
+			else if(detected.equals("Bass")) {
+				BassXMLOut convertedFile = new BassXMLOut();
+				outputFile = convertedFile.convertToXML(tab);
+			}
+			else if(detected.equals("Guitar")) {
+				GuitarXMLOut convertedFile = new GuitarXMLOut();
+				outputFile = convertedFile.convertToXML(tab);
+			}
 
+			XMLViewAction(outputFile);
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
 		} else {
@@ -243,6 +281,7 @@ public class MainController {
 		//txtTextArea.clear();
 	}
 	
+
 	public void errorHandler(ActionEvent event, String message)
     {
         // set alert type
@@ -254,4 +293,63 @@ public class MainController {
         // show the dialog
         a.show();
     }
+
+	public void XMLViewAction(File outputFile) throws SAXException, ParserConfigurationException, IOException {
+		TreeItem<String> root = readData(outputFile);
+		treeView.setRoot(root);
+	}
+	
+	public String detectIntrument(File file) {
+		InstrumentDetection detect = new InstrumentDetection(file);
+		txtDetected.appendText(detect.getDetectedInstrument());
+		return detect.getDetectedInstrument();
+	}
+	
+	
+	// XML Output TreeView
+	private static class TreeItemCreationContentHandler extends DefaultHandler {
+
+	    private TreeItem<String> item = new TreeItem<>();
+
+	    @Override
+	    public void endElement(String uri, String localName, String qName) throws SAXException {
+	        // finish this node by going back to the parent
+	        this.item = this.item.getParent();
+	    }
+
+	    @Override
+	    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+	        // start a new node and use it as the current item
+	        TreeItem<String> item = new TreeItem<>(qName);
+	        this.item.getChildren().add(item);
+	        this.item = item;
+	    }
+
+	    @Override
+	    public void characters(char[] ch, int start, int length) throws SAXException {
+	        String s = String.valueOf(ch, start, length).trim();
+	        if (!s.isEmpty()) {
+	            // add text content as new child
+	            this.item.getChildren().add(new TreeItem<>(s));
+	        }
+	    }
+
+	}
+
+	public static TreeItem<String> readData(File file) throws SAXException, ParserConfigurationException, IOException {
+	    SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+	    SAXParser parser = parserFactory.newSAXParser();
+	    XMLReader reader = parser.getXMLReader();
+	    TreeItemCreationContentHandler contentHandler = new TreeItemCreationContentHandler();
+
+	    // parse file using the content handler to create a TreeItem representation
+	    reader.setContentHandler(contentHandler);
+	    reader.parse(file.toURI().toString());
+
+	    // use first child as root (the TreeItem initially created does not contain data from the file)
+	    TreeItem<String> item = contentHandler.item.getChildren().get(0);
+	    contentHandler.item.getChildren().clear();
+	    return item;
+	}
 }
+

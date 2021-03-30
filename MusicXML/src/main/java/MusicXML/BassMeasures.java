@@ -28,15 +28,15 @@ public class BassMeasures {
 		}
 	}
 
-	public ArrayList<String[]> getBassMeasures() {
+	public ArrayList<String[]> getMeasures() {
 		return measureList;
 	}
 
-	public int getNumOfBassMeasures(String[] singleStaff) {
+	public int getNumOfMeasures(String[] singleStaff) {
 		return measureList.size();
 	}
 
-	public int getBassMeasureSpaces(String[] singleMeasure) {
+	public int getMeasureSpaces(String[] singleMeasure) {
 		int measureSpaces = 0;
 		char[] tmp = singleMeasure[0].toCharArray();
 		for (int i = 0; i < tmp.length; i++) {

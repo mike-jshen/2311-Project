@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javafx.util.Pair;
 
 public class ConsoleTestingBass {
 	
@@ -26,20 +29,20 @@ public class ConsoleTestingBass {
 
 		BassMeasures measures = new BassMeasures(staffs.get(0));
 
-		for (int i = 0; i < measures.getBassMeasures().size(); i++) {
+		for (int i = 0; i < measures.getMeasures().size(); i++) {
 			for (int j = 0; j < 4; j++) {
-				System.out.println(measures.getBassMeasures().get(i)[j]);
+				System.out.println(measures.getMeasures().get(i)[j]);
 			}
 			System.out.println();
 		}
 
-		BassNotes notes = new BassNotes(measures.getBassMeasures().get(0));
+		BassNotes notes = new BassNotes(measures.getMeasures().get(0));
 
-		Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
+		Map<Pair<Integer, Integer>, List<Integer>> notesMap = notes.getNotesMapping();
 
-		for (Map.Entry<Integer, List<Character>> entry : notesMap.entrySet()) {
-			Integer index = entry.getKey();
-			List<Character> value = entry.getValue();
+		for (Entry<Pair<Integer, Integer>, List<Integer>> entry : notesMap.entrySet()) {
+			Integer index = entry.getKey().getKey();
+			List<Integer> value = entry.getValue();
 
 			System.out.print("At index: " + index + " ");
 			System.out.print("   Values: ");
