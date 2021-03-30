@@ -135,7 +135,7 @@ public class MainController {
 				}
 			}
 		} catch (NullPointerException e) {
-			errorHandler(event, "Textarea is Empty");
+			errorHandler(event, "Text area is empty");
 		}
 		
 	}
@@ -164,7 +164,7 @@ public class MainController {
 				txtDetected.appendText(detect.getDetectedInstrument());
 				
 			} catch (IOException e) {
-				errorHandler(event, "Given File is not of format .txt");
+				errorHandler(event, "Given file is not of format .txt");
 				e.printStackTrace();
 			}
 
@@ -232,7 +232,7 @@ public class MainController {
 			txtTextArea.appendText("\n");
 			txtTextArea.appendText(">> Conversion complete");
 		} else {
-			errorHandler(event, "No file selected or No tab pasted/present");
+			errorHandler(event, "No file selected or no tab pasted/present");
 		}
 	}
 
@@ -301,7 +301,6 @@ public class MainController {
 	
 	public String detectIntrument(File file) {
 		InstrumentDetection detect = new InstrumentDetection(file);
-		txtDetected.appendText(detect.getDetectedInstrument());
 		return detect.getDetectedInstrument();
 	}
 	
