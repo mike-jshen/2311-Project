@@ -7,9 +7,9 @@ MusicXML Convertor is a software for musicians that will allow them to get tabla
 
 ## Documentation
 All documents can be seen in the application itself. However these are here for backup.
-- <a href="https://docs.google.com/document/d/1-CHyyfpPjP_YyNbtCE8oy1XSOKWniZdyAE3kotXYel8/edit">Required Documents</a>
-- <a href="https://docs.google.com/document/d/1WGuFglJ0f0dg053D6RullGdmwTMgJRfyNYxuXp91e9o/edit">Testing Document</a>
-- <a href="https://docs.google.com/document/d/15mc4pCf2qQHXpOZx41VDCH7AlZrtrv4KdW2K3oGOnIo/edit">User Manual</a>
+- <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/reqdoc.pdf">Required Documents</a>
+- <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/testdoc.pdf">Testing Document</a>
+- <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/manual.pdf">User Manual</a>
 
 ## Dependencies
 All dependencies are taken care of by Gradle. But here is a list of them anyways:
