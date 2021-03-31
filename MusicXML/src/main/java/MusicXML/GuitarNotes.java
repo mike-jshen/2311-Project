@@ -34,8 +34,8 @@ public class GuitarNotes {
 				vertical.add(tmp);
 			}
 		} else {
-			System.out.println(
-					">> Error: Some line(s) may longer or shorter than others. This should be fixed before converting.");
+			System.out
+					.println(">> Error: Some line(s) may longer or shorter than others. Please fix before converting.");
 		}
 	}
 
@@ -260,6 +260,7 @@ public class GuitarNotes {
 			case 1:
 			case 2:
 			case 3:
+			case 4:
 			case 5:
 			case 6:
 			case 7:
@@ -344,10 +345,10 @@ public class GuitarNotes {
 								currentValue = new ArrayList<Integer>();
 								map.put(pair, currentValue);
 							}
-							
+
 							modInt = modInt + 100;
 							currentValue.add(modInt);
-							if(i < vertical.size() - 1) {
+							if (i < vertical.size() - 1) {
 								hammerNote = vertical.get(i + 3)[j] - '0';
 								currentValue.add(hammerNote);
 							}
@@ -362,7 +363,8 @@ public class GuitarNotes {
 							currentValue.add(modInt);
 						}
 
-						if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+						if (i > 0 && (vertical.get(i - 1)[j] == 'h' || vertical.get(i - 1)[j] == 'p'
+								|| vertical.get(i - 1)[j] == 's')) {
 							Pair<Integer, Integer> pair = new Pair<>(i, j);
 							map.remove(pair);
 						}
@@ -384,7 +386,7 @@ public class GuitarNotes {
 								// currentValue = map.get(pair);
 								modInt = modInt + 100;
 								currentValue.add(modInt);
-								if(i < vertical.size() - 1) {
+								if (i < vertical.size() - 1) {
 									hammerNote = vertical.get(i + 2)[j] - '0';
 									currentValue.add(hammerNote);
 								}
@@ -400,7 +402,8 @@ public class GuitarNotes {
 
 							}
 
-							if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+							if (i > 0 && (vertical.get(i - 1)[j] == 'h' || vertical.get(i - 1)[j] == 'p'
+									|| vertical.get(i - 1)[j] == 's')) {
 								Pair<Integer, Integer> pair = new Pair<>(i, j);
 								map.remove(pair);
 							}

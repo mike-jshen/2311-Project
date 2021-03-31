@@ -48,6 +48,7 @@ public class ConsoleTestingBass {
 			System.out.print("   Values: ");
 			for (int i = 0; i < value.size(); i++) {
 				System.out.print(value.get(i) + " ");
+				System.out.println("Octave: " + notes.getOctave(entry.getKey().getValue(), value.get(i)));
 			}
 			System.out.println();
 		}
