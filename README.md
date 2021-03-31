@@ -3,7 +3,7 @@
 # MusicXML Convertor
 MusicXML Convertor is a software for musicians that will allow them to get tablatures from the internet and convert them to XML files which they can later convert to Sheet Music.
 
-### Note: Durm Tabs conversion coming on the way
+### Note: Drum Tabs conversion coming on the way
 
 ## Documentation
 All documents can be seen in the application itself. However these are here for backup.
