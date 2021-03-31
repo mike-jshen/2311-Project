@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -48,6 +49,7 @@
 						<AnchorPane prefHeight="200.0" prefWidth="200.0">
 							<children>
 								<TextArea prefHeight="529.0" prefWidth="747.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="xmlTextArea" />
+                        <TreeView fx:id="treeView" layoutX="11.0" layoutY="10.0" prefHeight="601.0" prefWidth="818.0" />
 							</children>
 						</AnchorPane>
 					</content>

@@ -35,6 +35,9 @@ public class GuitarFileScanner {
 				counter++;
 			}
 			reader.close();
+			
+			// find repeats
+			
 		} catch (IOException e) {
 			System.out.println("File Scan Error");
 			e.printStackTrace();
@@ -55,5 +58,4 @@ public class GuitarFileScanner {
 		}
 		return staffs;
 	}
-
 }
