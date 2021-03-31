@@ -183,6 +183,7 @@ public class BassNotes {
 			case 1:
 			case 2:
 			case 3:
+			case 4:
 			case 5:
 			case 6:
 			case 7:
@@ -285,7 +286,8 @@ public class BassNotes {
 							currentValue.add(modInt);
 						}
 
-						if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+						if (i > 0 && (vertical.get(i - 1)[j] == 'h' || vertical.get(i - 1)[j] == 'p'
+								|| vertical.get(i - 1)[j] == 's')) {
 							Pair<Integer, Integer> pair = new Pair<>(i, j);
 							map.remove(pair);
 						}
@@ -323,7 +325,8 @@ public class BassNotes {
 
 							}
 
-							if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+							if (i > 0 && (vertical.get(i - 1)[j] == 'h' || vertical.get(i - 1)[j] == 'p'
+									|| vertical.get(i - 1)[j] == 's')) {
 								Pair<Integer, Integer> pair = new Pair<>(i, j);
 								map.remove(pair);
 							}
