@@ -29,3 +29,10 @@ To test the code, run the test cases created in the source directory.
 MusicXML Convertor development takes place on Github: https://github.com/mike-jshen/2311-Project
 
 Please submit bugs that you encounter to the issue tracker with a reproducible example demonstrating the problem.
+
+## Contributors
+- Aman Patel
+- Phuong Tran
+- Mike Shen
+- Maksim Kolotev
+- Mohamed Ahmed
