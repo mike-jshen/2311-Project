@@ -31,8 +31,8 @@ MusicXML Convertor development takes place on Github: https://github.com/mike-js
 Please submit bugs that you encounter to the issue tracker with a reproducible example demonstrating the problem.
 
 ## Contributors
-- Aman Patel
+- Aman Patel: JUnit Testing, GUI Testing, JavaFX, User Manual, Design Document, Github Issue Resolver
 - Phuong Tran
 - Mike Shen
-- Maksim Kolotev
+- Maksim Kolotev: Software Development, Requirement Document, JavaFX, Coordinator, R & D
 - Mohamed Ahmed
