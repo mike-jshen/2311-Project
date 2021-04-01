@@ -10,6 +10,7 @@ All documents can be seen in the application itself. However these are here for 
 - <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/reqdoc.pdf">Required Documents</a>
 - <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/testdoc.pdf">Testing Document</a>
 - <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/manual.pdf">User Manual</a>
+- <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/DesignDoc.pdf">Design Document</a>
 
 ## Dependencies
 All dependencies are taken care of by Gradle. But here is a list of them anyways:
