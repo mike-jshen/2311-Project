@@ -197,8 +197,9 @@ public class MainController {
 
 			String detected = detectIntrument(new File("tmpFile.txt"));
 			if(detected.equals("Drums")) {
-				// convert drums
-			}
+				DrumXMLOut convertedFile = new DrumXMLOut();
+				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+				}
 			else if(detected.equals("Bass")) {
 				BassXMLOut convertedFile = new BassXMLOut();
 				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
@@ -217,7 +218,8 @@ public class MainController {
 
 			String detected = detectIntrument(tab);
 			if(detected.equals("Drums")) {
-				// convert drums
+				DrumXMLOut convertedFile = new DrumXMLOut();
+				outputFile = convertedFile.convertToXML(tab);
 			}
 			else if(detected.equals("Bass")) {
 				BassXMLOut convertedFile = new BassXMLOut();
