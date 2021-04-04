@@ -294,8 +294,8 @@ public class DrumXMLWriter {
 	scorePart.appendChild(score23);
 	
 	Attr newID23 = doc.createAttribute("id");
-	newID22.setValue("P1-I64");
-	score22.setAttributeNode(newID23);
+	newID23.setValue("P1-I64");
+	score23.setAttributeNode(newID23);
 	
 	Element in23 = doc.createElement("instrument-name");
 	in23.appendChild(doc.createTextNode("Open Hi Conga"));

@@ -25,11 +25,20 @@ public class DrumNotes {
 		char[] singleMeasure4 = singleMeasure[4].toCharArray();
 		char[] singleMeasure5 = singleMeasure[5].toCharArray();
 
-		for (int i = 0; i < singleMeasure0.length; i++) {
-			char[] tmp = { singleMeasure0[i], singleMeasure1[i], singleMeasure2[i], singleMeasure3[i],
-					singleMeasure4[i], singleMeasure5[i] };
-			vertical.add(tmp);
+		if (singleMeasure0.length == singleMeasure1.length && singleMeasure1.length == singleMeasure2.length
+				&& singleMeasure2.length == singleMeasure3.length && singleMeasure3.length == singleMeasure4.length
+				&& singleMeasure4.length == singleMeasure5.length) {
+			for (int i = 0; i < singleMeasure0.length; i++) {
+				char[] tmp = { singleMeasure0[i], singleMeasure1[i], singleMeasure2[i], singleMeasure3[i],
+						singleMeasure4[i], singleMeasure5[i] };
+				vertical.add(tmp);
+			}
+		}else {
+			System.out.println(
+					">> Error: Some line(s) may longer or shorter than others. This should be fixed before converting.");
 		}
+		
+		
 	}
 	
 	public String getNote(String gString, char noteNum) {
@@ -139,7 +148,7 @@ public class DrumNotes {
 		return note;
 	}
 	
-	public int getOctave(int gStrIndex, int tab) {
+	public int getOctave(int gStrIndex, char tab) {
 		if (gStrIndex == 0) {
 			switch (tab) {
 			case 0:
