@@ -19,6 +19,10 @@ public class DrumDuration {
 			Integer index = entry.getKey().getKey();
 			tmp.add(index);
 		}
+		
+		for(int i = 0; i < tmp.size(); i++) {
+			System.out.println("index = " + tmp.get(i));
+		}
 
 		for (int i = 0; i < tmp.size(); i++) {
 			if (i == tmp.size() - 1) {
@@ -35,173 +39,69 @@ public class DrumDuration {
 	 * beyond, modify timeDuration() and getType()
 	 */
 	private int timeDuration(int diff, int spaces) {
-		int div = spaces / 8;
-		int mod = spaces % 8;
 		int duration = 0;
 
-		if (mod == 0) {
-			if (diff <= div)
-				duration = 1;
-			else if (diff <= 2 * div)
-				duration = 2;
-			else if (diff <= 3 * div)
-				duration = 3;
-			else if (diff <= 4 * div)
-				duration = 4;
-			else if (diff <= 5 * div)
-				duration = 4;
-			else if (diff <= 6 * div)
-				duration = 6;
-			else if (diff <= 7 * div)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 1) {
-			if (diff <= div)
-				duration = 1;
-			else if (diff <= 2 * div + 1)
-				duration = 2;
-			else if (diff <= 3 * div)
-				duration = 3;
-			else if (diff <= 4 * div + 1)
-				duration = 4;
-			else if (diff <= 5 * div + 1)
-				duration = 4;
-			else if (diff <= 6 * div + 1)
-				duration = 6;
-			else if (diff <= 7 * div + 1)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 2) {
-			if (diff <= div)
-				duration = 1;
-			else if (diff <= 2 * div + 1)
-				duration = 2;
-			else if (diff <= 3 * div + 1)
-				duration = 3;
-			else if (diff <= 4 * div + 1)
-				duration = 4;
-			else if (diff <= 5 * div + 1)
-				duration = 4;
-			else if (diff <= 6 * div + 2)
-				duration = 6;
-			else if (diff <= 7 * div + 2)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 3) {
-			if (diff <= div + 1)
-				duration = 1;
-			else if (diff <= 2 * div + 1)
-				duration = 2;
-			else if (diff <= 3 * div + 1)
-				duration = 3;
-			else if (diff <= 4 * div + 2)
-				duration = 4;
-			else if (diff <= 5 * div + 2)
-				duration = 4;
-			else if (diff <= 6 * div + 2)
-				duration = 6;
-			else if (diff <= 7 * div + 3)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 4) {
-			if (diff <= div + 1)
-				duration = 1;
-			else if (diff <= 2 * div + 1)
-				duration = 2;
-			else if (diff <= 3 * div + 2)
-				duration = 3;
-			else if (diff <= 4 * div + 2)
-				duration = 4;
-			else if (diff <= 5 * div + 3)
-				duration = 4;
-			else if (diff <= 6 * div + 3)
-				duration = 6;
-			else if (diff <= 7 * div + 4)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 5) {
-			if (diff <= div + 1)
-				duration = 1;
-			else if (diff <= 2 * div + 1)
-				duration = 2;
-			else if (diff <= 3 * div + 2)
-				duration = 3;
-			else if (diff <= 4 * div + 3)
-				duration = 4;
-			else if (diff <= 5 * div + 3)
-				duration = 4;
-			else if (diff <= 6 * div + 4)
-				duration = 6;
-			else if (diff <= 7 * div + 4)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 6) {
-			if (diff <= div + 1)
-				duration = 1;
-			else if (diff <= 2 * div + 2)
-				duration = 2;
-			else if (diff <= 3 * div + 2)
-				duration = 3;
-			else if (diff <= 4 * div + 3)
-				duration = 4;
-			else if (diff <= 5 * div + 4)
-				duration = 4;
-			else if (diff <= 6 * div + 5)
-				duration = 6;
-			else if (diff <= 7 * div + 5)
-				duration = 6;
-			else
-				duration = 8;
-		} else if (mod == 7) {
-			if (diff <= div + 1)
-				duration = 1;
-			else if (diff <= 2 * div + 2)
-				duration = 2;
-			else if (diff <= 3 * div + 3)
-				duration = 3;
-			else if (diff <= 4 * div + 4)
-				duration = 4;
-			else if (diff <= 5 * div + 4)
-				duration = 4;
-			else if (diff <= 6 * div + 5)
-				duration = 6;
-			else if (diff <= 7 * div + 6)
-				duration = 6;
-			else
-				duration = 8;
-		} else {
-			duration = -1;		//debugging purposes
+		double r1 = spaces / 16.00;
+		double r2 = 2 * spaces / 16.00;
+		double r3 = 3 * spaces / 16.00;
+		double r4 = 4 * spaces / 16.00;
+		double r6 = 6 * spaces / 16.00;
+		double r8 = 8 * spaces / 16.00;
+		double r12 = 12 * spaces / 16.00;
+		double r16 = 16 * spaces / 16.00;
+
+		if (diff <= (int) r1) {
+			duration = 1;
+		} else if (diff <= (int) r2) {
+			duration = 2;
+		} else if (diff <= (int) r3) {
+			duration = 3;
+		} else if (diff <= (int) r4) {
+			duration = 4;
+		} else if (diff <= (int) r6) {
+			duration = 6;
+		} else if (diff <= (int) r8) {
+			duration = 8;
+		} else if (diff <= (int) r12) {
+			duration = 12;
+		} else if (diff <= (int) r16) {
+			duration = 16;
 		}
+		else {
+			duration = -1; // debug purposes
+		}
+
 		return duration;
 	}
 
 	public String getType(int dur) {
 		String type = "";
 		if (dur == 1) {
-			type = "eighth";
+			type = "16th";
 		} else if (dur == 2) {
-			type = "quarter";
+			type = "eighth";
 		} else if (dur == 3) {
-			type = "quarter";
+			type = "eighth";
 		} else if (dur == 4) {
-			type = "half";
+			type = "quarter";
 		} else if (dur == 6) {
-			type = "half";
+			type = "quarter";
 		} else if (dur == 8) {
+			type = "half";
+		} else if (dur == 12) {
+			type = "half";
+		} else if (dur == 16) {
 			type = "whole";
 		}
+
 		return type;
 	}
-	
+
 	public boolean isDot(int dur) {
-		if( dur == 3 || dur == 6) isDot = true;
-		else isDot =false;
+		if (dur == 3 || dur == 6 || dur == 12)
+			isDot = true;
+		else
+			isDot = false;
 		return isDot;
 	}
 

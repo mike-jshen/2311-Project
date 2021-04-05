@@ -31,7 +31,8 @@ public class GuitarFileScanner {
 						data = new String("B" + data);
 				}
 
-				this.lines.add(data);
+				String newdata = data.replaceAll("\\s+","");
+				this.lines.add(newdata);
 				counter++;
 			}
 			reader.close();
@@ -46,10 +47,8 @@ public class GuitarFileScanner {
 	}
 
 	public ArrayList<String[]> getStaffs() {
-		char[] tmpLine;
 		for (int i = 0; i < lines.size(); i++) {
-			tmpLine = lines.get(i).toCharArray();
-			if (tmpLine.length > 0 && tmpLine[1] == '|') {
+			if (lines.get(i).contains("|-") || lines.get(i).contains("-|")) {
 				String[] tmpStaff = { lines.get(i), lines.get(i + 1), lines.get(i + 2), lines.get(i + 3),
 						lines.get(i + 4), lines.get(i + 5) };
 				staffs.add(tmpStaff);

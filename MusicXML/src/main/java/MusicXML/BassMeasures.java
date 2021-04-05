@@ -21,7 +21,7 @@ public class BassMeasures {
 		for (int i = 0; i < tmpMeasure.size() / 4; i++) {
 
 			for (int j = i; j < tmpMeasure.size(); j = j + tmpMeasure.size() / 4) {
-				singleMeasure[j / (tmpMeasure.size() / 4)] = tmpMeasure.get(j).toString();
+				singleMeasure[j / (tmpMeasure.size() / 4)] = tmpMeasure.get(j);
 
 			}
 			measureList.add(singleMeasure.clone());

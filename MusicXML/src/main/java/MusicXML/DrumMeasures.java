@@ -1,16 +1,17 @@
 package MusicXML;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DrumMeasures {
-	private ArrayList<String[]> measureList = new ArrayList<String[]>();
+	private ArrayList<List<String>> measureList = new ArrayList<List<String>>();
 
-	public DrumMeasures(String[] singleStaff) {
+	public DrumMeasures(List<String> singleStaff) {
 		ArrayList<String> tmpMeasure = new ArrayList<String>();
-		String[] singleMeasure = new String[6];
-		for (int i = 0; i < 6; i++) {
-			String selectedLine = singleStaff[i];
-			String lineWithoutKey = selectedLine.substring(2);
+		List<String> singleMeasure = new ArrayList<String>();
+		for (int i = 0; i < singleStaff.size(); i++) {
+			String selectedLine = singleStaff.get(i);
+			String lineWithoutKey = selectedLine.substring(3);
 
 			String[] measures = lineWithoutKey.split("\\|");
 
@@ -18,27 +19,28 @@ public class DrumMeasures {
 				tmpMeasure.add(measure);
 		}
 
-		for (int i = 0; i < tmpMeasure.size() / 6; i++) {
+		for (int i = 0; i < tmpMeasure.size() / singleStaff.size(); i++) {
 
-			for (int j = i; j < tmpMeasure.size(); j = j + tmpMeasure.size() / 6) {
-				singleMeasure[j / (tmpMeasure.size() / 6)] = tmpMeasure.get(j).toString();
-
+			for (int j = i; j < tmpMeasure.size(); j = j + tmpMeasure.size() / singleStaff.size()) {
+				singleMeasure.add((j / (tmpMeasure.size() / singleStaff.size())), tmpMeasure.get(j));
 			}
-			measureList.add(singleMeasure.clone());
+			ArrayList<String> cloned = new ArrayList<String>(singleMeasure);
+			measureList.add(cloned);
+			singleMeasure.clear();
 		}
 	}
 
-	public ArrayList<String[]> getMeasures() {
+	public ArrayList<List<String>> getMeasures() {
 		return measureList;
 	}
 
-	public int getNumOfMeasures(String[] singleStaff) {
+	public int getNumOfMeasures(List<String> singleStaff) {
 		return measureList.size();
 	}
 
-	public int getMeasureSpaces(String[] singleMeasure) {
+	public int getMeasureSpaces(List<String> singleMeasure) {
 		int measureSpaces = 0;
-		char[] tmp = singleMeasure[0].toCharArray();
+		char[] tmp = singleMeasure.get(0).toCharArray();
 		for (int i = 0; i < tmp.length; i++) {
 			measureSpaces++;
 		}

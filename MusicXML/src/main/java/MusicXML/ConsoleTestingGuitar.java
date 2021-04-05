@@ -10,11 +10,11 @@ import java.io.File;
 
 //Not all of the above are needed, they are there just in case.
 
-public class ConsoleGuitarTesting {
+public class ConsoleTestingGuitar {
 
 	public static void main(String[] args) throws Exception {
 
-		File file = new File("testTab.txt");	
+		File file = new File("sampleGuitar.txt");	
 		GuitarFileScanner readFile = new GuitarFileScanner(file);
 
 		ArrayList<String[]> staffs = readFile.getStaffs();
