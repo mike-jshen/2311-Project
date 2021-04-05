@@ -400,7 +400,7 @@ public class GuitarNotes {
 
 							}
 
-							if (i > 0 && vertical.get(i - 1)[j] == 'h') {
+							if (i > 0 && (vertical.get(i - 1)[j] == 'h' || vertical.get(i - 1)[j] == 'p' || vertical.get(i - 1)[j] == 's')) {
 								Pair<Integer, Integer> pair = new Pair<>(i, j);
 								map.remove(pair);
 							}

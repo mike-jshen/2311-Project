@@ -3,10 +3,14 @@ package MusicXML;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javafx.util.Pair;
+
 import java.io.File;
 
 //Not all of the above are needed, they are there just in case.
-/*
+
 public class ConsoleTesting {
 
 	public static void main(String[] args) throws Exception {
@@ -26,7 +30,7 @@ public class ConsoleTesting {
 			System.out.println();
 		}
 
-		//Measures measures = new Measures(staffs.get(0));
+		GuitarMeasures measures = new GuitarMeasures(staffs.get(0));
 
 		for (int i = 0; i < measures.getMeasures().size(); i++) {
 			for (int j = 0; j < 6; j++) {
@@ -37,11 +41,11 @@ public class ConsoleTesting {
 
 		GuitarNotes notes = new GuitarNotes(measures.getMeasures().get(0));
 
-		Map<Integer, List<Character>> notesMap = notes.getNotesMapping();
+		Map<Pair<Integer, Integer>, List<Integer>> notesMap = notes.getNotesMapping();
 
-		for (Map.Entry<Integer, List<Character>> entry : notesMap.entrySet()) {
-			Integer index = entry.getKey();
-			List<Character> value = entry.getValue();
+		for (Entry<Pair<Integer, Integer>, List<Integer>> entry : notesMap.entrySet()) {
+			Integer index = entry.getKey().getKey();
+			List<Integer> value = entry.getValue();
 
 			System.out.print("At index: " + index + " ");
 			System.out.print("   Values: ");
@@ -55,4 +59,3 @@ public class ConsoleTesting {
 		test.convertToXML(file);
 	}
 }
-*/
