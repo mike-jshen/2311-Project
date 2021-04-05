@@ -73,7 +73,7 @@ public class DrumXMLOut {
 			partName.appendChild(doc.createTextNode("DrumSet"));
 			scorePart.appendChild(partName);
 			
-			Element score1 = doc.createElement("score-insrument");
+			Element score1 = doc.createElement("score-instrument");
 			scorePart.appendChild(score1);
 			
 			Attr newID = doc.createAttribute("id");
@@ -84,7 +84,7 @@ public class DrumXMLOut {
 			in1.appendChild(doc.createTextNode("Bass Drum"));
 			score1.appendChild(in1);
 			
-			Element score2 = doc.createElement("score-insrument");
+			Element score2 = doc.createElement("score-instrument");
 			scorePart.appendChild(score2);
 			
 			Attr newID2 = doc.createAttribute("id");
@@ -95,7 +95,7 @@ public class DrumXMLOut {
 			in2.appendChild(doc.createTextNode("Bass Drum 2"));
 			score2.appendChild(in2);
 			
-			Element score3 = doc.createElement("score-insrument");
+			Element score3 = doc.createElement("score-instrument");
 			scorePart.appendChild(score3);
 			
 			Attr newID3 = doc.createAttribute("id");
@@ -106,7 +106,7 @@ public class DrumXMLOut {
 			in3.appendChild(doc.createTextNode("Side Stick"));
 			score3.appendChild(in3);
 			
-			Element score4 = doc.createElement("score-insrument");
+			Element score4 = doc.createElement("score-instrument");
 			scorePart.appendChild(score4);
 			
 			Attr newID4 = doc.createAttribute("id");
@@ -117,7 +117,7 @@ public class DrumXMLOut {
 			in4.appendChild(doc.createTextNode("Snare"));
 			score4.appendChild(in4);
 			
-			Element score5 = doc.createElement("score-insrument");
+			Element score5 = doc.createElement("score-instrument");
 			scorePart.appendChild(score5);
 			
 			Attr newID5 = doc.createAttribute("id");
@@ -128,7 +128,7 @@ public class DrumXMLOut {
 			in5.appendChild(doc.createTextNode("Low Floor Tom"));
 			score5.appendChild(in5);
 			
-			Element score6 = doc.createElement("score-insrument");
+			Element score6 = doc.createElement("score-instrument");
 			scorePart.appendChild(score6);
 			
 			Attr newID6 = doc.createAttribute("id");
@@ -139,7 +139,7 @@ public class DrumXMLOut {
 			in6.appendChild(doc.createTextNode("Closed Hi-Hat"));
 			score6.appendChild(in6);
 			
-			Element score7 = doc.createElement("score-insrument");
+			Element score7 = doc.createElement("score-instrument");
 			scorePart.appendChild(score7);
 			
 			Attr newID7 = doc.createAttribute("id");
@@ -150,7 +150,7 @@ public class DrumXMLOut {
 			in7.appendChild(doc.createTextNode("High Floor Tom"));
 			score7.appendChild(in7);
 			
-			Element score8 = doc.createElement("score-insrument");
+			Element score8 = doc.createElement("score-instrument");
 			scorePart.appendChild(score8);
 			
 			Attr newID8 = doc.createAttribute("id");
@@ -161,7 +161,7 @@ public class DrumXMLOut {
 			in8.appendChild(doc.createTextNode("Pedal Hi-Hat"));
 			score8.appendChild(in8);
 			
-			Element score9 = doc.createElement("score-insrument");
+			Element score9 = doc.createElement("score-instrument");
 			scorePart.appendChild(score9);
 			
 			Attr newID9 = doc.createAttribute("id");
@@ -172,7 +172,7 @@ public class DrumXMLOut {
 			in9.appendChild(doc.createTextNode("Low Tom"));
 			score9.appendChild(in9);
 			
-			Element score10 = doc.createElement("score-insrument");
+			Element score10 = doc.createElement("score-instrument");
 			scorePart.appendChild(score10);
 			
 			Attr newID10 = doc.createAttribute("id");
@@ -183,7 +183,7 @@ public class DrumXMLOut {
 			in10.appendChild(doc.createTextNode("Open Hi-Hat"));
 			score10.appendChild(in10);
 			
-			Element score11 = doc.createElement("score-insrument");
+			Element score11 = doc.createElement("score-instrument");
 			scorePart.appendChild(score11);
 			
 			Attr newID11 = doc.createAttribute("id");
@@ -194,7 +194,7 @@ public class DrumXMLOut {
 			in11.appendChild(doc.createTextNode("Low-Mid Tom"));
 			score8.appendChild(in11);
 			
-			Element score12 = doc.createElement("score-insrument");
+			Element score12 = doc.createElement("score-instrument");
 			scorePart.appendChild(score12);
 			
 			Attr newID12 = doc.createAttribute("id");
@@ -205,7 +205,7 @@ public class DrumXMLOut {
 			in12.appendChild(doc.createTextNode("Hi-Mid Tom"));
 			score12.appendChild(in12);
 			
-			Element score13 = doc.createElement("score-insrument");
+			Element score13 = doc.createElement("score-instrument");
 			scorePart.appendChild(score13);
 			
 			Attr newID13 = doc.createAttribute("id");
@@ -216,7 +216,7 @@ public class DrumXMLOut {
 			in13.appendChild(doc.createTextNode("Crash Cymbal"));
 			score13.appendChild(in13);
 			
-			Element score14 = doc.createElement("score-insrument");
+			Element score14 = doc.createElement("score-instrument");
 			scorePart.appendChild(score14);
 			
 			Attr newID14 = doc.createAttribute("id");
@@ -227,7 +227,7 @@ public class DrumXMLOut {
 			in14.appendChild(doc.createTextNode("High Tom"));
 			score14.appendChild(in14);
 			
-			Element score15 = doc.createElement("score-insrument");
+			Element score15 = doc.createElement("score-instrument");
 			scorePart.appendChild(score15);
 			
 			Attr newID15 = doc.createAttribute("id");
@@ -238,7 +238,7 @@ public class DrumXMLOut {
 			in15.appendChild(doc.createTextNode("Ride Cymbal 1"));
 			score15.appendChild(in15);
 			
-			Element score16 = doc.createElement("score-insrument");
+			Element score16 = doc.createElement("score-instrument");
 			scorePart.appendChild(score16);
 			
 			Attr newID16 = doc.createAttribute("id");
@@ -249,7 +249,7 @@ public class DrumXMLOut {
 			in16.appendChild(doc.createTextNode("Chinese Cymbal"));
 			score16.appendChild(in16);
 			
-			Element score17 = doc.createElement("score-insrument");
+			Element score17 = doc.createElement("score-instrument");
 			scorePart.appendChild(score17);
 			
 			Attr newID17 = doc.createAttribute("id");
@@ -260,7 +260,7 @@ public class DrumXMLOut {
 			in17.appendChild(doc.createTextNode("Ride Bell"));
 			score17.appendChild(in17);
 			
-			Element score18 = doc.createElement("score-insrument");
+			Element score18 = doc.createElement("score-instrument");
 			scorePart.appendChild(score18);
 			
 			Attr newID18 = doc.createAttribute("id");
@@ -271,7 +271,7 @@ public class DrumXMLOut {
 			in18.appendChild(doc.createTextNode("Tambourine"));
 			score18.appendChild(in18);
 			
-			Element score19 = doc.createElement("score-insrument");
+			Element score19 = doc.createElement("score-instrument");
 			scorePart.appendChild(score19);
 			
 			Attr newID19 = doc.createAttribute("id");
@@ -282,7 +282,7 @@ public class DrumXMLOut {
 			in19.appendChild(doc.createTextNode("Splash Cymbal"));
 			score19.appendChild(in19);
 			
-			Element score20 = doc.createElement("score-insrument");
+			Element score20 = doc.createElement("score-instrument");
 			scorePart.appendChild(score20);
 			
 			Attr newID20 = doc.createAttribute("id");
@@ -293,7 +293,7 @@ public class DrumXMLOut {
 			in20.appendChild(doc.createTextNode("Cowbell"));
 			score20.appendChild(in20);
 			
-			Element score21 = doc.createElement("score-insrument");
+			Element score21 = doc.createElement("score-instrument");
 			scorePart.appendChild(score21);
 			
 			Attr newID21 = doc.createAttribute("id");
@@ -304,7 +304,7 @@ public class DrumXMLOut {
 			in21.appendChild(doc.createTextNode("Crash Cymbal 2"));
 			score21.appendChild(in21);
 			
-			Element score22 = doc.createElement("score-insrument");
+			Element score22 = doc.createElement("score-instrument");
 			scorePart.appendChild(score22);
 			
 			Attr newID22 = doc.createAttribute("id");
@@ -315,7 +315,7 @@ public class DrumXMLOut {
 			in22.appendChild(doc.createTextNode("Ride Cymbal 2"));
 			score22.appendChild(in22);
 			
-			Element score23 = doc.createElement("score-insrument");
+			Element score23 = doc.createElement("score-instrument");
 			scorePart.appendChild(score23);
 			
 			Attr newID23 = doc.createAttribute("id");
@@ -326,7 +326,7 @@ public class DrumXMLOut {
 			in23.appendChild(doc.createTextNode("Open Hi Conga"));
 			score23.appendChild(in23);
 			
-			Element score24 = doc.createElement("score-insrument");
+			Element score24 = doc.createElement("score-instrument");
 			scorePart.appendChild(score24);
 			
 			Attr newID24 = doc.createAttribute("id");
