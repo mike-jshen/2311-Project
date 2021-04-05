@@ -39,7 +39,7 @@ public class DrumXMLOut {
 	public File convertToXML(File inputFile) {
 
 		DrumFileScanner readFile = new DrumFileScanner(inputFile);
-		ArrayList<String[]> staffs = readFile.getDStaffs();
+		ArrayList<List<String>> staffs = readFile.getDrumStaffs();
 		measureNum = 1;
 
 		try {
@@ -64,13 +64,13 @@ public class DrumXMLOut {
 
 			Element scorePart = doc.createElement("score-part");
 			partList.appendChild(scorePart);
+			Attr id = doc.createAttribute("id");
 
-			Attr id2 = doc.createAttribute("id");
-			id2.setValue("P1");
-			scorePart.setAttributeNode(id2);
+			id.setValue("P1");
+			scorePart.setAttributeNode(id);
 
 			Element partName = doc.createElement("part-name");
-			partName.appendChild(doc.createTextNode("DrumSet")); // Music name --- Up for change
+			partName.appendChild(doc.createTextNode("DrumSet"));
 			scorePart.appendChild(partName);
 			
 			Element score1 = doc.createElement("score-insrument");
@@ -338,16 +338,32 @@ public class DrumXMLOut {
 			score24.appendChild(in24);
 			
 
+			Drumset set = new Drumset();
+			for (int i = 0; i < set.drumset.size(); i++) {
+				Element scoreInstr = doc.createElement("score-instrument");
+				scorePart.appendChild(scoreInstr);
+				Attr id_instr = doc.createAttribute("id");
+
+				id_instr.setValue(set.drumset.get(i).getKey()); // id in key of drumset Pair<key, value>
+				scoreInstr.setAttributeNode(id_instr);
+
+				Element instrName = doc.createElement("instrument-name");
+				instrName.appendChild(doc.createTextNode(set.drumset.get(i).getValue())); // id in value of drumset
+																							// Pair<key, value>
+				scoreInstr.appendChild(instrName);
+			}
+
 			/*
 			 * ============================================================================
 			 * <part id>
 			 */
+
 			part = doc.createElement("part");
 			scorePartwise.appendChild(part);
 
-			Attr id = doc.createAttribute("id");
-			id.setValue("P1");
-			part.setAttributeNode(id);
+			Attr id2 = doc.createAttribute("id");
+			id2.setValue("P1");
+			part.setAttributeNode(id2);
 
 			/*
 			 * ============================================================================
@@ -355,7 +371,7 @@ public class DrumXMLOut {
 			 */
 			for (int s = 0; s < staffs.size(); s++) {
 				DrumMeasures measures = new DrumMeasures(staffs.get(s));
-				DrumKeys keys = new DrumKeys(staffs.get(s));
+				DrumInstrument keys = new DrumInstrument(staffs.get(s));
 
 				for (int i = 0; i < measures.getMeasures().size(); i++) {
 					/*
@@ -366,9 +382,12 @@ public class DrumXMLOut {
 
 					// note mapping
 					Map<Pair<Integer, Integer>, List<Character>> notesMap = notes.getNotesMapping();
+					Map<Pair<Integer, Integer>, List<Character>> notesMapLow = notes.getNotesLowMapping();
 
 					// duration mapping
 					DrumDuration duration = new DrumDuration(notesMap,
+							measures.getMeasureSpaces(measures.getMeasures().get(i)));
+					DrumDuration durationLow = new DrumDuration(notesMapLow,
 							measures.getMeasureSpaces(measures.getMeasures().get(i)));
 
 					/*
@@ -383,6 +402,8 @@ public class DrumXMLOut {
 					}
 
 					Integer prevIndex = -1;
+					int beam = 0;
+					Element beam_status;
 					// get notes and their attributes
 					for (Map.Entry<Pair<Integer, Integer>, List<Character>> entry : notesMap.entrySet()) {
 						Integer index = entry.getKey().getKey();
@@ -405,13 +426,134 @@ public class DrumXMLOut {
 								note.appendChild(chord);
 							}
 
-							// <grace>
-							int keepmod = noteNum;
-							if (noteNum >= 100) {
-								Element grace = doc.createElement("grace");
-								note.appendChild(grace);
+							// <pitch>
+							Element pitch = doc.createElement("unpitched");
+							note.appendChild(pitch);
 
-								noteNum = (char) (value.get(n) - 100);
+							Element step = doc.createElement("display-step");
+							step.appendChild(doc.createTextNode(notes.getStep(keys.getInstrInString(gString))));
+							pitch.appendChild(step);
+
+							// <octave>
+							Element octave = doc.createElement("display-octave");
+							octave.appendChild(doc
+									.createTextNode(String.valueOf(notes.getOctave(keys.getInstrInString(gString))))); // automated
+							pitch.appendChild(octave);
+
+							// <duration>
+							Element dur = doc.createElement("duration");
+							dur.appendChild(doc.createTextNode(duration.getDuration(index).toString())); // automated
+							note.appendChild(dur);
+
+							// <instrument>
+							Element instr = doc.createElement("instrument");
+							note.appendChild(instr);
+							Attr id3 = doc.createAttribute("id");
+							id3.setValue(keys.getInstrID(keys.getInstrInString(gString), set.drumsetTab));
+							instr.setAttributeNode(id3);
+
+							// <voice>
+							Element voice = doc.createElement("voice");
+							voice.appendChild(doc.createTextNode("1")); // Change for later automation
+							note.appendChild(voice);
+
+							// <type>
+							Element type = doc.createElement("type");
+							type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(index)))); // automated
+							note.appendChild(type);
+
+							// <stem>
+							Element stem = doc.createElement("stem");
+							stem.appendChild(doc.createTextNode("up")); // Change for later automation
+							note.appendChild(stem);
+
+							// <beam>
+							if (!(prevIndex >= 0 && index == prevIndex && n < 1)) { // not chord
+								if (duration.getType(duration.getDuration(index)).equals("eighth")
+										|| duration.getType(duration.getDuration(index)).equals("16th")) {
+
+									beam++;
+									// beam 1
+									Element beam1 = doc.createElement("beam");
+									note.appendChild(beam1);
+
+									Attr number1 = doc.createAttribute("number");
+									number1.setValue("1");
+									beam1.setAttributeNode(number1);
+
+									if (beam == 1)
+										beam1.appendChild(doc.createTextNode("begin"));
+									else if (beam == 2 || beam == 3)
+										beam1.appendChild(doc.createTextNode("continue"));
+									else
+										beam1.appendChild(doc.createTextNode("end"));
+
+									if (duration.getType(duration.getDuration(index)).equals("16th")) {
+										// beam 2
+										Element beam2 = doc.createElement("beam");
+										note.appendChild(beam2);
+
+										Attr number2 = doc.createAttribute("number");
+										number2.setValue("2");
+										beam2.setAttributeNode(number2);
+										
+										if (beam == 1)
+											beam2.appendChild(doc.createTextNode("begin"));
+										else if (beam == 2 || beam == 3)
+											beam2.appendChild(doc.createTextNode("continue"));
+										else
+											beam2.appendChild(doc.createTextNode("end"));
+									}
+
+									if (beam == 4)
+										beam = 0;
+								}
+							}
+							// <dot>
+							if (duration.isDot(duration.getDuration(index))) {
+								Element dot = doc.createElement("dot");
+								note.appendChild(dot);
+							}
+
+							// <notehead>
+							if (noteNum == 'x' || noteNum == 'X') {
+								Element notehead = doc.createElement("notehead");
+								notehead.appendChild(doc.createTextNode("x"));
+								note.appendChild(notehead);
+							}
+
+							prevIndex = entry.getKey().getKey();
+						}
+					}
+
+					// <backup>
+					Element backup = doc.createElement("backup");
+					mes.appendChild(backup);
+
+					Element dur_backup = doc.createElement("duration");
+					dur_backup.appendChild(doc.createTextNode("16"));
+					backup.appendChild(dur_backup);
+
+					// low map
+					for (Map.Entry<Pair<Integer, Integer>, List<Character>> entry : notesMapLow.entrySet()) {
+						Integer index = entry.getKey().getKey();
+						Integer gString = entry.getKey().getValue();
+						List<Character> value = entry.getValue();
+
+						for (int n = 0; n < value.size(); n++) {
+							/*
+							 * ============================================================================
+							 * <note>
+							 */
+							char noteNum = value.get(n);
+
+							Element note = doc.createElement("note");
+							mes.appendChild(note);
+
+							// <chord>
+							if (prevIndex >= 0 && index == prevIndex && n < 1) {
+								Element chord = doc.createElement("chord");
+								note.appendChild(chord);
 							}
 
 							// <pitch>
@@ -419,64 +561,54 @@ public class DrumXMLOut {
 							note.appendChild(pitch);
 
 							Element step = doc.createElement("display-step");
-							step.appendChild(doc.createTextNode(notes.getNote(keys.getKeyInString(gString), noteNum)));
+							step.appendChild(doc.createTextNode(notes.getStep(keys.getInstrInString(gString))));
 							pitch.appendChild(step);
-
 
 							// <octave>
 							Element octave = doc.createElement("display-octave");
-							octave.appendChild(doc.createTextNode(String.valueOf(notes.getOctave(gString, noteNum)))); // automated
+							octave.appendChild(doc
+									.createTextNode(String.valueOf(notes.getOctave(keys.getInstrInString(gString))))); // automated
 							pitch.appendChild(octave);
 
 							// <duration>
-							if (keepmod >= 100) {
-								// do nothing, grace notes have no duration
-							} else {
-								Element dur = doc.createElement("duration");
-								dur.appendChild(doc.createTextNode(duration.getDuration(index).toString())); // automated
-								note.appendChild(dur);
-							}
+							Element dur = doc.createElement("duration");
+							dur.appendChild(doc.createTextNode(durationLow.getDuration(index).toString())); // automated
+							note.appendChild(dur);
+
+							// <instrument>
+							Element instr = doc.createElement("instrument");
+							note.appendChild(instr);
+							Attr id3 = doc.createAttribute("id");
+							id3.setValue(keys.getInstrID(keys.getInstrInString(gString), set.drumsetTab));
+							instr.setAttributeNode(id3);
 
 							// <voice>
 							Element voice = doc.createElement("voice");
 							voice.appendChild(doc.createTextNode("1")); // Change for later automation
 							note.appendChild(voice);
 
-							if (keepmod >= 100) {
-								// <stem>
-								Element stem = doc.createElement("stem");
-								stem.appendChild(doc.createTextNode("none")); // Change for later automation
-								note.appendChild(stem);
-							} else {
-								// <type>
-								Element type = doc.createElement("type");
-								type.appendChild(doc.createTextNode(duration.getType(duration.getDuration(index)))); // automated
-								note.appendChild(type);
-							}
+							// <type>
+							Element type = doc.createElement("type");
+							type.appendChild(doc.createTextNode(durationLow.getType(durationLow.getDuration(index)))); // automated
+							note.appendChild(type);
+
+							// <stem>
+							Element stem = doc.createElement("stem");
+							stem.appendChild(doc.createTextNode("down")); // Change for later automation
+							note.appendChild(stem);
 
 							// <dot>
-							if (duration.isDot(duration.getDuration(index))) {
+							if (durationLow.isDot(durationLow.getDuration(index))) {
 								Element dot = doc.createElement("dot");
 								note.appendChild(dot);
 							}
 
-							// <notations>
-							Element notations = doc.createElement("notations");
-							note.appendChild(notations);
-
-							// <technical>
-							Element technical = doc.createElement("technical");
-							notations.appendChild(technical);
-
-							// <string>
-							Element string = doc.createElement("string");
-							string.appendChild(doc.createTextNode(String.valueOf(gString + 1)));
-							technical.appendChild(string);
-
-							// <fret>
-							Element fret = doc.createElement("fret");
-							fret.appendChild(doc.createTextNode(String.valueOf(noteNum)));
-							technical.appendChild(fret);
+							// <notehead>
+							if (noteNum == 'x' || noteNum == 'X') {
+								Element notehead = doc.createElement("notehead");
+								notehead.appendChild(doc.createTextNode("x"));
+								note.appendChild(notehead);
+							}
 
 							prevIndex = entry.getKey().getKey();
 						}
@@ -530,7 +662,7 @@ public class DrumXMLOut {
 
 		// <divisions>
 		Element div = doc.createElement("divisions");
-		div.appendChild(doc.createTextNode("2")); // Change division
+		div.appendChild(doc.createTextNode("4")); // Change division
 		att.appendChild(div);
 
 		/*
@@ -567,7 +699,7 @@ public class DrumXMLOut {
 		att.appendChild(clef);
 
 		Element sign = doc.createElement("sign");
-		sign.appendChild(doc.createTextNode("percusion")); // SIGN HAS BEEN CHANGED TO TAB SINCE WE ARE READING TABS
+		sign.appendChild(doc.createTextNode("percussion")); // SIGN HAS BEEN CHANGED TO TAB SINCE WE ARE READING TABS
 		clef.appendChild(sign);
 
 		Element line = doc.createElement("line");

@@ -12,7 +12,7 @@ public class ConsoleTestingBass {
 	
 	public static void main(String[] args) throws Exception {
 
-		File file = new File("testTab.txt");
+		File file = new File("sampleBass.txt");
 		BassFileScanner readFile = new BassFileScanner(file);
 
 		ArrayList<String[]> staffs = readFile.getStaffs();

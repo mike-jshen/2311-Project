@@ -82,15 +82,15 @@ public class MainController {
 
 	@FXML
 	private TextField txtDetected;
-	
-	@FXML 
+
+	@FXML
 	private TreeView<String> treeView;
 
 	File outputFile;
 	private boolean textChanged = false;
-	
-	 // create a alert
-    Alert a = new Alert(AlertType.NONE);
+
+	// create a alert
+	Alert a = new Alert(AlertType.NONE);
 
 	// this method sets the action for when the "Upload File" button is pressed,
 	// only one file can be opened at a time and must be a .txt file
@@ -137,7 +137,7 @@ public class MainController {
 		} catch (NullPointerException e) {
 			errorHandler(event, "Text area is empty");
 		}
-		
+
 	}
 
 	public void viewAction(ActionEvent event) {
@@ -158,11 +158,11 @@ public class MainController {
 					txtTextArea.appendText("\n");
 				}
 				reader.close();
-				
+
 				// change this when program is able to detect instrument type
 				InstrumentDetection detect = new InstrumentDetection(tab);
 				txtDetected.appendText(detect.getDetectedInstrument());
-				
+
 			} catch (IOException e) {
 				errorHandler(event, "Given file is not of format .txt");
 				e.printStackTrace();
@@ -196,15 +196,13 @@ public class MainController {
 			}
 
 			String detected = detectIntrument(new File("tmpFile.txt"));
-			if(detected.equals("Drums")) {
+			if (detected.equals("Drums")) {
 				DrumXMLOut convertedFile = new DrumXMLOut();
 				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
-				}
-			else if(detected.equals("Bass")) {
+			} else if (detected.equals("Bass")) {
 				BassXMLOut convertedFile = new BassXMLOut();
 				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
-			}
-			else if(detected.equals("Guitar")) {
+			} else if (detected.equals("Guitar")) {
 				GuitarXMLOut convertedFile = new GuitarXMLOut();
 				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
 			}
@@ -217,15 +215,13 @@ public class MainController {
 			tab = listview.getSelectionModel().getSelectedItem();
 
 			String detected = detectIntrument(tab);
-			if(detected.equals("Drums")) {
+			if (detected.equals("Drums")) {
 				DrumXMLOut convertedFile = new DrumXMLOut();
 				outputFile = convertedFile.convertToXML(tab);
-			}
-			else if(detected.equals("Bass")) {
+			} else if (detected.equals("Bass")) {
 				BassXMLOut convertedFile = new BassXMLOut();
 				outputFile = convertedFile.convertToXML(tab);
-			}
-			else if(detected.equals("Guitar")) {
+			} else if (detected.equals("Guitar")) {
 				GuitarXMLOut convertedFile = new GuitarXMLOut();
 				outputFile = convertedFile.convertToXML(tab);
 			}
@@ -280,77 +276,75 @@ public class MainController {
 	}
 
 	public void clickList() {
-		//txtTextArea.clear();
+		// txtTextArea.clear();
 	}
-	
 
-	public void errorHandler(ActionEvent event, String message)
-    {
-        // set alert type
-        a.setAlertType(AlertType.ERROR);
+	public void errorHandler(ActionEvent event, String message) {
+		// set alert type
+		a.setAlertType(AlertType.ERROR);
 
-        // set content text
-        a.setContentText(message);
+		// set content text
+		a.setContentText(message);
 
-        // show the dialog
-        a.show();
-    }
+		// show the dialog
+		a.show();
+	}
 
 	public void XMLViewAction(File outputFile) throws SAXException, ParserConfigurationException, IOException {
 		TreeItem<String> root = readData(outputFile);
 		treeView.setRoot(root);
 	}
-	
+
 	public String detectIntrument(File file) {
 		InstrumentDetection detect = new InstrumentDetection(file);
 		return detect.getDetectedInstrument();
 	}
-	
-	
+
 	// XML Output TreeView
 	private static class TreeItemCreationContentHandler extends DefaultHandler {
 
-	    private TreeItem<String> item = new TreeItem<>();
+		private TreeItem<String> item = new TreeItem<>();
 
-	    @Override
-	    public void endElement(String uri, String localName, String qName) throws SAXException {
-	        // finish this node by going back to the parent
-	        this.item = this.item.getParent();
-	    }
+		@Override
+		public void endElement(String uri, String localName, String qName) throws SAXException {
+			// finish this node by going back to the parent
+			this.item = this.item.getParent();
+		}
 
-	    @Override
-	    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-	        // start a new node and use it as the current item
-	        TreeItem<String> item = new TreeItem<>(qName);
-	        this.item.getChildren().add(item);
-	        this.item = item;
-	    }
+		@Override
+		public void startElement(String uri, String localName, String qName, Attributes attributes)
+				throws SAXException {
+			// start a new node and use it as the current item
+			TreeItem<String> item = new TreeItem<>(qName);
+			this.item.getChildren().add(item);
+			this.item = item;
+		}
 
-	    @Override
-	    public void characters(char[] ch, int start, int length) throws SAXException {
-	        String s = String.valueOf(ch, start, length).trim();
-	        if (!s.isEmpty()) {
-	            // add text content as new child
-	            this.item.getChildren().add(new TreeItem<>(s));
-	        }
-	    }
+		@Override
+		public void characters(char[] ch, int start, int length) throws SAXException {
+			String s = String.valueOf(ch, start, length).trim();
+			if (!s.isEmpty()) {
+				// add text content as new child
+				this.item.getChildren().add(new TreeItem<>(s));
+			}
+		}
 
 	}
 
 	public static TreeItem<String> readData(File file) throws SAXException, ParserConfigurationException, IOException {
-	    SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-	    SAXParser parser = parserFactory.newSAXParser();
-	    XMLReader reader = parser.getXMLReader();
-	    TreeItemCreationContentHandler contentHandler = new TreeItemCreationContentHandler();
+		SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+		SAXParser parser = parserFactory.newSAXParser();
+		XMLReader reader = parser.getXMLReader();
+		TreeItemCreationContentHandler contentHandler = new TreeItemCreationContentHandler();
 
-	    // parse file using the content handler to create a TreeItem representation
-	    reader.setContentHandler(contentHandler);
-	    reader.parse(file.toURI().toString());
+		// parse file using the content handler to create a TreeItem representation
+		reader.setContentHandler(contentHandler);
+		reader.parse(file.toURI().toString());
 
-	    // use first child as root (the TreeItem initially created does not contain data from the file)
-	    TreeItem<String> item = contentHandler.item.getChildren().get(0);
-	    contentHandler.item.getChildren().clear();
-	    return item;
+		// use first child as root (the TreeItem initially created does not contain data
+		// from the file)
+		TreeItem<String> item = contentHandler.item.getChildren().get(0);
+		contentHandler.item.getChildren().clear();
+		return item;
 	}
 }
-
