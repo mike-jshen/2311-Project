@@ -30,7 +30,8 @@ public class BassFileScanner {
 
 				}
 
-				this.lines.add(data);
+				String newdata = data.replaceAll("\\s+","");
+				this.lines.add(newdata);
 				counter++;
 			}
 			reader.close();
@@ -42,10 +43,8 @@ public class BassFileScanner {
 	}
 
 	public ArrayList<String[]> getStaffs() {
-		char[] tmpLine;
 		for (int i = 0; i < lines.size(); i++) {
-			tmpLine = lines.get(i).toCharArray();
-			if (tmpLine.length > 0 && tmpLine[1] == '|') {
+			if (lines.get(i).contains("|-") || lines.get(i).contains("-|")) {
 				String[] tmpStaff = { lines.get(i), lines.get(i + 1), lines.get(i + 2), lines.get(i + 3) };
 				staffs.add(tmpStaff);
 				i = i + 3;

@@ -1,63 +1,58 @@
 package MusicXML;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
 public class DrumFileScanner {
-	
+
 	private ArrayList<String> lines = new ArrayList<String>();
-	private ArrayList<String[]> staffs = new ArrayList<String[]>();
-	private int counter;
+	private ArrayList<List<String>> staffs = new ArrayList<List<String>>();
+	int numOfInstr;
 
 	public DrumFileScanner(File file) {
 		try {
+			int currNumOfInstr = 0;
 			Scanner reader = new Scanner(file);
 			while (reader.hasNextLine()) {
 
 				String data = reader.nextLine();
 
-				// automatically put in standard guitar keys if the file does not have it
-				if (!data.equals("") && !Character.isLetter(data.toCharArray()[0])) {
-					if (counter == 0 || counter % 6 == 0)
-						data = new String("CC" + data);
-					else if (counter % 6 == 1)
-						data = new String("HH" + data);
-					else if (counter % 6 == 2)
-						data = new String("SD" + data);
-					else if (counter % 6 == 3)
-						data = new String("HT" + data);
-					else if (counter % 6 == 4)
-						data = new String("MT" + data);
-					else if (counter % 6 == 5)
-						data = new String("BD" + data);
-				
+				// find the number of instruments
+				if (!data.equals("") && data.contains("|-")) {
+					currNumOfInstr++;
+				} else {
+					currNumOfInstr = 0;
 				}
-
+				
 				this.lines.add(data);
-				counter++;
+				if (currNumOfInstr >= numOfInstr)
+					numOfInstr = currNumOfInstr;
 			}
 			reader.close();
 		} catch (IOException e) {
 			System.out.println("File Scan Error");
 			e.printStackTrace();
 		}
-		
-		
-		
-		
 
 	}
 
-	public ArrayList<String[]> getDStaffs() {
-		char[] tmpLine;
+	public ArrayList<List<String>> getDrumStaffs() {
+		boolean newStaff = false;
+		List<String> tmpStaff = new ArrayList<String>();
 		for (int i = 0; i < lines.size(); i++) {
-			tmpLine = lines.get(i).toCharArray();
-			if (tmpLine.length > 0 && tmpLine[2] == '|') {
-				String[] tmpStaff = { lines.get(i), lines.get(i + 1), lines.get(i + 2), lines.get(i + 3),
-						lines.get(i + 4), lines.get(i + 5) };
-				staffs.add(tmpStaff);
-				i = i + 5;
+			if (lines.get(i).contains("|-") || lines.get(i).contains("-|")) {
+				tmpStaff.add(lines.get(i));
+			}
+			else {
+				newStaff = true;
+			}
+			if(newStaff || i == lines.size() - 1) {
+				List<String> cloned = new ArrayList<String>(tmpStaff);
+				staffs.add(cloned);
+				tmpStaff.clear();
+				newStaff = false;
 			}
 		}
 		return staffs;

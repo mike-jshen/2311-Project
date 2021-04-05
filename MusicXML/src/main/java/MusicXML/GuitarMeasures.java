@@ -21,7 +21,7 @@ public class GuitarMeasures {
 		for (int i = 0; i < tmpMeasure.size() / 6; i++) {
 
 			for (int j = i; j < tmpMeasure.size(); j = j + tmpMeasure.size() / 6) {
-				singleMeasure[j / (tmpMeasure.size() / 6)] = tmpMeasure.get(j).toString();
+				singleMeasure[j / (tmpMeasure.size() / 6)] = tmpMeasure.get(j);
 
 			}
 			measureList.add(singleMeasure.clone());
