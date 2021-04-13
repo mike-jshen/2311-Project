@@ -2,9 +2,14 @@ package MusicXML;
 
 public class DrumVoice {
 	
-	int voice; 
+	public DrumVoice() {
+		// pass
+	}
 	
-	int FindVoiceValue (int row, int [] rowSymbols)
+	int voice;
+	
+	
+	public int FindVoiceValue (int row, int [] rowSymbols)
 	{
 		
 		if (row == 100)

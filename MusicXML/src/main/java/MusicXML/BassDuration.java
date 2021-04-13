@@ -12,6 +12,10 @@ public class BassDuration {
 	private Map<Integer, Integer> durationMap = new TreeMap<Integer, Integer>();
 	private int difference;
 	private boolean isDot = false;
+	
+	public BassDuration() {
+		// pass
+	}
 
 	public BassDuration(Map<Pair<Integer, Integer>, List<Integer>> notesMap, int measureSpaces) {
 		ArrayList<Integer> tmp = new ArrayList<Integer>();
@@ -34,7 +38,7 @@ public class BassDuration {
 	 * This part only goes up to eighth notes To modify for sixteenth notes and
 	 * beyond, modify timeDuration() and getType()
 	 */
-	private int timeDuration(int diff, int spaces) {
+	public int timeDuration(int diff, int spaces) {
 		int duration = 0;
 
 		double r1 = spaces / 8.00;
