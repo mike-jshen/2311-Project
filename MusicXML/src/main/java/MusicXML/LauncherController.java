@@ -24,6 +24,8 @@ public class LauncherController {
 	private JFXButton testdocbttn;
 	@FXML
 	private JFXButton manualbttn;
+	@FXML
+	private JFXButton designbttn;
 
 	public void launchAction(ActionEvent event) {
 		try {
@@ -58,6 +60,10 @@ public class LauncherController {
 	
 	public void manualAction(ActionEvent event) {
 		showFile("manual.pdf");
+	}
+	
+	public void designAction(ActionEvent event) {
+		showFile("DesignDoc.pdf");
 	}
 	
 	private void showFile(String fileName) {
