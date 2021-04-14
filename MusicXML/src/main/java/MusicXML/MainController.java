@@ -174,62 +174,69 @@ public class MainController {
 	}
 
 	public void convertAction(ActionEvent event) throws SAXException, ParserConfigurationException, IOException {
-		File tab;
-		if (textChanged) {
-			String tmpTab;
-			tmpTab = txtTextArea.getText().replaceAll("\n", System.getProperty("line.separator"));
-
-			try {
-				File file = new File("tmpFile.txt");
-
-				if (!file.exists()) {
-					file.createNewFile();
+		try {
+			if (txtTextArea.getText().trim().length() == 0) {
+				throw new NullPointerException();
+			}
+			File tab;
+			if (textChanged) {
+				String tmpTab;
+				tmpTab = txtTextArea.getText().replaceAll("\n", System.getProperty("line.separator"));
+	
+				try {
+					File file = new File("tmpFile.txt");
+	
+					if (!file.exists()) {
+						file.createNewFile();
+					}
+	
+					FileWriter fw = new FileWriter(file.getAbsoluteFile());
+					BufferedWriter bw = new BufferedWriter(fw);
+					bw.write(tmpTab);
+					bw.close();
+	
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-
-				FileWriter fw = new FileWriter(file.getAbsoluteFile());
-				BufferedWriter bw = new BufferedWriter(fw);
-				bw.write(tmpTab);
-				bw.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
+	
+				String detected = detectIntrument(new File("tmpFile.txt"));
+				if (detected.equals("Drums")) {
+					DrumXMLOut convertedFile = new DrumXMLOut();
+					outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+				} else if (detected.equals("Bass")) {
+					BassXMLOut convertedFile = new BassXMLOut();
+					outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+				} else if (detected.equals("Guitar")) {
+					GuitarXMLOut convertedFile = new GuitarXMLOut();
+					outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
+				}
+	
+				XMLViewAction(outputFile);
+				txtTextArea.appendText("\n");
+				txtTextArea.appendText(">> Conversion complete");
+				textChanged = false;
+			} else if (listview.getSelectionModel().getSelectedItem() != null) {
+				tab = listview.getSelectionModel().getSelectedItem();
+	
+				String detected = detectIntrument(tab);
+				if (detected.equals("Drums")) {
+					DrumXMLOut convertedFile = new DrumXMLOut();
+					outputFile = convertedFile.convertToXML(tab);
+				} else if (detected.equals("Bass")) {
+					BassXMLOut convertedFile = new BassXMLOut();
+					outputFile = convertedFile.convertToXML(tab);
+				} else if (detected.equals("Guitar")) {
+					GuitarXMLOut convertedFile = new GuitarXMLOut();
+					outputFile = convertedFile.convertToXML(tab);
+				}
+	
+				XMLViewAction(outputFile);
+				txtTextArea.appendText("\n");
+				txtTextArea.appendText(">> Conversion complete");
+			} else {
+				errorHandler(event, "No file selected or no tab pasted/present");
 			}
-
-			String detected = detectIntrument(new File("tmpFile.txt"));
-			if (detected.equals("Drums")) {
-				DrumXMLOut convertedFile = new DrumXMLOut();
-				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
-			} else if (detected.equals("Bass")) {
-				BassXMLOut convertedFile = new BassXMLOut();
-				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
-			} else if (detected.equals("Guitar")) {
-				GuitarXMLOut convertedFile = new GuitarXMLOut();
-				outputFile = convertedFile.convertToXML(new File("tmpFile.txt"));
-			}
-
-			XMLViewAction(outputFile);
-			txtTextArea.appendText("\n");
-			txtTextArea.appendText(">> Conversion complete");
-			textChanged = false;
-		} else if (listview.getSelectionModel().getSelectedItem() != null) {
-			tab = listview.getSelectionModel().getSelectedItem();
-
-			String detected = detectIntrument(tab);
-			if (detected.equals("Drums")) {
-				DrumXMLOut convertedFile = new DrumXMLOut();
-				outputFile = convertedFile.convertToXML(tab);
-			} else if (detected.equals("Bass")) {
-				BassXMLOut convertedFile = new BassXMLOut();
-				outputFile = convertedFile.convertToXML(tab);
-			} else if (detected.equals("Guitar")) {
-				GuitarXMLOut convertedFile = new GuitarXMLOut();
-				outputFile = convertedFile.convertToXML(tab);
-			}
-
-			XMLViewAction(outputFile);
-			txtTextArea.appendText("\n");
-			txtTextArea.appendText(">> Conversion complete");
-		} else {
+		} catch (NullPointerException e) {
 			errorHandler(event, "No file selected or no tab pasted/present");
 		}
 	}
