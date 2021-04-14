@@ -25,7 +25,7 @@ public class DrumFileScanner {
 				} else {
 					currNumOfInstr = 0;
 				}
-				
+
 				this.lines.add(data);
 				if (currNumOfInstr >= numOfInstr)
 					numOfInstr = currNumOfInstr;
@@ -44,11 +44,12 @@ public class DrumFileScanner {
 		for (int i = 0; i < lines.size(); i++) {
 			if (lines.get(i).contains("|-") || lines.get(i).contains("-|")) {
 				tmpStaff.add(lines.get(i));
+			} else if (i < lines.size() - 1) {
+				if (lines.get(i + 1).contains("|-") || lines.get(i + 1).contains("-|")) {
+					newStaff = true;
+				}
 			}
-			else {
-				newStaff = true;
-			}
-			if(newStaff || i == lines.size() - 1) {
+			if (newStaff || i == lines.size() - 1) {
 				List<String> cloned = new ArrayList<String>(tmpStaff);
 				staffs.add(cloned);
 				tmpStaff.clear();
