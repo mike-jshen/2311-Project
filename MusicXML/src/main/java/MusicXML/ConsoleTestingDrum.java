@@ -40,7 +40,7 @@ public class ConsoleTestingDrum {
 		}
 
 		DrumNotes notes = new DrumNotes(measures.getMeasures().get(0));
-		
+
 		System.out.println();
 		System.out.println("Testing constant [vertical.size()]: " + notes.vertical.size());
 		System.out.println();
@@ -60,8 +60,6 @@ public class ConsoleTestingDrum {
 			}
 			System.out.println();
 		}
-		
-		DrumDuration dur = new DrumDuration(notes.getNotesMapping(), measures.getMeasureSpaces(measures.getMeasures().get(0)));
-		DrumDuration dur2 = new DrumDuration(notes.getNotesLowMapping(), measures.getMeasureSpaces(measures.getMeasures().get(0)));
+
 	}
 }
