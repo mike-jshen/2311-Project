@@ -29,6 +29,11 @@
                               <Font size="15.0" />
                            </font>
                         </JFXButton>
+                        <JFXButton fx:id="designbttn" buttonType="RAISED" onAction="#designAction" prefHeight="47.0" prefWidth="205.0" ripplerFill="WHITE" style="-fx-background-color: orange; -fx-background-radius: 1em;" text="Design Document" textFill="#3c3c3c">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
                         <JFXButton fx:id="launchbttn" buttonType="RAISED" onAction="#launchAction" prefHeight="47.0" prefWidth="205.0" ripplerFill="WHITE" style="-fx-background-color: purple; -fx-background-radius: 1em;" text="Launch Program" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
