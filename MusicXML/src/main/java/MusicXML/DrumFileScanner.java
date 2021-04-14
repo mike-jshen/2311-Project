@@ -39,12 +39,14 @@ public class DrumFileScanner {
 	}
 
 	public ArrayList<List<String>> getDrumStaffs() {
+		boolean first = false;
 		boolean newStaff = false;
 		List<String> tmpStaff = new ArrayList<String>();
 		for (int i = 0; i < lines.size(); i++) {
 			if (lines.get(i).contains("|-") || lines.get(i).contains("-|")) {
 				tmpStaff.add(lines.get(i));
-			} else if (i < lines.size() - 1) {
+				first = true;
+			} else if (first && i < lines.size() - 1) {
 				if (lines.get(i + 1).contains("|-") || lines.get(i + 1).contains("-|")) {
 					newStaff = true;
 				}
