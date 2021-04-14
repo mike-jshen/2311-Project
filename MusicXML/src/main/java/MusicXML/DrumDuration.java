@@ -19,10 +19,6 @@ public class DrumDuration {
 			Integer index = entry.getKey().getKey();
 			tmp.add(index);
 		}
-		
-		for(int i = 0; i < tmp.size(); i++) {
-			System.out.println("index = " + tmp.get(i));
-		}
 
 		for (int i = 0; i < tmp.size(); i++) {
 			if (i == tmp.size() - 1) {
