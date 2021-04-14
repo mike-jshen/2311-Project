@@ -9,7 +9,7 @@ import javafx.util.Pair;
 
 public class DrumNotes {
 
-	ArrayList<char[]> vertical = new ArrayList<char[]>();
+	public ArrayList<char[]> vertical = new ArrayList<char[]>();
 	private Map<Pair<Integer, Integer>, List<Character>> map = new LinkedHashMap<Pair<Integer, Integer>, List<Character>>();
 	private Map<Pair<Integer, Integer>, List<Character>> mapLow = new LinkedHashMap<Pair<Integer, Integer>, List<Character>>();// Pair<Index,
 	// GuitarString>
