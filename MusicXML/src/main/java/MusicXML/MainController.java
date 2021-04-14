@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -241,10 +242,23 @@ public class MainController {
 		alert.setContentText("Make a selection to modify:");
 
 		ButtonType detectbttn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType guitarbttn = new ButtonType("Bass");
+		ButtonType bassbttn = new ButtonType("Bass");
+		ButtonType guitarbttn = new ButtonType("Guitar");
 		ButtonType drumsbttn = new ButtonType("Drums");
-		alert.getButtonTypes().setAll(detectbttn, guitarbttn, drumsbttn);
-		alert.show();
+		alert.getButtonTypes().setAll(detectbttn, bassbttn, guitarbttn, drumsbttn);
+		// alert.show();
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == bassbttn) {
+			txtDetected.clear();
+			txtDetected.appendText("Bass");
+		} else if (result.get() == guitarbttn) {
+			txtDetected.clear();
+			txtDetected.appendText("Guitar");
+		} else if (result.get() == drumsbttn) {
+			txtDetected.clear();
+			txtDetected.appendText("Drums");
+		}
 	}
 
 	public void showOnlyFileName() {
