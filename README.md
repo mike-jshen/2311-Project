@@ -3,8 +3,6 @@
 # MusicXML Convertor
 MusicXML Convertor is a software for musicians that will allow them to get tablatures from the internet and convert them to XML files which they can later convert to Sheet Music.
 
-### Note: Drum Tabs conversion coming on the way
-
 ## Documentation
 All documents can be seen in the application itself. However these are here for backup.
 - <a href="https://github.com/mike-jshen/2311-Project/blob/prototype/reqdoc.pdf">Required Documents</a>
@@ -36,3 +34,15 @@ Please submit bugs that you encounter to the issue tracker with a reproducible e
 - Phuong Tran: Software Development, User Manual, Requirments Document, JavaFX, Lead
 - Mike Shen: Software Development, Test Manual, JUnit Testing, Requirments Document
 - Maksim Kolotev: Software Development, Requirement Document, User Manual, Design Document JavaFX, Coordinator, R & D
+
+## License
+Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+
+This work is licensed under a
+[Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
+
+[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
+
+[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
+[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
+[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
